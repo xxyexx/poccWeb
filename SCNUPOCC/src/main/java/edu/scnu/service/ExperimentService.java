@@ -35,9 +35,15 @@ public interface ExperimentService {
 	List<PoccFile> getPoccFileByid(String user_acctID,int expID);
 	
 	/**
-	 * 保存实验
+	 * 保存实验存档
 	 * @param poccfile
 	 * @return
 	 */
 	boolean savePoccFile(PoccFile poccfile);
+	/**
+	 * 删除实验存档
+	 * @param id poccfile.id
+	 * @return
+	 */
+	boolean deletePoccFile(int id);
 }

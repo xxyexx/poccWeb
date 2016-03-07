@@ -102,7 +102,25 @@ li.active>a{
 }
 </style>
   </head>
-  
+<script type="text/javascript">
+	$(function () {
+		$("[data-toggle='tooltip']").tooltip(); 
+		var select=GetQueryString("select");
+		$("#homeworkTabs li:eq("+select+") a").tab('show'); // Select third tab (0-indexed)
+	});
+	
+	function GetQueryString(name)//获取地址栏参数
+	{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
+	function delcfm(){
+		if(!confirm("确定要删除？")){
+			window.event.returnValue=false;
+		}
+	}
+</script>  
   <body>
 <!--导入头部导航条-->
 <%@include file="header.jsp" %>
@@ -156,13 +174,12 @@ li.active>a{
 		    	<div class="NotExist">
 			    	<h1 align="center">:(</h1>
 			    	<p align="center">没有相关的实验存档</p>
-			    	<hr class="divider" width="99%" align="center"/>
 		    	</div>
 	    	</s:if>
 	    	<s:else>
 			<table class="table table-hover">
 				<tr>
-				    <th>实验标题</th>
+				    <th style="width:160px;">实验标题</th>
 				    <th>文件名称</th>
 				    <th>上传日期</th>
 				    <th>操作</th>
@@ -173,8 +190,8 @@ li.active>a{
 					    <td>${poccfile.file_name}</td>
 					    <td>${poccfile.upload_timeFormat}</td>
 					    <td>
-					    	<a type="button" class="btn btn-sm btn-success">下载</a>
-					    	<a type="button" class="btn btn-sm btn-danger">删除</a>
+					    	<a href="${poccfile.file_url}" type="button" class="btn btn-sm btn-success">下载</a>
+					    	<a href="student/deletePoccfile.action?poccFileid=${poccfile.id}" onclick="delcfm()" type="button" class="btn btn-sm btn-danger">删除</a>
 					    </td>
 					</tr>
 				</s:iterator>

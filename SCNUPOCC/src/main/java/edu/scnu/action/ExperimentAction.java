@@ -101,7 +101,15 @@ public class ExperimentAction extends ActionSupport {
             experimentService.savePoccFile(poccfile);
 		}
 		
-		return SUCCESS;
+		return "savefile";
+	}
+	/**
+	 * 删除实验存档
+	 */
+	public String delete_file(){
+		int poccFileid = Integer.parseInt(request.getParameter("poccFileid"));
+		experimentService.deletePoccFile(poccFileid);
+		return "deletefile";
 	}
 	//set
 	public void setExperimentService(ExperimentService experimentService) {

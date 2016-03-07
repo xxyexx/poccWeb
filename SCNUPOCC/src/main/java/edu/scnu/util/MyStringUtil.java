@@ -1,6 +1,7 @@
 package main.java.edu.scnu.util;
 
 public class MyStringUtil {
+	
 	/**
 	 * 检测以"//|"等符号分隔的字符串是否包含(班级列表等)
 	 * @param s1 s1是否包含s2
@@ -15,6 +16,15 @@ public class MyStringUtil {
 				return true;
 			}
 		}
+		return false;
+	}
+
+	public static boolean notEmpty(String str) {
+		
+		if(str != null && !"".equals(str.trim())) {
+			return true;
+		}
+		
 		return false;
 	}
 }

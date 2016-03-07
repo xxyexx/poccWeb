@@ -40,7 +40,7 @@
 	}
 	.header_container{
 		width: 80% !important;
-		min-width:650px !important;
+		min-width:700px !important;
 		margin:0 auto;
 	}
 	.TouserCenter{

@@ -84,6 +84,24 @@ public class ExperimentServiceImpl implements ExperimentService{
 		return true;
 	}
 	
+	@Override
+	public boolean deletePoccFile(int id) {
+		PoccFile file = poccFileDao.get(PoccFile.class, id);
+		if(file==null){
+			return false;
+		}else{
+			//删除磁盘记录
+			File f = new File(ServletActionContext.getServletContext().getRealPath("/")+file.getFile_url());
+			if(f.exists())
+			f.delete();
+			//删除数据库记录
+			poccFileDao.delete(PoccFile.class, id);
+			
+			
+		}
+		return true;
+	}
+	
 	//get,set
 	public void setExperimentDao(ExperimentDao experimentDao) {
 		this.experimentDao = experimentDao;
