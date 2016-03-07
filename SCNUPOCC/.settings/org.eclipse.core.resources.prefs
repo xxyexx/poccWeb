@@ -1,0 +1,13 @@
+#Wed Jan 06 12:08:14 CST 2016
+eclipse.preferences.version=1
+encoding//src/main/java/edu/scnu/dao/BaseDao.java=UTF-8
+encoding//src/main/java/edu/scnu/dao/SchoolDao.java=UTF-8
+encoding//src/main/java/edu/scnu/dao/impl/BaseDaoImpl.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/HistoryUser.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/Member.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/Page.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/Province.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/School.java=UTF-8
+encoding//src/main/java/edu/scnu/entity/User.java=UTF-8
+encoding//src/test/testEntity/TestSchool.java=UTF-8
+encoding/<project>=UTF-8

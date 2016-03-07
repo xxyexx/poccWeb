@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.2.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="main.java.edu.scnu" />
+    <!-- 定义数据源Bean,使用C3P0数据源实现,并注入数据源的必要信息 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" 
+    	destroy-method="clone"
+    	p:driverClass="com.mysql.jdbc.Driver"
+    	p:jdbcUrl="jdbc:mysql://114.215.136.223:3306/web_pocc?characterEncoding=UTF-8"
+    	p:user="root"
+    	p:password="scnu316"
+    	p:maxPoolSize="30"
+    	p:minPoolSize="1"
+    	p:initialPoolSize="2"
+    	p:maxIdleTime="30"/>
+    <!--定义hibernate的sessionFactory,sessionFactory需要依赖数据源,注入dataSource --> 
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource">
+		<!-- annotatedClasses用来列出全部持久化类 -->
+		<property name="annotatedClasses">
+			<list>
+				<!-- 以下列出全部持久化类 -->
+				<value>main.java.edu.scnu.entity.Config</value>
+				<value>main.java.edu.scnu.entity.Dept</value>
+				<value>main.java.edu.scnu.entity.Experiment</value>
+				<value>main.java.edu.scnu.entity.HistoryUser</value>
+				<value>main.java.edu.scnu.entity.Homework</value>
+				<value>main.java.edu.scnu.entity.HWSubmit</value>
+				<value>main.java.edu.scnu.entity.Login</value>
+				<value>main.java.edu.scnu.entity.Logop</value>
+				<value>main.java.edu.scnu.entity.Member</value>
+				<value>main.java.edu.scnu.entity.OnlineUser</value>
+				<value>main.java.edu.scnu.entity.Page</value>
+				<value>main.java.edu.scnu.entity.PageSet</value>
+				<value>main.java.edu.scnu.entity.Payment</value>
+				<value>main.java.edu.scnu.entity.PoccFile</value>
+				<value>main.java.edu.scnu.entity.Province</value>
+				<value>main.java.edu.scnu.entity.School</value>
+				<value>main.java.edu.scnu.entity.SchoolClass</value>
+				<value>main.java.edu.scnu.entity.SiteMsg</value>
+				<value>main.java.edu.scnu.entity.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- 定义方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.formate_sql">true</prop>
+			</props>
+		</property>
+    </bean>
+
+    <!-- 定义事务管理器 -->  
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <!-- 支持 @AspectJ -->
+	<aop:aspectj-autoproxy />
+    <!-- 根据annotation生产事务代理--> 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    <!-- 配置事务增强bean,指定事务管理器,经测试注解优先级高于xml,
+    	  所以如果使用注解,get、find方法前自己加上只读@Transactional(readOnly=true) --> 
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="find*" propagation="REQUIRED"  read-only="true" />
+            <tx:method name="get*" propagation="REQUIRED"  read-only="true" />
+            <!-- isolation事务隔离级别,超时时长5秒 -->  
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" timeout="5" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+         <!--配置一个切入点,service.impl包下的所有类.所有方法 --> 
+        <aop:pointcut id="interceptorPointCuts"
+            expression="execution(* main.java.edu.scnu.service.impl.*.*(..))" />
+         <!-- 指定切入点应用txAdvice事务增强处理 --> 
+        <aop:advisor advice-ref="txAdvice"
+            pointcut-ref="interceptorPointCuts" />        
+    </aop:config>  
+    
+</beans>

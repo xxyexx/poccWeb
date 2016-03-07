@@ -1,0 +1,95 @@
+html{
+	font:12px Helvetica,Arial,sans-serif;
+	height: 100%;
+}
+body {
+	height: 100%;
+}
+.main{
+	min-height:600px;
+	height:100%;
+	background-image: url("../../../images/userLoginPic3.jpg");
+	background-size:100%;
+}
+header{
+	height:70px;
+	padding-bottom:15px;
+}
+header .container{
+	padding-top:15px;
+}
+form{
+	width:300px;
+	margin:6% auto;
+}
+label{
+	font-size:14px;
+	font-family: STHeiti,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	color:#888989;
+}
+input{
+	width:285px !important;
+	height:41px !important;
+}
+.form-control{
+	background-color:transparent;
+	color:white;
+}
+.row {
+	margin-top:10px;
+	margin-left:25px;
+	width:300px;
+	height:65px;
+}
+.row-box{
+	margin-top:7px;
+	margin-left:25px;
+	width:300px;
+	height:25px;
+}
+.row-box input{
+	width:13px !important;
+	height:13px !important;
+}
+.row-box span{
+	display:block;
+	font-family: STHeiti,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	color:#eeeeee;
+	float:left;
+}
+.row-box a{
+	display: inline-block;
+	float:right;
+	margin-right:10px;
+	font-family: STHeiti,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	text-decoration: none;
+	color:#65C17A;
+}
+.btn-success{
+	width:285px;
+	height:41px;
+	font-size: 16px;
+}
+.tips{
+	color:red;
+	margin-left:5px;
+	visibility: hidden;
+}
+.marquee{
+	background-color:rgba(255,255,255,0.5);
+	color: black !important;
+	z-index: 1;
+}
+#Verify{
+	width: 100px !important;
+	height: 41px !important;
+	float:left;
+	display: none;
+}
+#securityCode{
+	width: 170px !important;
+	height: 41px !important;
+	margin-right:15px;
+	float:right;
+	display: none;
+}
