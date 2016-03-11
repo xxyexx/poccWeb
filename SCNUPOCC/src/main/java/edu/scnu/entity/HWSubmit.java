@@ -30,9 +30,10 @@ public class HWSubmit {
 	private String fileURL;//作业文档保存地址
 	private Date submitTime;//作业提交时间
 	private Date downloadTime;//教师下载日期
-	private int checked;//已批改/未批改(0|1)
+	private int checked;//未批改|已批改(0|1)
 	private double score;//分数
-	private String desc;//学生备注
+	/**学生备注(改为hwsdesc,desc是mysql保留关键字，homework.hwdesc同理)*/
+	private String hwsdesc;
 	private String remark;//教师评语
 	
 	public int getId() {
@@ -98,11 +99,11 @@ public class HWSubmit {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	public String getDesc() {
-		return desc;
+	public String getHwsdesc() {
+		return hwsdesc;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setHwsdesc(String hwsdesc) {
+		this.hwsdesc = hwsdesc;
 	}
 	public String getRemark() {
 		return remark;

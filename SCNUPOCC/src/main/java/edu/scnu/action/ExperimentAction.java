@@ -1,8 +1,10 @@
 package main.java.edu.scnu.action;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +15,9 @@ import main.java.edu.scnu.entity.Experiment;
 import main.java.edu.scnu.entity.PoccFile;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.ExperimentService;
+import main.java.edu.scnu.util.FileUtil;
+import main.java.edu.scnu.util.PoccManager;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,10 @@ public class ExperimentAction extends ActionSupport {
     private String poccFileName; //文件名称
     private String poccContentType; //文件类型
 	private String expID;
+	//文件流
+	private InputStream fileInputStream;
+	//文件下载名称
+	private String filename;
 	
 	public ExperimentAction(){
 		this.request = ServletActionContext.getRequest();
@@ -70,7 +77,7 @@ public class ExperimentAction extends ActionSupport {
 	 * 保存实验过程文件
 	 */
 	public String save_file(){
-		String realpath = ServletActionContext.getServletContext().getRealPath("/poccFile");
+		String realpath = PoccManager.Temporary_file_dir;
 		if (pocc != null) {
 			//新文件
 			PoccFile poccfile = new PoccFile();
@@ -84,19 +91,8 @@ public class ExperimentAction extends ActionSupport {
 			}else{ versionID=5;}
 			poccfile.setFile_name(user.getLoginID()+"_"+exp.getTitle()+"_"+versionID+"_"+poccFileName);//文件名
 			poccfile.setUpload_time(new Date());
-			SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH-mm-ss");
-			String saveTime = sdf.format(poccfile.getUpload_time());
-			poccfile.setFile_url("poccFile/"+saveTime+poccFileName);
-			//保存新文件到硬盘,为了防止文件名重复,保存时间+文件名称
-			File savefile = new File(new File(realpath),saveTime+poccFileName);
-			if (!savefile.getParentFile().exists())
-                savefile.getParentFile().mkdirs();
-            try {
-				FileUtils.copyFile(pocc, savefile);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//保存文件到本地
+			poccfile.setFile_url(FileUtil.saveFile(pocc, realpath, poccFileName));
 	        //保存文件信息到数据库
             experimentService.savePoccFile(poccfile);
 		}
@@ -104,13 +100,38 @@ public class ExperimentAction extends ActionSupport {
 		return "savefile";
 	}
 	/**
+	 * 实验过程文件下载
+	 */
+	public String download_file(){
+		int poccFileid = Integer.parseInt(request.getParameter("poccFileid"));
+		//获取文件保存路径
+		PoccFile poccfile = experimentService.getPoccFile(poccFileid);
+		String file_url = poccfile.getFile_url();
+		File file = new File(file_url);
+		try {
+			filename = new String(poccfile.getFile_name().getBytes(), "ISO8859-1");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			fileInputStream = new FileInputStream(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "download";
+	}
+	
+	/**
 	 * 删除实验存档
 	 */
 	public String delete_file(){
 		int poccFileid = Integer.parseInt(request.getParameter("poccFileid"));
-		experimentService.deletePoccFile(poccFileid);
+		experimentService.deletePoccFile(poccFileid,user.getAcctID());
 		return "deletefile";
 	}
+	
 	//set
 	public void setExperimentService(ExperimentService experimentService) {
 		this.experimentService = experimentService;
@@ -140,6 +161,11 @@ public class ExperimentAction extends ActionSupport {
 	public String getPoccContentType() {
 		return poccContentType;
 	}
-
+	public InputStream getFileInputStream() {
+		return fileInputStream;
+	}
+	public String getFilename() {
+		return filename;
+	}
 	
 }

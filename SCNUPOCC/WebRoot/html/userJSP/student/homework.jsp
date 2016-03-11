@@ -95,6 +95,12 @@ li.active>a{
 	margin-top:5px;
 	margin-bottom: 5px;
 }
+.table a{
+	color:#202020;
+}
+.table a:HOVER {
+	color: #64ADBC;
+}
 </style>
 </head>
 <script type="text/javascript">
@@ -151,9 +157,9 @@ li.active>a{
 				</tr>
 				<s:iterator value="#request.unfinHWList" var="unfinhomework">
 				<tr>
-				    <td><s:property value="#unfinhomework.title"/></td>
-				    <td><s:property value="#unfinhomework.assignDateFormat"/></td>
-				    <td><s:property value="#unfinhomework.closeDateFormat"/></td>
+				    <td><a href="student/hwDetails.action?hwID=${unfinhomework.id}">${unfinhomework.title}</a></td>
+				    <td>${unfinhomework.assignDateFormat}</td>
+				    <td>${unfinhomework.closeDateFormat}</td>
 				    <td>
 				    	<s:if test="#unfinhomework.state">接收</s:if>
 				    	<s:else>已关闭</s:else>
@@ -190,16 +196,22 @@ li.active>a{
 				</tr>
 				<s:iterator value="#request.finHWList" var="hwsubmit">
 				<tr>
-				    <td><s:property value="#hwsubmit.homework.title"/></td>
-				    <td><s:property value="#hwsubmit.homework.assignDateFormat"/></td>
-				    <td><s:property value="#hwsubmit.homework.closeDateFormat"/></td>
-				    <td><s:property value="#hwsubmit.submitTimeFormate"/></td>
-				    <td><s:property value="#hwsubmit.downloadTimeFormate"/></td>
+				    <td><a href="student/hwDetails.action?hwID=${hwsubmit.homework.id}">${hwsubmit.homework.title}</a></td>
+				    <td>${hwsubmit.homework.assignDateFormat}</td>
+				    <td>${hwsubmit.homework.closeDateFormat}</td>
+				    <td>${hwsubmit.submitTimeFormat}</td>
+				    <s:if test="#hwsubmit.homework.downloadTime!=null">
+						<td>${hwsubmit.downloadTimeFormat}</td>
+					</s:if>
+				    <s:else><td>--</td></s:else>
 				    <td>
 				    	<s:if test="#hwsubmit.checked==1">已批改</s:if>
 				    	<s:else>未批改</s:else>
 				    </td>
-				    <td><s:property value="#hwsubmit.score"/></td>
+				    <td>
+				    	<s:if test="#hwsubmit.score>0">${hwsubmit.score}</s:if>
+						<s:else>--</s:else>
+					</td>
 				    <td>
 				    	<s:if test="#hwsubmit.homework.state">接收</s:if>
 				    	<s:else>已关闭</s:else>
@@ -239,17 +251,23 @@ li.active>a{
 					<s:set name="flag" value="1"></s:set>
 					<s:iterator value="#request.finHWList" var="hwsubmit">
 						<s:if test="#hwsubmit.homework.id==#homework.id">
-						    <td><s:property value="#homework.title"/></td>
-						    <td><s:property value="#homework.assignDateFormat"/></td>
-						    <td><s:property value="#homework.closeDateFormat"/></td>
+						    <td><a href="student/hwDetails.action?hwID=${homework.id}">${homework.title}</a></td>
+						    <td>${homework.assignDateFormat}</td>
+						    <td>${homework.closeDateFormat}</td>
 						    <td>已交</td>
-						    <td><s:property value="#hwsubmit.submitTimeFormat"/></td>
-						    <td><s:property value="#hwsubmit.downloadTimeFormat"/></td>
+						    <td>${hwsubmit.submitTimeFormat}</td>
+						    <s:if test="#hwsubmit.homework.downloadTime!=null">
+								<td>${hwsubmit.downloadTimeFormat}</td>
+							</s:if>
+						    <s:else><td>--</td></s:else>
 						    <td>
 						    	<s:if test="#hwsubmit.checked==1">已批改</s:if>
 						    	<s:else>未批改</s:else>
 						    </td>
-						    <td><s:property value="#hwsubmit.score"/></td>
+						    <td>
+						    	<s:if test="#hwsubmit.score>0">${hwsubmit.score}</s:if>
+						    	<s:else>--</s:else>
+						    </td>
 						    <td>
 						    	<s:if test="#homework.state">接收</s:if>
 						    	<s:else>已关闭</s:else>
@@ -258,9 +276,9 @@ li.active>a{
 					    </s:if>
 				    </s:iterator>
 				    <s:if test="#flag==1">
-				    	<td><s:property value="#homework.title"/></td>
-						    <td><s:property value="#homework.assignDateFormat"/></td>
-						    <td><s:property value="#homework.closeDateFormat"/></td>
+				    		<td><a href="student/hwDetails.action?hwID=${homework.id}">${homework.title}</a></td>
+						    <td>${homework.assignDateFormat}</td>
+						    <td>${homework.closeDateFormat}</td>
 						    <td>未交</td>
 						    <td>--</td>
 						    <td>--</td>

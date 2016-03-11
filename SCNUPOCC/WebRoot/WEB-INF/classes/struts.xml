@@ -57,6 +57,12 @@
 		<action name="*Poccfile" class="experimentAction" method="{1}_file">
 			<result name="savefile" type="redirectAction">student/inExperiment?id=${expID}</result>
 			<result name="deletefile" type="redirectAction">student/experiment?select=1</result>
+			<result name="download" type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="buffersize">1024</param>
+			</result>
 		</action>
 		<action name="experiment" class="experimentAction" method="show_studExper">
 			<result>/html/userJSP/student/experiment.jsp</result>
@@ -66,6 +72,20 @@
 		</action>
 		<action name="homework" class="homeworkAction" method="show_StudHW">
 			<result>/html/userJSP/student/homework.jsp</result>
+		</action>
+		<action name="hwDetails" class="homeworkAction" method="show_HWdetails">
+			<result>/html/userJSP/student/hwDetails.jsp</result>
+		</action>
+		<action name="submitHomework" class="homeworkAction" method="submit_Homework">
+			<result type="redirectAction">student/homework.action?select=1</result>
+		</action>
+		<action name="downloadHWFile" class="homeworkAction" method="download_Homework">
+			<result name="download" type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="buffersize">1024</param>
+			</result>
 		</action>
 		<action name="mailbox" class="siteMsgAction" method="show_StudMsg">
 			<result>/html/userJSP/student/mailbox.jsp</result>

@@ -72,6 +72,37 @@ public class HomeworkServiceImpl implements HomeworkService{
 		return hwsubmitDao.findByStud_acctID(studNo);
 	}	
 	
+	@Override
+	@Transactional(readOnly=true)
+	public Homework getHomeworkbyID(int id) {
+		return homeworkDao.get(Homework.class, id);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public HWSubmit getHWSubmit(String stud_acctID, int hwID) {
+		List<HWSubmit> hwlist = hwsubmitDao.findByStud_acctID(stud_acctID);
+		HWSubmit hws = null;
+		for (HWSubmit hwSubmit : hwlist) {
+			if(hwSubmit.getHomework().getId()==hwID){
+				hws = hwSubmit;
+				break;
+			}
+		}
+		return hws;
+	}
+
+	@Override
+	public boolean saveHWSubmit(HWSubmit hwSubmit) {
+		hwsubmitDao.update(hwSubmit);
+		return true;
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public HWSubmit getHWSubmitByid(int hwSubmitID) {
+		return hwsubmitDao.get(HWSubmit.class, hwSubmitID);
+	}
 	
 	//getter,setter
 	public HomeworkDao getHomeworkDao() {

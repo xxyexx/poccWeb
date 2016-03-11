@@ -73,7 +73,7 @@ public class ExperimentServiceImpl implements ExperimentService{
 			}
 			PoccFile oldpoccfile = fileList.get(0);//删除最早文件
 			//从磁盘中删除
-			File f = new File(ServletActionContext.getServletContext().getRealPath("/")+oldpoccfile.getFile_url());
+			File f = new File(oldpoccfile.getFile_url());
 			if(f.exists())
 			f.delete();
 			//删除数据库记录
@@ -85,21 +85,33 @@ public class ExperimentServiceImpl implements ExperimentService{
 	}
 	
 	@Override
-	public boolean deletePoccFile(int id) {
+	public boolean deletePoccFile(int id,String user_acctID) {
 		PoccFile file = poccFileDao.get(PoccFile.class, id);
 		if(file==null){
 			return false;
 		}else{
 			//删除磁盘记录
-			File f = new File(ServletActionContext.getServletContext().getRealPath("/")+file.getFile_url());
+			File f = new File(file.getFile_url());
 			if(f.exists())
 			f.delete();
 			//删除数据库记录
 			poccFileDao.delete(PoccFile.class, id);
-			
-			
+			//重排文件名
+			List<PoccFile> fileList= poccFileDao.findByUserID(user_acctID);
+			for (int i = 0; i < fileList.size(); i++) {
+				String s[] = fileList.get(i).getFile_name().split("_");
+				s[2] = (i+1)+"";
+				fileList.get(i).setFile_name(StringUtils.join(s, "_"));
+				poccFileDao.update(fileList.get(i));
+			}
 		}
 		return true;
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public PoccFile getPoccFile(int id) {
+		return poccFileDao.get(PoccFile.class, id);
 	}
 	
 	//get,set

@@ -41,9 +41,16 @@ public interface ExperimentService {
 	 */
 	boolean savePoccFile(PoccFile poccfile);
 	/**
-	 * 删除实验存档
+	 * 删除实验存档,并重排文件名
 	 * @param id poccfile.id
 	 * @return
 	 */
-	boolean deletePoccFile(int id);
+	boolean deletePoccFile(int id,String user_acctID);
+	
+	/**
+	 * 根据实验存档文件iD获取poccfile
+	 * @param id poccfile.id
+	 * @return poccfile对象
+	 */
+	PoccFile getPoccFile(int id);
 }

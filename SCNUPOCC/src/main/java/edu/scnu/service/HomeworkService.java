@@ -32,4 +32,32 @@ public interface HomeworkService {
 	 * @return List
 	 */
 	List<HWSubmit> getfinishedHW(String classID,String studNo);
+	
+	/**
+	 * 根据作业id获取作业
+	 * @param id 作业id
+	 * @return Homework
+	 */
+	Homework getHomeworkbyID(int id);
+	/**
+	 * 根据学生账号和该作业的id获取提交的作业
+	 * @param stud_acctID
+	 * @param hwID
+	 * @return HWSubmit
+	 */
+	HWSubmit getHWSubmit(String stud_acctID,int hwID);
+	/**
+	 * saveOrUpdate保存或更新作业上传
+	 * @param hwSubmit
+	 * @return
+	 */
+	boolean saveHWSubmit(HWSubmit hwSubmit);
+	/**
+	 * 根据id获取已上传作业记录
+	 * @param hwSubmitID
+	 * @return
+	 */
+	HWSubmit getHWSubmitByid(int hwSubmitID);
+	
+	
 }

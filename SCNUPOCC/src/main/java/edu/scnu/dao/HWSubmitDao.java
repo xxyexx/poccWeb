@@ -11,4 +11,6 @@ public interface HWSubmitDao extends BaseDao<HWSubmit>{
 	 * @return List
 	 */
 	List<HWSubmit> findByStud_acctID(String studNo);
+	
+	
 }

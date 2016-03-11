@@ -190,7 +190,7 @@ li.active>a{
 					    <td>${poccfile.file_name}</td>
 					    <td>${poccfile.upload_timeFormat}</td>
 					    <td>
-					    	<a href="${poccfile.file_url}" type="button" class="btn btn-sm btn-success">下载</a>
+					    	<a href="student/downloadPoccfile.action?poccFileid=${poccfile.id}" type="button" class="btn btn-sm btn-success">下载</a>
 					    	<a href="student/deletePoccfile.action?poccFileid=${poccfile.id}" onclick="delcfm()" type="button" class="btn btn-sm btn-danger">删除</a>
 					    </td>
 					</tr>

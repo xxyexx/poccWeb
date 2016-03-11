@@ -29,7 +29,7 @@ public class Homework {
 	private String title;//作业名
 	private Date assignDate;//布置作业日期
 	private Date closeDate;//作业关闭提交日期
-	private String desc;//作业要求
+	private String hwdesc;//作业要求
 	private String classID;//目标班级
 	private int state;//关闭/接收状态(0|1)
 	private int totalPerson;//应交人数
@@ -81,11 +81,11 @@ public class Homework {
 	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
-	public String getDesc() {
-		return desc;
+	public String getHwdesc() {
+		return hwdesc;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setHwdesc(String hwdesc) {
+		this.hwdesc = hwdesc;
 	}
 	public String getClassID() {
 		return classID;
