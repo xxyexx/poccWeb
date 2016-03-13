@@ -141,22 +141,22 @@ body{
 		<div class="userinfo col-md-3">
 			<div class="media">
 			  <div class="media-left">
-			    <a href="#">
-			      <img style="width: 80px;height:80px; border: 1px solid #DDD;"  class="media-object" src="${session.User.iconURL}" alt="点击更改头像">
+			    <a href="student/settings.html?select=1">
+			      <img style="width: 80px;height:80px; border: 1px solid #DDD;"  class="media-object" src="student/showIcon.html" alt="点击更改头像">
 			    </a>
 			  </div>
 			  <div class="media-body">
 			    <h4 class="media-heading">${session.User.acctName}</h4>
 			    <p>
 			    	<cite>帐号：</cite>
-					<span id="userAccount"><a href="##">${session.User.loginID}</a></span>
+					<span id="userAccount"><a href="student/settings.html?select=0">${session.User.loginID}</a></span>
 			    </p>
 			    <p>
 			    	<cite>单位：</cite>
 			    	<span id="acctTag">${session.User.acctTag}</span>
 			    	<span id="acctType">&nbsp;&nbsp;${session.User.acctType}</span>
 			    </p>
-			    <p><cite>手机：</cite><span id="userPhone"><a href="##">${session.User.mobile}</a></span></p>
+			    <p><cite>手机：</cite><span id="userPhone"><a href="student/settings.html?select=0">${session.User.mobile}</a></span></p>
 			  </div>
 			</div>
 		<hr/>
@@ -164,9 +164,9 @@ body{
 		  <a class="list-group-item">帐号有效期:<s:date name="#session.User.rentDate1" format="yyyy-MM-dd"/>~<s:date name="#session.User.rentDate2" format="yyyy-MM-dd"/></a>
 		  <a class="list-group-item">上次登录时间:${session.lastLoginTime}</a>
 		  <a class="list-group-item">上次登录IP:${session.lastLoginIP}</a>
-		  <a href="student/mailbox.html" class="list-group-item">未读消息数:<span class="badge" >${session.UnreadMsgNum}</span></a>
-		  <a href="student/homework.html?select=0" class="list-group-item">未交作业数:<span class="badge" >${session.UnfinHWNum}</span></a>
-		  <a href="student/homework.html?select=1" class="list-group-item">作业已经批改数:<span class="badge" >${request.CheckedHWnum}</span></a>
+		  <a href="student/mailbox.html" class="list-group-item">未读消息:<span class="badge" >${session.UnreadMsgNum}</span></a>
+		  <a href="student/homework.html?select=0" class="list-group-item">未交作业:<span class="badge" >${session.UnfinHWNum}</span></a>
+		  <a href="student/homework.html?select=1" class="list-group-item">最近作业已批改:<span class="badge" >${request.CheckedHWnum}</span></a>
 		</div>
 		
 		</div><!-- end//userinfo -->
@@ -231,7 +231,7 @@ body{
 			    	 	<ul class="HWList"> 
 			    	 	<s:iterator value="#request.NewHWList" var="homework">
 						  <li>
-						  	  <a>${homework.title}</a>
+						  	  <a href="student/hwDetails.html?hwID=${homework.id}">${homework.title}</a>
 						      <span>${homework.closeDateFormat}</span>
 						  </li>
 						</s:iterator>
@@ -256,7 +256,7 @@ body{
 			    	 	<ul class="HWList"> 
 			    	 	<s:iterator value="#request.ExpList" var="experiment">
 						  <li>
-						  	  <a href="student/inExperiment.action?id=${experiment.id}">${experiment.title}</a>
+						  	  <a href="student/inExperiment.html?id=${experiment.id}">${experiment.title}</a>
 						  </li>
 						</s:iterator>
 						</ul>

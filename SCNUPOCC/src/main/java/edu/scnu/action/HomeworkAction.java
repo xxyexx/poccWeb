@@ -52,12 +52,12 @@ public class HomeworkAction extends ActionSupport {
 	 * 显示学生作业列表
 	 */
 	public String show_StudHW(){
+		//所有作业
+		List<Homework> allHWList = homeworkService.getAllHW(user.getClassID()+"");
 		//未完成作业
 		List<Homework> unfinHWList = homeworkService.getUnfinishedHW(user.getClassID()+"", user.getAcctID());
 		//已完成作业
 		List<HWSubmit> finHWList = homeworkService.getfinishedHW(user.getClassID()+"", user.getAcctID());
-		//所有作业
-		List<Homework> allHWList = homeworkService.getAllHW(user.getClassID()+"");
 		
 		request.setAttribute("unfinHWList", unfinHWList);
 		request.setAttribute("finHWList", finHWList);
@@ -86,11 +86,13 @@ public class HomeworkAction extends ActionSupport {
 	public String submit_Homework(){
 		//realpath:作业文件保存的文件夹
 		String realpath = PoccManager.Homework_file_dir;
+		Homework homework = homeworkService.getHomeworkbyID(Integer.parseInt(hwID));
+		if(new Date().before(homework.getCloseDate()))//截止时间
 		if(hwSubmitID.equals("non-existent")){//新提交的作业
 			if(hwfile!=null){//保存作业
 				HWSubmit hwSubmit = new HWSubmit();
 				hwSubmit.setStudNo_acctID(user.getAcctID());//学生内部账号
-				hwSubmit.setHomework(homeworkService.getHomeworkbyID(Integer.parseInt(hwID)));//作业
+				hwSubmit.setHomework(homework);//作业
 				hwSubmit.setFilename(hwfileFileName);//提交作业的文件名称
 				hwSubmit.setSubmitTime(new Date());//提交时间
 				hwSubmit.setHwsdesc(hwsdesc);

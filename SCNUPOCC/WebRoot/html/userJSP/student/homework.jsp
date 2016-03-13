@@ -157,7 +157,7 @@ li.active>a{
 				</tr>
 				<s:iterator value="#request.unfinHWList" var="unfinhomework">
 				<tr>
-				    <td><a href="student/hwDetails.action?hwID=${unfinhomework.id}">${unfinhomework.title}</a></td>
+				    <td><a href="student/hwDetails.html?hwID=${unfinhomework.id}">${unfinhomework.title}</a></td>
 				    <td>${unfinhomework.assignDateFormat}</td>
 				    <td>${unfinhomework.closeDateFormat}</td>
 				    <td>
@@ -196,7 +196,7 @@ li.active>a{
 				</tr>
 				<s:iterator value="#request.finHWList" var="hwsubmit">
 				<tr>
-				    <td><a href="student/hwDetails.action?hwID=${hwsubmit.homework.id}">${hwsubmit.homework.title}</a></td>
+				    <td><a href="student/hwDetails.html?hwID=${hwsubmit.homework.id}">${hwsubmit.homework.title}</a></td>
 				    <td>${hwsubmit.homework.assignDateFormat}</td>
 				    <td>${hwsubmit.homework.closeDateFormat}</td>
 				    <td>${hwsubmit.submitTimeFormat}</td>
@@ -225,7 +225,7 @@ li.active>a{
 		</div>
 	    <div role="tabpanel" class="tab-pane" id="HWall">
 	    	 <div class="boxtitle"><h4><b>全部作业列表</b></h4></div>
-	    	<!-- 已完成作业列表 -->
+	    	<!-- 全部作业列表 -->
 	    	<s:if test="#request.allHWList.size==0">
 		    	<div class="NotExist">
 			    	<h1 align="center">:)</h1>
@@ -251,7 +251,7 @@ li.active>a{
 					<s:set name="flag" value="1"></s:set>
 					<s:iterator value="#request.finHWList" var="hwsubmit">
 						<s:if test="#hwsubmit.homework.id==#homework.id">
-						    <td><a href="student/hwDetails.action?hwID=${homework.id}">${homework.title}</a></td>
+						    <td><a href="student/hwDetails.html?hwID=${homework.id}">${homework.title}</a></td>
 						    <td>${homework.assignDateFormat}</td>
 						    <td>${homework.closeDateFormat}</td>
 						    <td>已交</td>
@@ -276,7 +276,7 @@ li.active>a{
 					    </s:if>
 				    </s:iterator>
 				    <s:if test="#flag==1">
-				    		<td><a href="student/hwDetails.action?hwID=${homework.id}">${homework.title}</a></td>
+				    		<td><a href="student/hwDetails.html?hwID=${homework.id}">${homework.title}</a></td>
 						    <td>${homework.assignDateFormat}</td>
 						    <td>${homework.closeDateFormat}</td>
 						    <td>未交</td>
@@ -294,7 +294,7 @@ li.active>a{
 			</table>
 			</s:else>
 			<hr class="divider" width="99%" align="center"/>
-			<!-- 已完成作业列表 END -->
+			<!-- 全部作业列表 END -->
 		</div>
 		
 	  </div>	

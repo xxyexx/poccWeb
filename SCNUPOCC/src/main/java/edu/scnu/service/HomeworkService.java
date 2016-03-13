@@ -13,7 +13,8 @@ public interface HomeworkService {
 	 */
 	List<Homework> getNewHW(String classID);
 	/**
-	 * 查询该班级所有作业
+	 * 查询该班级所有作业,修改该班级超过提交期限的作业
+	 * homework.state=0不予许提交
 	 * @param classID 班级id
 	 * @return List
 	 */

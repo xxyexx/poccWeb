@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  * @author liu
@@ -109,11 +110,19 @@ public class User {
 	public Date getRentDate1() {
 		return rentDate1;
 	}
+	public String getRentDate1Format() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(rentDate1);
+	}	
 	public void setRentDate1(Date rentDate1) {
 		this.rentDate1 = rentDate1;
 	}
 	public Date getRentDate2() {
 		return rentDate2;
+	}
+	public String getRentDate2Format() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(rentDate2);
 	}
 	public void setRentDate2(Date rentDate2) {
 		this.rentDate2 = rentDate2;

@@ -66,7 +66,7 @@
          <span class="icon-bar">—</span>
        </button>
        <!-- 确保无论是宽屏还是窄屏，navbar-brand都显示 ·品牌图标-->
-       	<a href="User_Logout.action" class="btn btn-sm btn-primary navbar-toggle" id="hidden-login-btn" role="button">[退出]</a>
+       	<a href="student/logout.html" class="btn btn-sm btn-primary navbar-toggle" id="hidden-login-btn" role="button">[退出]</a>
 		<a href="student/index.html" class="navbar-brand" id="brand-img">
 		  <img alt="Brand" src="res/images/banner.png"  align="middle" width="150px">
 		</a>
@@ -79,11 +79,11 @@
      	 <li><a class="active"  href="student/homework.html"><span class='glyphicon glyphicon-pencil' aria-hidden=true></span>&nbsp;&nbsp;<span style="margin-left:-13px;margin-top:-15px;background-color: red" class="badge" >${session.UnfinHWNum}</span>作业</a></li>
      	 <li><a class="active"  href="student/mailbox.html"><span class='glyphicon glyphicon-envelope' aria-hidden=true></span>&nbsp;&nbsp;<span style="margin-left:-13px;margin-top:-15px;background-color: red" class="badge">${session.UnreadMsgNum}</span>信箱</a></li>
         <li class="dropdown">
-           <a href="#" class="dropdown-toggle TouserCenter" data-toggle="dropdown"><img class="img-circle" alt="头像" src="${session.User.iconURL}" width="22px;" height="22px;">&nbsp;<s:property value="#session.User.acctName"/></a>
+           <a href="#" class="dropdown-toggle TouserCenter" data-toggle="dropdown"><img class="img-circle" alt="头像" src="student/showIcon.html" width="22px;" height="22px;">&nbsp;<s:property value="#session.User.acctName"/></a>
            <ul class="dropdown-menu" role="menu">
            	<li><a href="student/homepage.html"><span class='glyphicon glyphicon-user' aria-hidden=true></span>&nbsp;&nbsp;个人主页</a></li>
            	<li role="separator" class="divider"></li>
-			<li><a href="##"><span class='glyphicon glyphicon-cog' aria-hidden=true></span>&nbsp;&nbsp;设置</a></li>
+			<li><a href="student/settings.html"><span class='glyphicon glyphicon-cog' aria-hidden=true></span>&nbsp;&nbsp;设置</a></li>
 			<li role="separator" class="divider"></li>
 			<li><a href="##"><span class='glyphicon glyphicon-log-out' aria-hidden=true></span>&nbsp;&nbsp;退出</a></li>
            </ul>

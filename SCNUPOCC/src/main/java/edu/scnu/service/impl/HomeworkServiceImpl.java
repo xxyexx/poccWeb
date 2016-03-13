@@ -41,7 +41,7 @@ public class HomeworkServiceImpl implements HomeworkService{
 	}
 	
 	@Override
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true) 修改超过提交期限的作业
 	public List<Homework> getAllHW(String classID) {
 		return  homeworkDao.findByClassID(classID);
 	}

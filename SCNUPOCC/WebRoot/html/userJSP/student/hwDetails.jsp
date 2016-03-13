@@ -129,7 +129,7 @@ li.active>a{
 		  <hr class="divider" width="99%" align="center"/>
 		  <div class="boxtitle"><h5><b>提交作业</b></h5></div>
 		  <div class="showDesc">
-		  <form action="student/submitHomework.action" enctype="multipart/form-data" method="post">
+		  <form action="student/submitHomework.html" enctype="multipart/form-data" method="post">
 		  <input name="hwID" type="hidden" value="${request.homework.id}">
 		  <textarea name="hwsdesc" class="form-control" rows="3" placeholder="请输入作业描述、反馈或建议（限300字以内）" 
 		  maxlength="300"><s:if test="#request.hwSubmit!=null">${request.hwSubmit.hwsdesc}</s:if></textarea>
@@ -145,13 +145,19 @@ li.active>a{
 			           <label for="InputFile">上传作业文件</label>
 			           <input name="hwSubmitID" type="hidden" value="${request.hwSubmit.id}">
 				       <p class="help-block">
-				       	  <a id="filename" href="student/downloadHWFile.action?hwSubmitID=${request.hwSubmit.id}">${request.hwSubmit.filename}</a>
+				       	  <a id="filename" href="student/downloadHWFile.html?hwSubmitID=${request.hwSubmit.id}">${request.hwSubmit.filename}</a>
 				          <input onclick="changefile()" type="button" class="btn btn-warning btn-xs" value="重新上传"/>
 				       </p>
 				       <input name="hwfile" onchange="changefileName()" type="file" id="File" />
 			       </s:else>
 			    </div>
-	  			<input class="btn btn-success" type="submit" title="提交 ">
+			    <s:if test="#request.homework.state">
+			   	   <input class="btn btn-success" type="submit" title="提交 ">
+			    </s:if>
+			    <s:else>
+			       <input class="btn btn-success" disabled="disabled" type="submit" title="提交 ">
+			    </s:else>
+	  			
 	  		</form>
 		  </div> 
 		</div>

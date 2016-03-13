@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
+	
 	//getter,setter
 	public UserDao getUserDao() {
 		return userDao;

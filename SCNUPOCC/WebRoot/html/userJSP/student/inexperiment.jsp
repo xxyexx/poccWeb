@@ -146,7 +146,7 @@ body{
 	</div>
 	<div class="btn-div col-md-12">
 		<div class="col-md-offset-6">
-		<form id="form1" action="student/savePoccfile.action"  enctype="multipart/form-data" method="post">
+		<form id="form1" action="student/savePoccfile.html"  enctype="multipart/form-data" method="post">
 			<input onclick="submitFile()" class="btn btn-primary col-md-4 col-md-offset-5" type="button" value="保存">
 			<input name="expID" type="hidden" value="${request.Experiment.id}"/>
 			<input name="pocc" id="pfile" title="上传文件" type="file" onchange="Formsubmit(this)" />

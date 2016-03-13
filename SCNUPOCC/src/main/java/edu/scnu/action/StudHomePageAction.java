@@ -68,14 +68,14 @@ public class StudHomePageAction extends ActionSupport {
 	 * 设置已批改作业数量
 	 */
 	public void Query_CheckedHWnum(String classID,String stud_AcctID){
-		//新作业中,已完成作业
-		User user = (User) request.getSession().getAttribute("User");
+		//新作业中,已完成作业且已批改
 		List<Homework> newHWList = homeworkService.getNewHW(classID);
 		List<HWSubmit> finishedHWList = homeworkService.getfinishedHW(classID, stud_AcctID);
 		int num = 0;
 		for (Homework homework : newHWList) {
 			for (HWSubmit hwSubmit : finishedHWList) {
-				if(hwSubmit.getHomework().getId()==homework.getId()){
+				if(hwSubmit.getHomework().getId()==homework.getId()
+						&&hwSubmit.getChecked()==1){
 					num++;
 					break;
 				}

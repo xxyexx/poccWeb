@@ -190,9 +190,9 @@ h2{
   </div>
      <div class="col-sm-4 col-md-4">
     <div class="thumbnail">
-      <a ><img class="img-responsive" src="res/images/thumbnail_Pic8.png" alt="设置"></a>
+      <a href="student/settings.html"><img class="img-responsive" src="res/images/thumbnail_Pic8.png" alt="设置"></a>
       <div class="caption">
-        <h3><a >设置</a></h3>
+        <h3><a href="student/settings.html">设置</a></h3>
         </div>
     </div>
   </div>

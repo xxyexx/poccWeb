@@ -77,7 +77,7 @@
 			<result>/html/userJSP/student/hwDetails.jsp</result>
 		</action>
 		<action name="submitHomework" class="homeworkAction" method="submit_Homework">
-			<result type="redirectAction">student/homework.action?select=1</result>
+			<result type="redirectAction">student/homework.html?select=1</result>
 		</action>
 		<action name="downloadHWFile" class="homeworkAction" method="download_Homework">
 			<result name="download" type="stream">
@@ -89,6 +89,25 @@
 		</action>
 		<action name="mailbox" class="siteMsgAction" method="show_StudMsg">
 			<result>/html/userJSP/student/mailbox.jsp</result>
+		</action>
+		<action name="settings" class="userCenterAction" method="show_StudInfo">
+			<result>/html/userJSP/student/userCenter.jsp</result>
+		</action>
+		<action name="checkPassword" class="userCenterAction" method="check_password">
+			<result type="json">
+				<param name="root">pwdCheckResult</param>
+			</result>
+		</action>
+		<action name="change*" class="userCenterAction" method="change_{1}">
+			<result type="redirectAction">student/settings.html</result>
+		</action>
+		<action name="showIcon" class="userCenterAction" method="show_Icon">
+			<result type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="buffersize">1024</param>
+			</result>
 		</action>
 	</package>
 </struts>    

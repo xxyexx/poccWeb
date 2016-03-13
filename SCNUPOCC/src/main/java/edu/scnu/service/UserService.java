@@ -22,4 +22,5 @@ public interface UserService {
 	 * @return
 	 */
 	boolean updateUser(User user);
+
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,7 +17,6 @@ import main.java.edu.scnu.dao.PoccFileDao;
 import main.java.edu.scnu.entity.Experiment;
 import main.java.edu.scnu.entity.PoccFile;
 import main.java.edu.scnu.service.ExperimentService;
-import main.java.edu.scnu.util.MyStringUtil;
 
 @Service("experimentService")
 @Transactional(propagation=Propagation.REQUIRED,
