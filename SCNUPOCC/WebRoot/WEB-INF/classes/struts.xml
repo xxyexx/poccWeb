@@ -110,4 +110,19 @@
 			</result>
 		</action>
 	</package>
+	
+	<!-- 内部用户 -->
+	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
+		<action name="login" >
+			<result>/html/memberJSP/common/memberLogin.jsp</result> 
+		</action>
+		
+		<action name="member*" class="memberAction" method="{1}">
+			<result name="success" type="json"></result>	
+		</action>
+		
+		<action name="template" >
+			<result>/html/memberJSP/common/template.jsp</result> 
+		</action>
+	</package>
 </struts>    
