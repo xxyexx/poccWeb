@@ -10,10 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import main.java.edu.scnu.dao.UserDao;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.UserService;
-import main.java.edu.scnu.util.DateUtil;
 import main.java.edu.scnu.util.MD5Util;
-import main.java.edu.scnu.util.StringUtil;
-import main.java.edu.scnu.util.UserUtil;
 
 @Service("userService")
 @Transactional(propagation=Propagation.REQUIRED,
@@ -39,26 +36,6 @@ public class UserServiceImpl implements UserService{
 		}
 		return result;
 	}
-	
-	@Override
-	public boolean createUser(User model, String sclCode4, String dptCode2,
-			int fisrt4, int num) {
-		UserUtil userUtil = new UserUtil();
-		
-		for(int i=0; i<num; i++){
-			
-			User newUser = userUtil.getCloneUser(model);
-			String aid = sclCode4 + dptCode2 + DateUtil.getYear4() + StringUtil.getStr4(i+1);
-			newUser.setAcctID(aid);
-			newUser.setLoginID("");
-			newUser.setPasswd(model.getPasswd());
-			userDao.update(newUser);
-		}	
-		
-		return true;
-	}
-	
-	
 
 	@Override
 	@Transactional(readOnly=true)
