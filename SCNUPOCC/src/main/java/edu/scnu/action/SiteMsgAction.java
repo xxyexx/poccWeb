@@ -48,9 +48,9 @@ public class SiteMsgAction extends ActionSupport {
 	
 
 	//setter
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-	}
+//	public void setRequest(HttpServletRequest request) {
+//		this.request = request;
+//	}
 	public void setSiteMsgService(SiteMsgService siteMsgService) {
 		this.siteMsgService = siteMsgService;
 	}

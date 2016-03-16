@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity(name="user")
 public class User {
 	@Id @Column(name="id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String acctID;//内部帐号ID
 	private String loginID;//登录名
@@ -46,6 +46,11 @@ public class User {
 	private Date lastLoginTime;
 	private String lastLoginIP;
 	private String iconURL;//头像
+	
+	public User(){
+		this.setCreateDate(new Date());
+		this.setIconURL("res/images/UserDefaultPic3.jpg");
+	}
 	
 	public int getId() {
 		return id;

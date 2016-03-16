@@ -22,5 +22,18 @@ public interface UserService {
 	 * @return
 	 */
 	boolean updateUser(User user);
+	
+	/**
+	 * 批量生成用户，生成的用户院校信息与计费信息和model一致
+	 * @param model 用户模板
+	 * @param sclCode4 学校代号，长度为四（如：SCNU）
+	 * @param dptCode2 学院代号，长度为二（如：01）
+	 * @param fisrt4 起始序号（如：1）
+	 * @param num 生成数量（如：100）
+	 * @return true：生成成功；false：生成失败
+	 * 
+	 */
+	public boolean createUser(User model, String sclCode4, String dptCode2,
+			int fisrt4, int num);
 
 }
