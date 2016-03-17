@@ -21,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 	
 	@Override
+	@Transactional(readOnly=true)
 	public String checkLogin(String loginID, String password) {
 		String result=null;
 		Member member = null;
@@ -35,6 +36,13 @@ public class MemberServiceImpl implements MemberService {
 			result = "success";
 		}
 		return result;
+	}
+
+	@Override
+	public Member getMember(String longinID) {
+		Member member = null;
+		member = memberDao.findByLoginID(longinID);
+		return member;
 	}
 
 }

@@ -115,12 +115,24 @@
 	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
 		<action name="login" >
 			<result>/html/memberJSP/common/memberLogin.jsp</result> 
-		</action>
-		
+		</action>		
 		<action name="member*" class="memberAction" method="{1}">
 			<result name="success" type="json"></result>	
 		</action>
 		
+		<action name="province*" class="provinceAction" method="{1}">
+			<result name="getSchool" type="json">
+				<param name="root">schoolMap</param>
+			</result>				
+			<result name="getDept" type="json">
+				<param name="root">deptMap</param>
+			</result>
+		</action>
+		
+		<action name="userbatch*" class="userBatchAction" method="{1}">
+			<result name="success">/html/memberJSP/common/template2.jsp</result>
+			<result name="view">/html/memberJSP/cashier/createuser.jsp</result>			
+		</action>		
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
 		</action>

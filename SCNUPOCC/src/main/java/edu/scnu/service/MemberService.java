@@ -1,5 +1,7 @@
 package main.java.edu.scnu.service;
 
+import main.java.edu.scnu.entity.Member;
+
 public interface MemberService {
 
 	/**
@@ -10,4 +12,17 @@ public interface MemberService {
 	 */
 	String checkLogin(String loginID,String password);
 	
+	/**
+	 * 根据用户账号获取一个用户类型
+	 * @param account 对应loginID(登录账号)
+	 * @return user 一个用户
+	 */
+	Member getMember(String longinID);
+	
+	
 }
+
+
+
+
+

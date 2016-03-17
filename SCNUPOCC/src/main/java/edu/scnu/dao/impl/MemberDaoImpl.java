@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import main.java.edu.scnu.dao.MemberDao;
 import main.java.edu.scnu.entity.Member;
-import main.java.edu.scnu.entity.User;
 
 @Repository(value="memberDao")
 public class MemberDaoImpl extends BaseDaoImpl<Member> 

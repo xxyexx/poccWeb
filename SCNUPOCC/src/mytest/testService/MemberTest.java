@@ -1,9 +1,6 @@
 package mytest.testService;
 
-import main.java.edu.scnu.entity.Member;
-import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.MemberService;
-import main.java.edu.scnu.service.UserService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

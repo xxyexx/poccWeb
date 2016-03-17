@@ -71,7 +71,7 @@
     	<span class='glyphicon glyphicon-stats'></span>实验用户管理
     	</a>
 	    <div class="collapse" id="collapse1">
-		    <a class="second_li">实验用户批量生成</a>
+		    <a href="member/userbatchview.html" class="second_li">实验用户批量生成</a>
 	        <a class="second_li">实验用户管理</a>
 	        <a class="second_li">实验用户状态统计</a>
 		</div>

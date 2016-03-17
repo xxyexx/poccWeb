@@ -13,7 +13,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<link rel="icon" href="image/icon.png">
+<link rel="icon" href="res/images/icon.png">
 <title>华南师范大学计算机组成原理实验平台</title>
 <!-- Bootstrap -->
 <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -183,7 +183,7 @@ input{
 				}
 				function checkForm(){//再次使用ajax提交检测用户信息
 					$.ajax({
-						url : "member/memberlogin.action",//todo:set the servelet of your own
+						url : "member/memberlogin.html",//todo:set the servelet of your own
 						type : "post",
 						data : {
 							loginId:$("#userName").val(),
@@ -197,7 +197,7 @@ input{
 								$(".tips:eq(1)").css("visibility","visible");
 								$("#password").css("border-color","red");
 							}else{//登录成功
-								window.location.href="member/template.action";
+								window.location.href="member/template.html";
 							}
 						}
 					});
@@ -266,7 +266,7 @@ input{
 						}
 					})()
 					$.ajax({
-						url : "startCaptcha.action",
+						url : "startCaptcha.html",
 						type : "get",
 						dataType : 'JSON',
 						success : function(result) {

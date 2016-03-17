@@ -1,8 +1,11 @@
 package main.java.edu.scnu.action;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.MemberService;
 
 import org.apache.struts2.ServletActionContext;
@@ -34,12 +37,28 @@ public class MemberAction extends ActionSupport{
 		//2)登录成功,
 		if(result.equals("success")){
 			//记录ip
-			System.out.println("登录成功");
+//			User user = memberService.g
+//			System.out.println("登录成功");
+			String ip = request.getHeader(" x-forwarded-for ");
+			if (ip == null || ip.length() == 0
+					|| " unknown ".equalsIgnoreCase(ip)) {
+				ip = request.getHeader(" Proxy-Client-IP ");
+			}
+			if (ip == null || ip.length() == 0
+					|| " unknown ".equalsIgnoreCase(ip)) {
+				ip = request.getHeader(" WL-Proxy-Client-IP ");
+			}
+			if (ip == null || ip.length() == 0
+					|| " unknown ".equalsIgnoreCase(ip)) {
+				ip = request.getRemoteAddr();
+			}   
+			
+			Date loginTime=new Date();
+//			member.setLastLoginIP(ip);
+//			user.setLastLoginTime(loginTime);
+//			userService.updateUser(user);
 		}
-		
 		return SUCCESS;
-		
-		
 		
 	}
 	
