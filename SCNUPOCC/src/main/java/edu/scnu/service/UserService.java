@@ -1,5 +1,6 @@
 package main.java.edu.scnu.service;
 
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 
 public interface UserService {
@@ -35,5 +36,13 @@ public interface UserService {
 	 */
 	public boolean createUser(User model, String sclCode4, String dptCode2,
 			int fisrt4, int num);
+	
+	/**
+	 * 根据模板获取用户page分页
+	 * @param user 用户模板
+	 * @param page	分页模板
+	 * @return Page<User> 分页属性与page一致，用户院校信息与user一致
+	 */
+	public Page<User> getUserPage(User user, Page<User> page);
 
 }

@@ -1,5 +1,6 @@
 package main.java.edu.scnu.dao;
 
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 
 public interface UserDao extends BaseDao<User>{
@@ -16,4 +17,6 @@ public interface UserDao extends BaseDao<User>{
 	 * @return user 返回该用户
 	 */
 	User findByacctID(String acctID);
+	
+	Page<User> findPage(Page<User> modelPage, User modelUser);
 }

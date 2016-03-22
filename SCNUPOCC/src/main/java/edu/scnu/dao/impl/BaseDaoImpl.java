@@ -54,6 +54,7 @@ public abstract class BaseDaoImpl <T> implements BaseDao<T>{
 	@Override
 	public List<T> findAll(Class<T> entityClazz) {
 		//getSimpleName得到className如:Province,要转成跟表名一致:province
+		
 		return find("select en from "
 			+entityClazz.getSimpleName().toLowerCase()+" en");
 	}

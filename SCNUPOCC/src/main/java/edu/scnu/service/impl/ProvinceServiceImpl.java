@@ -33,7 +33,7 @@ public class ProvinceServiceImpl implements ProvinceService{
 	@Transactional(readOnly=true)
 	public Map<String, String> getProvinceMap() {
 		Map<String, String> provinceMap = new HashMap<String, String>();
-		List<Province> provinceList = provinceDao.findAll(Province.class);
+		List<Province> provinceList = provinceDao.findIsUsing();
 		for (int i = 0; i < provinceList.size(); i++) {
 			provinceMap.put(String.valueOf(provinceList.get(i).getId()), provinceList.get(i).getProvince());
 		}

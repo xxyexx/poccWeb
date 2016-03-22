@@ -24,8 +24,7 @@
 <!-- Bootstrap datetimepicker -->
 <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.5-dist/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
 <script src="res/bootstrap-3.3.5-dist/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script src="res/bootstrap-3.3.5-dist/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.fr.js"></script>
-
+<script src="res/bootstrap-3.3.5-dist/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <!-- JavaScript -->
 <script src="res/js/memberJS/createuser.js"></script>
 
@@ -131,20 +130,20 @@ body {
 	
 	//step2 开始序号
 	function funStep2a(){
-		var v=document.getElementById("step2a").value;
-		var reg=/^[0-9]{1,4}$/;
-		var tip=document.getElementById("tip2a");
-		if (v==""){ tip.innerHTML=""; return false;}
-		tip.style.color="red";
-		if (reg.test(v)&&parseInt(v,10)>=0&&parseInt(v,10)<=9999){
+		//var v=document.getElementById("step2a").value;
+		//var reg=/^[0-9]{1,4}$/;
+		//var tip=document.getElementById("tip2a");
+		//if (v==""){ tip.innerHTML=""; return false;}
+		//tip.style.color="red";
+		//if (reg.test(v)&&parseInt(v,10)>=0&&parseInt(v,10)<=9999){
 			//序号没问题，输入符合要求
-			tip.innerHTML="";
+		//	tip.innerHTML="";
 			//funStep2b();
-			return true;
-		}else{
+		//	return true;
+		//}else{
 			tip.innerHTML="请输入为0~9999的整数";
-			return false;
-		}
+		//	return false;
+		//}
 	}//step2 生成数量
 	function funStep2b(){
 		if (!funStep2a()){
@@ -215,49 +214,49 @@ body {
 	}
 	//step 3 检查开始租期
 	function funStep3a1(){
-		var v=document.getElementById("step3a1").value;
-		var tip=document.getElementById("tip3a1");
-		var reg=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-		tip.style.color="red";
-		if (reg.test(v)){
-			tip.innerHTML="";
-			return true;
-		}else{
-			tip.innerHTML="无效的日期";
-			return false;
-		}
+		//var v=document.getElementById("step3a1").value;
+		//var tip=document.getElementById("tip3a1");
+		//var reg=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+		//tip.style.color="red";
+		//if (reg.test(v)){
+		//	tip.innerHTML="";
+		//	return true;
+		//}else{
+		//	tip.innerHTML="无效的日期";
+		//	return false;
+		//}
 	}
 	//step 3 检查结束租期
 	function funStep3a2(){
-		var v=document.getElementById("step3a2").value;
-		var tip=document.getElementById("tip3a2");
-		var reg=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-		tip.style.color="red";
-		if (reg.test(v)){
-			tip.innerHTML="";
-			return true;
-		}else{
-			tip.innerHTML="无效的日期";
-			return false;
-		}
+		//var v=document.getElementById("step3a2").value;
+		//var tip=document.getElementById("tip3a2");
+		//var reg=/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+		//tip.style.color="red";
+		//if (reg.test(v)){
+		//	tip.innerHTML="";
+		//	return true;
+		//}else{
+		//	tip.innerHTML="无效的日期";
+		//	return false;
+		//}
 	}	
 	//step 3  检查租期内费用
 	function funStep3b(){
-		var v=document.getElementById("step3b").value;
-		var reg=/^[0-9]{1,}(.[0-9]{1,})?$/;
-		var tip=document.getElementById("tip3b");
-		if (v==""){ tip.innerHTML=""; return false;}
-		tip.style.color="red";
-		if (reg.test(v)){
-			tip.innerHTML="";
-			return true;
-		}else{
-			tip.innerHTML="输入大于0的小数或整数";
-			return false;
-		}
+		//var v=document.getElementById("step3b").value;
+		//var reg=/^[0-9]{1,}(.[0-9]{1,})?$/;
+		//var tip=document.getElementById("tip3b");
+		//if (v==""){ tip.innerHTML=""; return false;}
+		//tip.style.color="red";
+		//if (reg.test(v)){
+		//	tip.innerHTML="";
+		//	return true;
+		//}else{
+		//	tip.innerHTML="输入大于0的小数或整数";
+		//	return false;
+		//}
 	}
 	
-	function funStep3c(){
+	function checkPassword1(){
 		var v=document.getElementById("step3c").value;
 		var reg=/^[0-9a-zA-Z_]{6,25}$/;
 		var tip=document.getElementById("tip3c");
@@ -272,7 +271,7 @@ body {
 		}
 	}
 	//step3 确认密码
-	function funStep3d(){
+	function checkPassword2(){
 		var tip=document.getElementById("tip3d");
 		var v=document.getElementById("step3d").value;
 		if (v==""||!funStep3c()){ tip.innerHTML=""; return false;}
@@ -288,33 +287,8 @@ body {
 	
 	
 	
-	function formsubmit(){
-		//确认所有用户信息都按需要填写
-		//alert(document.getElementsByName("rent_end").item(0).value);
-		if (funStep1()&&
-		funStep2a()&&funStep2b()&&
-		funStep3a1()&&funStep3a2()&&funStep3b()&&funStep3c()&&funStep3d()){
-			//提交
-			var f=document.getElementById("form");
-			f.action="UserAction_Create.action";
-			f.submit();
-		}else{
-			alert("提交失败，请检查输入信息！");
-		}
-	}
 	
-	function cleanAll(){
-		document.getElementById("step1").value="";
-		document.getElementById("step2a").value="";
-		document.getElementById("step2b").value="";
-		document.getElementById("step3a").value="";
-		document.getElementById("step3b").value="";
-		document.getElementById("step3c").value="";
-		document.getElementById("step3d").value="";
-		document.getElementById("display1").innerHTML="";
-		document.getElementById("display2").innerHTML="";
-		document.getElementById("display3").innerHTML="";
-	}
+	
 	
 	
 	
@@ -327,6 +301,7 @@ body {
 <div class="row">
 	<!--导入左边导航条-->
 	<%@include file="/html/memberJSP/common/left.jsp" %>
+	<input type="hidden" id="leftflag" value="实验用户管理" >
 	<!-- 右边内容区域 -->
 	<div class="col-md-10 col-sm-8 right-div">
 	    <div class="title">
@@ -339,34 +314,22 @@ body {
 	    <div class="container">
 	    	<form id="form" class="form-horizontal" method="post">
 	    	<!--第一步及第二步-->
-	    	<div class="col-md-5 col-md-offset-1">
-	    		<!--  
-	    		<label><h3>第一步&nbsp;&nbsp;<small>输入用户账号前缀：</small></h3></label><br>
-	    		<!--
-	    		<div class="form-group">
-  					<label style="text-align: right;" class="col-md-3 control-label"><h5><small><em>账号前缀：</em></small></h5></label>
-  					<div class="col-md-6">
-   	 					<input id="step1" name="prefix" type="text" placeholder="输入5~8个字母或数字" class="form-control" onblur="funStep1()">
-   	 					<small id="tip1"></small>
-   	 				</div>
-   	 			</div>
-   	 			 -->
-   	 			<label><h3>第一步&nbsp;&nbsp;<small>选择学校：</small></h3></label><br>
+	    	<div class="col-md-5 col-md-offset-1">	    		
+   	 			<label><h3>第一步&nbsp;&nbsp;<small>选择学校(学院)：</small></h3></label><br>
 	    		
    	 			<div class="form-group">
-	    			<label class="control-label">学校：</label><br>
-	   	 			<div class="col-md-11">
-					<s:select id="province" list="#request.ProvinceMap" class="form-control"
+   	 				<label class="control-label"><h5><small><em>（其中省份、学校为必选）</em></small></h5></label>
+	    			<div class="col-md-11">
+					<s:select id="province" list="#session.ProvinceMap" class="form-control"
 							  listKey="key" listValue="value" headerKey="-1" headerValue="-请选择省份-" 
-							  value="%{#session.provincevalue}" onchange="changeSchool()">
+							  onchange="changeSchool()">
 					</s:select>
-					<select name="school" id="school" class="form-control" onchange="changeDept()">
+					<select name="schoolID" id="school" class="form-control" onchange="changeDept()">
 						<option value="-1">-请选择学校-</option>
 					</select>	  
-					<select name="dept" id="dept" class="form-control col-md-12">
+					<select name="deptID" id="dept" class="form-control col-md-12">
 				    	<option value="-1">-请选择学院-</option>
-				    </select>
-				    <input id="step1" name="prefix" type="hidden">				    
+				    </select>    
 	    			</div>
 	    		</div>
    	 			
@@ -374,20 +337,19 @@ body {
   				<div class="form-group">
   					<label style="text-align: right;" class="col-md-3 control-label"><h5><small><em>开始序号：</em></small></h5></label>
   					<div class="col-md-6">
-   	 					<input id="step2a" name="first"type="text" placeholder="0~9999的整数" class="form-control" 
-   	 					onblur="funStep2a()">
-   	 					<small id="tip2a"></small>
+   	 					<input id="first" name="first"type="text" placeholder="0~9999的整数" class="form-control" 
+   	 					onblur="checkFirst">
+   	 					<small id="tipFirst"></small>
    	 				</div>
    	 			</div>
-   	 			<div class="form-group" onfocus="step2c">
+   	 			<div class="form-group">
    	 				<label style="text-align: right;" class="col-md-3 control-label"><h5><small><em>生成数量：</em></small></h5></label>
    	 				<div class="col-md-6">
-   	 					<input id="step2b" name="number"type="text" class="form-control" placeholder="1~1000的整数"
-   	 					onblur="funStep2b();funDisplay()" onfocus="funStep2c()">
-   	 					<small id="tip2b"></small>
-   	 					<input id="step2bRes" type="hidden">
+   	 					<input id="number" name="num"type="text" class="form-control" placeholder="1~1000的整数">
+   	 					<small id="tipNumber"></small>
    	 				</div>
    	 			</div>
+   	 			<!-- 
    	 			<div class="form-group">
    	 				<h5>生成的账号为：</h5>
    	 				<div style="margin-left: 10">
@@ -397,70 +359,52 @@ body {
    	 					<b id="display3"></b>
    	 				</em></h4>
    	 				</div>
-   	 				<button class="btn btn-default btn-sm" type="button"
-   	 				onclick="funDisplay();checkAccount()">检查</button>
+   	 				<button class="btn btn-default btn-sm" type="button">检查</button>
    	 			</div>
+   	 			 -->
   			</div>
   			
   			<!--第三步-->
   			<div class="col-md-5">
   					<h3>第三步&nbsp;&nbsp;<small>账号初始信息：</small></h3>
   				<div class="col-md-offset-1">
-  				<!--
-  				<div class="form-group">	
-  					 
-  					<label class="col-md-3 control-label"><h5><small><em>学校名称：</em></small></h5></label>
-   	 				<div class="col-md-8">	
-   	 					<input name="unit" type="text" class="form-control" placeholder="如：华南师范大学">
-   	 					<small id=""></small>
-					</div>	
-				</div>
-				-->
-				
-   	 					
   				<div class="form-group">
-  				<input id="unit" name="unit" type="hidden">
-  					<label class="col-md-3 control-label"><h5><small><em>开始时间：</em></small></h5></label>
+  				<input id="unit" type="hidden">
+  					<label class="col-md-4 control-label"><h5><small><em>开始时间(年/月)：</em></small></h5></label>
   					<div class="col-md-8">
-  						<input id="step3a1" name="rent_start" type="date" class="form-control" value="2015-11-01" data-date-format="yyyy/mm/dd"
-  						onblur="funStep3a1()">
-  						<small id="tip3a1"></small>
+  						<input id="startTime" value="2016/01" class="form-control time">
+  						<small id="startTimetTip"></small>
   					</div>	
   				</div>
   				<div class="form-group">
-  					<label class="col-md-3 control-label"><h5><small><em>到期时间：</em></small></h5></label>
+  					<label class="col-md-4 control-label"><h5><small><em>到期时间(年/月)：</em></small></h5></label>
   					<div class="col-md-8">
-  						<input id="step3a2" name="rent_end" type="date" class="form-control" value="2015-12-01" data-date-format="yyyy/mm/dd"
-  						onblur="funStep3a2()">
-  						<small id="tip3a2"></small>
+  						<input id="endTime" value="2016/06" class="form-control time">
+  						<small id="endTimeTip"></small>
   					</div>	
   				</div>
    	 			<div class="form-group">
    	 				<label class="col-md-4 control-label"><h5><small><em>租期费用（元）：</em></small></h5></label>
    	 				<div class="col-md-6">
-   	 					<input id="step3b" name="price" type="text" class="form-control" placeholder="大于0"
-   	 					onblur="funStep3b()">
+   	 					<input id="step3b" type="text" class="form-control" placeholder="大于0">
    	 					<small id="tip3b"></small>
   					</div>	
   				</div>	
   				<div class="form-group">
   					<label class="col-md-3 control-label"><h5><small><em>初始密码：</em></small></h5></label>
    	 				<div class="col-md-8">
-   	 					<input id="step3c" name="password1" type="text" class="form-control" placeholder="6~25个字母、数字或下划线"
-   	 					onblur="funStep3c()">
-   	 					<small id="tip3c"></small>
+   	 					<input id="password1" type="text" class="form-control" placeholder="6~25个字母、数字或下划线">
+   	 					<small></small>
   					</div>	
   				</div>
   				
   				<div class="form-group">	
   					<label class="col-md-3 control-label"><h5><small><em>确认密码：</em></small></h5></label>
    	 				<div class="col-md-8">	
-   	 					<input id="step3d" name="password2" type="text" class="form-control" placeholder="再次输入密码"
-   	 					onblur="funStep3d()">
+   	 					<input id="password2" type="text" class="form-control" placeholder="再次输入密码">
    	 					<small id="tip3d"></small>
 					</div>	
 				</div>
-				<input type="hidden" name="m_operator" value="">
 				</div>
 			</div>
 			
@@ -469,7 +413,7 @@ body {
   				<button class="btn btn-warning col-md-2 col-md-offset-3"
   					type="button" onclick="cleanAll()">全部清空</button>
   				<span class="col-md-1"></span>
-  				<button onclick="formsubmit()" type="button"
+  				<button onclick="formSubmit()" type="button"
   				class="btn btn-success col-md-2">批量生成</button>
   					
   			</div>

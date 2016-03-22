@@ -15,22 +15,22 @@ public class SchoolTest {
 		
 		ProvinceService provinceService = (ProvinceService) ctx.getBean("provinceService");
 		
-		Map<Integer, String> map = provinceService.getProvinceMap();
+		Map<String, String> map = provinceService.getProvinceMap();
 		
-		System.out.println(map.get(19));		
+		System.out.println(map.get("19"));		
 	}
 	public static void schoolTest(){
 		
 		ProvinceService provinceService = (ProvinceService) ctx.getBean("provinceService");
-		Map<Integer, String> map = provinceService.getSchoolMap(19);
+		Map<String, String> map = provinceService.getSchoolMap(19);
 		System.out.println(map.get(1659));
 		
 	}
 	
 	public static void main(String[] args) {
 				
-//		SchoolTest.provinceTest();
-		SchoolTest.schoolTest();
+		SchoolTest.provinceTest();
+//		SchoolTest.schoolTest();
 	}
 
 }

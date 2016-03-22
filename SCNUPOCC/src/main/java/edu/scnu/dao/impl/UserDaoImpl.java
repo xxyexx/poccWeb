@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import main.java.edu.scnu.dao.UserDao;
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 
 @Repository(value="userDao")
@@ -33,5 +34,27 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 			return null;
 		}
 	}
+	
+	@Override
+	public Page<User> findPage(Page<User> modelPage, User modelUser){
+//		find(hql, params)
+		StringBuffer hql = new StringBuffer("select en from "
+				+User.class.getSimpleName().toLowerCase()+" en");
+		if (!"不限".equals(modelUser.getAcctTag())) {
+			hql.append(" where en.acctTag='"+modelUser.getAcctTag()+"'");
+		}		
+		if (!"不限".equals(modelUser.getAcctType())){
+			hql.append(" and en.acctType='"+modelUser.getAcctType()+"'");
+		}
+//		hql.append(";");
+		Page<User> page = new Page<User>(0);
+		
+		System.out.println(hql);
+		page.setList(findByPage(hql.toString(), 0, 100));
+		return page;
+	}
+	
+
+	
 
 }

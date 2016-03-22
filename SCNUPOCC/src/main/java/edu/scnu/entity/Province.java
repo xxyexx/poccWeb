@@ -19,6 +19,7 @@ public class Province {
 	private int id;
 	private String province;//省份名
 	private String province_code;
+	private int is_using;//0 不启用；1 启用
 	//在Service一个事务范围内,只要session还没有关闭就不会出现懒加载异常;
 	@OneToMany(targetEntity=School.class,
 			mappedBy="province",fetch=FetchType.LAZY)
@@ -29,6 +30,9 @@ public class Province {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public void setIs_using(int is_using) {
+		this.is_using = is_using;
 	}
 	public String getProvince() {
 		return province;

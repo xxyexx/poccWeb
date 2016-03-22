@@ -43,7 +43,6 @@ body {
 .container-fluid{
 	padding-top:56px;
 	height:100% !important;
-	max-height:800px;
 }
 .row{height:100% !important;}
 .right-div{

@@ -8,12 +8,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.java.edu.scnu.dao.UserDao;
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.UserService;
 import main.java.edu.scnu.util.DateUtil;
 import main.java.edu.scnu.util.MD5Util;
+import main.java.edu.scnu.util.ModelUtil;
 import main.java.edu.scnu.util.StringUtil;
-import main.java.edu.scnu.util.UserUtil;
 
 @Service("userService")
 @Transactional(propagation=Propagation.REQUIRED,
@@ -41,19 +42,18 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public boolean createUser(User model, String sclCode4, String dptCode2,
+	public boolean createUser(User model, String sclCode, String dptCode2,
 			int fisrt4, int num) {
-		UserUtil userUtil = new UserUtil();
 		
 		for(int i=0; i<num; i++){
 			
-			User newUser = userUtil.getCloneUser(model);
-			String aid = sclCode4 + dptCode2 + DateUtil.getYear4() + StringUtil.getStr4(i+1);
+			User newUser = (new ModelUtil()).getCloneUser(model);
+			String aid = sclCode + dptCode2 + DateUtil.getYear4() + StringUtil.getStr4(i+1);
 			newUser.setAcctID(aid);
 			newUser.setLoginID("");
 			newUser.setPasswd(model.getPasswd());
 			userDao.update(newUser);
-		}	
+		}
 		
 		return true;
 	}
@@ -74,6 +74,10 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
+	@Override
+	public Page<User> getUserPage(User user, Page<User> page) {		
+		return userDao.findPage(page, user);
+	}
 	
 	//getter,setter
 	public UserDao getUserDao() {
@@ -82,5 +86,7 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
+	
 
 }

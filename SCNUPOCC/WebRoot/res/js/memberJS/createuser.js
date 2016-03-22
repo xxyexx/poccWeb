@@ -1,5 +1,17 @@
-	
-	//根据省份获取学校列表
+//初始化页面
+	window.onload=function(){		
+		$('.time').datetimepicker({
+			format: 'yyyy/mm',  
+	         weekStart: 1,  
+	         autoclose: true,  
+	         startView: 3,  
+	         minView: 3,  
+	         forceParse: false,  
+	         language: 'zh-CN' 
+		});	
+	}
+
+//根据省份获取学校列表
 	function changeSchool(){
 		var provinceID = $("#province option:selected").val();
 //		alert("createuser.js");
@@ -23,13 +35,13 @@
 	//设置学校列表
 	function setSchoolList(schoolList){
 		$("#school").empty();
-		if(getJsonLength(schoolList)!=0){
+//		if(getJsonLength(schoolList)!=0){
 			for(var schoolName in schoolList){				
 				$("#school").append("<option value='"+schoolName+"'>"+schoolList[schoolName]+"</option>");
 			}
-		}else{
-			$("#school").append("<option value='-1'>不限</option>");
-		}
+//		}else{
+			$("#school").append("<option value='-1'>默认</option>");
+//		}
 	}
 	
 	//根据学校获取学院列表
@@ -64,4 +76,19 @@
 			jsonLength++;
 		}
 		return jsonLength;
+	}
+	
+	//检查开始序号
+	function checkFirst(){
+		
+	}
+	
+	//全部清空
+	function cleanAll(){
+	}
+	
+	//确认所有信息并提交
+	function formSubmit(){
+		$("form").attr("action","member/userbatchcreate.html");
+		$("form").submit();
 	}

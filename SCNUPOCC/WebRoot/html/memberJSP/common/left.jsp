@@ -67,29 +67,32 @@
 <div class="col-md-2 col-sm-4 left-div">
   <ul class="nav nav-sidebar">
     <li>
-    	<a class="active" role="button" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+    	<a role="button" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
     	<span class='glyphicon glyphicon-stats'></span>实验用户管理
     	</a>
 	    <div class="collapse" id="collapse1">
-		    <a href="member/userbatchview.html" class="second_li">实验用户批量生成</a>
-	        <a class="second_li">实验用户管理</a>
-	        <a class="second_li">实验用户状态统计</a>
+		    <a href="member/userbatchcreateView.html" class="second_li">实验用户批量生成</a>
+	        <a href="member/userbatchrelateView.html" class="second_li">实验用户账号绑定</a>
+	        <a href="member/userbatchmanagerView.html" class="second_li">实验用户批量管理</a>
 		</div>
     </li>
+    
     <li><a role="button" data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample">
     	<span class='glyphicon glyphicon-lock'></span>用户权限管理
     	</a>
         <div class="collapse" id="collapse2">
-		    <a class="second_li">管理员用户管理</a>
+		    <a  class="second_li">管理员用户管理</a>
 		</div>
     </li>
     <li><a role="button" data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample">
     	<span class='glyphicon glyphicon-pencil'></span>在线仿真实验管理
     	</a>
         <div class="collapse" id="collapse3">
-		    <a class="second_li">查看在线实验用户的列表</a>
+		    <a href="member/template.html" class="second_li">查看在线实验用户的列表</a>
 		</div>
     </li>
+    
+    
     <li><a role="button" data-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapseExample">
    		<span class='glyphicon glyphicon-cog'></span>系统日志管理
    		</a>
@@ -100,3 +103,14 @@
   </ul>
 </div>
 <!-- 结束左边导航条 -->
+<script type="text/javascript">
+	$(function(){
+		$(".left-div a").each(function(){
+			if(this.text.indexOf($("#leftflag").val())>= 0){
+				$(this).addClass("active");
+			}else{
+				$(this).removeClass("active");
+			}
+		});
+	});
+</script>

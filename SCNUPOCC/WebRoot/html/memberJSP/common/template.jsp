@@ -44,7 +44,6 @@ body {
 .container-fluid{
 	padding-top:56px;
 	height:100% !important;
-	max-height:800px;
 }
 .row{height:100% !important;}
 .right-div{
@@ -84,6 +83,7 @@ body {
 <div class="row">
 	<!--导入左边导航条-->
 	<%@include file="/html/memberJSP/common/left.jsp"%>
+	<input type="hidden" id="leftflag" value="系统日志管理" >
 	<!-- 右边内容区域 -->
 	<div class="col-md-10 col-sm-8 right-div">
 	    <div class="title">
