@@ -167,6 +167,7 @@
 				<param name="actionName">experiment</param>
 			</result>
 		</action>
+	</package>
 	<!-- 内部用户 -->
 	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
 		<action name="login" >
@@ -191,14 +192,6 @@
 		</action>		
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
-		<action name="homework" class="homeworkAction" method="show_TeacherHW">
-			<result>/html/userJSP/teacher/homeworkManager.jsp</result>
-		</action>
-		<action name="classes">
-			<result>/html/userJSP/teacher/classManager.jsp</result>
-		</action>
-		<action name="resources">
-			<result>/html/userJSP/teacher/resources.jsp</result>
 		</action>
 	</package>
 </struts>    
