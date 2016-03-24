@@ -1,5 +1,7 @@
 package main.java.edu.scnu.dao;
 
+import java.util.List;
+
 import main.java.edu.scnu.entity.User;
 
 public interface UserDao extends BaseDao<User>{
@@ -16,4 +18,10 @@ public interface UserDao extends BaseDao<User>{
 	 * @return user 返回该用户
 	 */
 	User findByacctID(String acctID);
+	/**
+	 * 根据班级ID查询这个班级所有学生
+	 * @param classID
+	 * @return user list
+	 */
+	List<User> findByClassID(String classID);
 }

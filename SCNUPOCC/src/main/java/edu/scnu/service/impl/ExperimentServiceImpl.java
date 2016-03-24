@@ -17,6 +17,8 @@ import main.java.edu.scnu.dao.PoccFileDao;
 import main.java.edu.scnu.entity.Experiment;
 import main.java.edu.scnu.entity.PoccFile;
 import main.java.edu.scnu.service.ExperimentService;
+import main.java.edu.scnu.util.FileUtil;
+import main.java.edu.scnu.util.PoccManager;
 
 @Service("experimentService")
 @Transactional(propagation=Propagation.REQUIRED,
@@ -71,9 +73,9 @@ public class ExperimentServiceImpl implements ExperimentService{
 			}
 			PoccFile oldpoccfile = fileList.get(0);//删除最早文件
 			//从磁盘中删除
-			File f = new File(oldpoccfile.getFile_url());
-			if(f.exists())
-			f.delete();
+			String path =  PoccManager.ROOT_DIR;//文件根目录
+			String fileURL = path + oldpoccfile.getFile_url();//文件绝对路径
+			FileUtil.deleteFile(fileURL);
 			//删除数据库记录
 			poccFileDao.delete(oldpoccfile);
 			//保存新文件
@@ -89,9 +91,9 @@ public class ExperimentServiceImpl implements ExperimentService{
 			return false;
 		}else{
 			//删除磁盘记录
-			File f = new File(file.getFile_url());
-			if(f.exists())
-			f.delete();
+			String path =  PoccManager.ROOT_DIR;//文件根目录
+			String fileURL = path + file.getFile_url();//文件绝对路径
+			FileUtil.deleteFile(fileURL);
 			//删除数据库记录
 			poccFileDao.delete(PoccFile.class, id);
 			//重排文件名
@@ -112,6 +114,16 @@ public class ExperimentServiceImpl implements ExperimentService{
 		return poccFileDao.get(PoccFile.class, id);
 	}
 	
+	@Override
+	public boolean addExperiment(Experiment experiment) {
+		experimentDao.update(experiment);
+		return true;
+	}
+	@Override
+	public void deleteExperiment(int expID) {
+		experimentDao.delete(Experiment.class, expID);
+	}
+
 	//get,set
 	public void setExperimentDao(ExperimentDao experimentDao) {
 		this.experimentDao = experimentDao;

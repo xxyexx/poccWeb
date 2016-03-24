@@ -32,4 +32,11 @@ public class HomeworkDaoImpl extends BaseDaoImpl<Homework>
 		return list;
 	}
 
+	@Override
+	public List<Homework> findByTeacher_acctID(String acctID) {
+		String hql = "select h from homework h where h.teacherID_acctID = ?";
+		List<Homework> list = find(hql,acctID);
+		return list;
+	}
+
 }

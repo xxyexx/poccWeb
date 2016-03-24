@@ -16,6 +16,7 @@ import main.java.edu.scnu.service.UserService;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.util.WebUtils;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -79,7 +80,15 @@ public class UserAction extends ActionSupport {
 
 		return SUCCESS;
 	}
-	
+	/**
+	 *外部用户退出
+	 */
+	public String logout(){
+		User user = (User) WebUtils.getSessionAttribute(request, "User");
+		System.out.println(user.getAcctName()+"退出了系统");
+		request.getSession().invalidate();
+		return SUCCESS;
+	}
 	
 	/**
 	 * 设置未做的作业数量
@@ -119,10 +128,10 @@ public class UserAction extends ActionSupport {
 
 	//setter
 	public void setAccount(String account) {
-		this.account = account;
+		this.account = account.trim();
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = password.trim();
 	}
 	public void setUserService(UserService userService) {
 		this.userService = userService;

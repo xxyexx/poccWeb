@@ -12,4 +12,10 @@ public interface HomeworkDao extends BaseDao<Homework>{
 	 * @return List
 	 */
 	List<Homework> findByClassID(String classID);
+	/**
+	 * 根据教师内部账号id查询该教师发布的作业
+	 * @param acctID
+	 * @return
+	 */
+	List<Homework> findByTeacher_acctID(String acctID);
 }

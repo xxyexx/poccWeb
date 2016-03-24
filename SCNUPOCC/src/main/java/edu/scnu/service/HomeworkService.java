@@ -41,6 +41,12 @@ public interface HomeworkService {
 	 */
 	Homework getHomeworkbyID(int id);
 	/**
+	 * 根据教师内部账号查询教师发布的所有作业
+	 * @param teacher_acctID
+	 * @return
+	 */
+	List<Homework> getHomeworkbyTeacherID(String teacher_acctID);
+	/**
 	 * 根据学生账号和该作业的id获取提交的作业
 	 * @param stud_acctID
 	 * @param hwID
@@ -59,6 +65,26 @@ public interface HomeworkService {
 	 * @return
 	 */
 	HWSubmit getHWSubmitByid(int hwSubmitID);
-	
-	
+	/**
+	 * 教师添加新作业
+	 * @param homework
+	 * @return
+	 */
+	boolean addHomework(Homework homework);
+	/**
+	 * 教师撤销作业
+	 * @param id 作业id
+	 */
+	void deleteHomework(int id);
+	/**
+	 * 教师修改作业信息
+	 * @param homework
+	 */
+	void updateHomework(Homework homework);
+	/**
+	 * 教师查询已完成作业学生列表
+	 * @param hwID 作业id
+	 * @return HWSubmit List
+	 */
+	List<HWSubmit> getfinishedHWSList(int hwID);
 }

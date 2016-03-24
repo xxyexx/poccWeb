@@ -32,6 +32,7 @@ public class UserCenterAction extends ActionSupport {
 	@Resource(name="userService")
 	private UserService userService;
 	private User user;
+	private String userType;
 	private String pwdCheckResult;//返回旧密码比较结果
 	private String password;//需要校验的密码
 	private String newPassword;//新密码
@@ -49,23 +50,32 @@ public class UserCenterAction extends ActionSupport {
 	public UserCenterAction(){
 		this.request = ServletActionContext.getRequest();
 		user = (User) request.getSession().getAttribute("User");
+		userType  = (user!=null)?user.getUserType():"";
 	}
 	
 	/**
-	 * 显示学生个人信息
+	 * 显示user个人信息
 	 */
-	public String show_StudInfo(){
-		SchoolClass schoolClass = classService.getSchoolClassByid(Integer.parseInt(user.getClassID()));
-		request.setAttribute("className", schoolClass.getClassName());
-		
-		
+	public String show_Info(){
+		if(userType.equals(PoccManager.student)){//学生显示班级
+			SchoolClass schoolClass = classService.getSchoolClassByid(Integer.parseInt(user.getClassID()));
+			request.setAttribute("className", schoolClass.getClassName());
+		}
+
 		return SUCCESS;
 	}
 	/**
-	 * 输出头像
+	 * 获取User用户头像
 	 */
 	public String show_Icon(){
-		String file_url =user.getIconURL();
+		String path = PoccManager.ROOT_DIR;//path:文件保存的根目录
+		String file_url = null;
+		String realpath = ServletActionContext.getServletContext().getRealPath("/");//网站根目录
+		if(user.getIconURL().equals(PoccManager.StudentDefaultIcon)){//默认头像
+			file_url = realpath + user.getIconURL();
+		}else{
+			file_url = path + user.getIconURL();
+		}
 		File file = new File(file_url);
 		try {
 			filename = new String(("用户头像").getBytes(), "ISO8859-1");
@@ -83,16 +93,17 @@ public class UserCenterAction extends ActionSupport {
 		return SUCCESS;
 	}
 	/**
-	 * 修改用户头像
+	 * 修改user头像
 	 */
 	public String change_Icon(){
 		//realpath:头像文件保存的文件夹
-		String realpath = PoccManager.User_Icon_dir;
+		String root_dir=PoccManager.ROOT_DIR;//根目录
+		String path = PoccManager.User_Icon_dir;//头像文件保存文件夹
 		if(Icon!=null){
 			if(user.getIconURL()!=null){
-				FileUtil.deleteFile(user.getIconURL());
+				FileUtil.deleteFile(root_dir+user.getIconURL());
 			}
-			user.setIconURL(FileUtil.saveFile(Icon, realpath, IconFileName));
+			user.setIconURL(FileUtil.saveFile(Icon,root_dir,path,IconFileName));
 			userService.updateUser(user);
 		}
 		return SUCCESS;
@@ -121,7 +132,7 @@ public class UserCenterAction extends ActionSupport {
 		return SUCCESS;
 	}
 	/**
-	 * 更新用户个人信息
+	 * 更新user用户个人信息
 	 */
 	public String change_Info(){
 		user.setMobile(mobile);
@@ -129,6 +140,7 @@ public class UserCenterAction extends ActionSupport {
 		userService.updateUser(user);
 		return SUCCESS;
 	}
+	
 	//set
 	public void setClassService(ClassService classService) {
 		this.classService = classService;
@@ -170,6 +182,9 @@ public class UserCenterAction extends ActionSupport {
 	}
 	public String getFilename() {
 		return filename;
+	}
+	public String getUserType() {
+		return userType;
 	}
 
 }

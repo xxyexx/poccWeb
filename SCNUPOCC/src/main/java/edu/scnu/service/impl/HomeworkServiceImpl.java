@@ -91,18 +91,40 @@ public class HomeworkServiceImpl implements HomeworkService{
 		}
 		return hws;
 	}
-
 	@Override
 	public boolean saveHWSubmit(HWSubmit hwSubmit) {
 		hwsubmitDao.update(hwSubmit);
 		return true;
 	}
-
 	@Override
 	@Transactional(readOnly=true)
 	public HWSubmit getHWSubmitByid(int hwSubmitID) {
 		return hwsubmitDao.get(HWSubmit.class, hwSubmitID);
 	}
+	@Override
+	@Transactional(readOnly=true)
+	public List<Homework> getHomeworkbyTeacherID(String teacher_acctID) {
+		return homeworkDao.findByTeacher_acctID(teacher_acctID);
+	}
+	@Override
+	public boolean addHomework(Homework homework) { 
+		homeworkDao.update(homework);
+		return true;
+	}
+	@Override
+	public void deleteHomework(int id) {
+		homeworkDao.delete(Homework.class, id);
+	}
+	@Override
+	public void updateHomework(Homework homework) {
+		homeworkDao.update(homework);
+	}
+	@Override
+	public List<HWSubmit> getfinishedHWSList(int hwID) {
+		Homework hw = homeworkDao.get(Homework.class, hwID);
+		return hwsubmitDao.findByHWID(hw);
+	}
+	
 	
 	//getter,setter
 	public HomeworkDao getHomeworkDao() {
@@ -119,5 +141,6 @@ public class HomeworkServiceImpl implements HomeworkService{
 	public void setHwsubmitDao(HWSubmitDao hwsubmitDao) {
 		this.hwsubmitDao = hwsubmitDao;
 	}
+
 
 }

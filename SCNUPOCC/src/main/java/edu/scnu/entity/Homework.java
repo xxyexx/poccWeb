@@ -20,7 +20,7 @@ public class Homework {
 	@Id @Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int teacherID_acctID;//教师ID
+	private String teacherID_acctID;//教师内部账号ID
 	//private int expID;//实验项目
 	//定义与实验项目关联的Experiment实体
 	@ManyToOne(targetEntity=Experiment.class)
@@ -42,10 +42,10 @@ public class Homework {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getTeacherID_acctID() {
+	public String getTeacherID_acctID() {
 		return teacherID_acctID;
 	}
-	public void setTeacherID_acctID(int teacherID_acctID) {
+	public void setTeacherID_acctID(String teacherID_acctID) {
 		this.teacherID_acctID = teacherID_acctID;
 	}
 	public Experiment getExperiment() {
@@ -58,7 +58,7 @@ public class Homework {
 		return title;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.trim();
 	}
 	public Date getAssignDate() {
 		return assignDate;
@@ -85,7 +85,7 @@ public class Homework {
 		return hwdesc;
 	}
 	public void setHwdesc(String hwdesc) {
-		this.hwdesc = hwdesc;
+		this.hwdesc = hwdesc.trim();
 	}
 	public String getClassID() {
 		return classID;

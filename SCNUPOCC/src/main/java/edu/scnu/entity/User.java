@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.apache.struts2.json.annotations.JSON;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
@@ -15,7 +17,7 @@ import java.util.Date;
 @Entity(name="user")
 public class User {
 	@Id @Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String acctID;//内部帐号ID
 	private String loginID;//登录名
@@ -47,11 +49,6 @@ public class User {
 	private String lastLoginIP;
 	private String iconURL;//头像
 	
-	public User(){
-		this.setCreateDate(new Date());
-		this.setIconURL("res/images/UserDefaultPic3.jpg");
-	}
-	
 	public int getId() {
 		return id;
 	}
@@ -70,6 +67,8 @@ public class User {
 	public void setLoginID(String loginID) {
 		this.loginID = loginID;
 	}
+	//密码不包含在JSON对象中
+	@JSON(serialize=false)
 	public String getPasswd() {
 		return passwd;
 	}

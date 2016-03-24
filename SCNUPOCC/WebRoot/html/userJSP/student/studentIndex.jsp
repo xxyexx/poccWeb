@@ -155,17 +155,17 @@ h2{
   </div>
   <div class="col-sm-4 col-md-4">
     <div class="thumbnail">
-      <a href="student/experiment.html"><img class="img-responsive" src="res/images/thumbnail_Pic4.png" alt="实验"></a>
+      <a href="user/experiment.html"><img class="img-responsive" src="res/images/thumbnail_Pic4.png" alt="实验"></a>
       <div class="caption">
-        <h3><a href="student/experiment.html">在线实验</a></h3>
+        <h3><a href="user/experiment.html">在线实验</a></h3>
         </div>
     </div>
   </div>
   <div class="col-sm-4 col-md-4">
     <div class="thumbnail">
-      <a href="student/mailbox.html"><img class="img-responsive" src="res/images/thumbnail_Pic5.png" alt="信箱"></a>
+      <a href="user/mailbox.html"><img class="img-responsive" src="res/images/thumbnail_Pic5.png" alt="信箱"></a>
       <div class="caption">
-        <h3><a href="student/mailbox.html">站内信箱</a></h3>
+        <h3><a href="user/mailbox.html">站内信箱</a></h3>
         </div>
     </div>
   </div>
@@ -190,9 +190,9 @@ h2{
   </div>
      <div class="col-sm-4 col-md-4">
     <div class="thumbnail">
-      <a href="student/settings.html"><img class="img-responsive" src="res/images/thumbnail_Pic8.png" alt="设置"></a>
+      <a href="user/settings.html"><img class="img-responsive" src="res/images/thumbnail_Pic8.png" alt="设置"></a>
       <div class="caption">
-        <h3><a href="student/settings.html">设置</a></h3>
+        <h3><a href="user/settings.html">设置</a></h3>
         </div>
     </div>
   </div>

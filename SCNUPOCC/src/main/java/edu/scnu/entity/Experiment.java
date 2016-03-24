@@ -18,7 +18,7 @@ public class Experiment {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String title;//实验项目名称
-	private String desc;//实验项目说明
+	private String expDesc;//实验项目说明
 	//定义与教师关联的User实体
 	@ManyToOne(targetEntity=User.class)
 	@JoinColumn(name="writer_id",referencedColumnName="id")
@@ -34,13 +34,13 @@ public class Experiment {
 		return title;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.trim();
 	}
-	public String getDesc() {
-		return desc;
+	public String getExpDesc() {
+		return expDesc;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setExpDesc(String expDesc) {
+		this.expDesc = expDesc.trim();
 	}
 	public User getUser() {
 		return user;
