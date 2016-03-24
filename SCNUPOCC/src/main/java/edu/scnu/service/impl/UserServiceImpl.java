@@ -11,6 +11,7 @@ import main.java.edu.scnu.dao.UserDao;
 import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.UserService;
+import main.java.edu.scnu.util.DateUtil;
 import main.java.edu.scnu.util.MD5Util;
 import main.java.edu.scnu.util.ModelUtil;
 import main.java.edu.scnu.util.StringUtil;
