@@ -29,7 +29,8 @@ public class User {
 	private String email;
 	private Date rentDate1;//使用租期起
 	private Date rentDate2;//使用租期止
-	private String couponType;//优惠类型
+	//优惠类型:折扣优惠(dicount),赠送月份(moreMonth),免费账号(free)
+	private String couponType;
 	private double monthlyRent;//月租,缺省是基本租金
 	private int discount;//折扣,默认是100%
 	private int moreMonth;//赠送月份
@@ -50,6 +51,9 @@ public class User {
 	public User(){
 		this.setCreateDate(new Date());
 		this.setIconURL("res/images/UserDefaultPic3.jpg");
+		this.discount = 100;
+		this.payTag = 0;
+		this.lockTag = 1;
 	}
 	
 	public int getId() {

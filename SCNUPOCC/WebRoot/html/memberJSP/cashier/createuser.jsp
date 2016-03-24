@@ -318,7 +318,7 @@ body {
    	 			<label><h3>第一步&nbsp;&nbsp;<small>选择学校(学院)：</small></h3></label><br>
 	    		
    	 			<div class="form-group">
-   	 				<label class="control-label"><h5><small><em>（其中省份、学校为必选）</em></small></h5></label>
+   	 				<label class="control-label"><h5><small><em>（其中省份、学校为必选，系统自动为新的学校创建院校管理员）</em></small></h5></label>
 	    			<div class="col-md-11">
 					<s:select id="province" list="#session.ProvinceMap" class="form-control"
 							  listKey="key" listValue="value" headerKey="-1" headerValue="-请选择省份-" 

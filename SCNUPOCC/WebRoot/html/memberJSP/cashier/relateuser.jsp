@@ -90,17 +90,39 @@ body {
 	<div class="col-md-10 col-sm-8 right-div">
 	    <div class="title">
 		    <a><span class="glyphicon glyphicon-blackboard"></span>
-		       <span>&nbsp;&nbsp;用户账号绑定</span>
+		       <span>&nbsp;&nbsp;学生账号绑定</span>
 		    </a>
 	    </div>
-	    
+	    <form id="form" action="member/userbatchrelateView.html" class="form-inline" method="post">
+	    	<div class="form-group">
+	    		<label class="control-label">学校：</label>
+	   	 		
+				<s:select id="province" list="#session.ProvinceMap" class="form-control"
+							 listKey="key" listValue="value" headerKey="-1" headerValue="-请选择省份-" 
+							  onchange="changeSchool()">
+				</s:select>
+			</div>
+			<div class="form-group">
+				<select name="schoolID" id="school" class="form-control" onchange="changeDept()">
+					<option value="-1">-请选择学校-</option>
+				</select>	  
+			</div>
+			<div class="form-group">
+				<select name="deptID" id="dept" class="form-control col-md-12">
+				    <option value="-1">-请选择学院-</option>
+				   </select>    
+	    	</div>
+	    	
+	    	<button type="submit" class="btn btn-info">查询</button>
+	    </form>
 	    	 <table class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
 	    		<thead>
 	    	 		<tr>
-	    	 			<th>账号</th>
-	    	 			<th>角色</th>
-	    	 			<th>备注</th>
-	    	 			<th>操作</th>
+	    	 			<th>内部账号</th>
+	    	 			<th>登录名</th>
+	    	 			<th>姓名</th>
+	    	 			<th>学校</th>
+	    	 			<th>学院</th>
 	    	 			<th>
 						<a><span style="font-size: large;"></span></a>
 						</th><th>
@@ -114,10 +136,12 @@ body {
 	    	 	<tbody>	  
 	    	 		<s:iterator value="#request.userPage.list" var="user">	
 	    	 		<tr>
+	    	 			<td style="display: none;">${user.id}</td>
 	    	 			<td>${user.acctID}</td>
-	    	 			<td></td>
-	    	 			<td>备注</td>
-	    	 			<td>重设密码</td>	
+	    	 			<td>${user.loginID}</td>
+	    	 			<td>${user.acctName}</td>
+	    	 			<td>${user.acctTag}</td>
+	    	 			<td>${user.acctType}</td>	
 	    	 			<td>
 						<button class="btn btn-primary btn-xs" type="button">							
 						<span class="glyphicon glyphicon-edit"></span></button>
@@ -132,8 +156,11 @@ body {
 	    	 	</tbody>
 	    	 </table>
 	    
-		<form id="form" enctype="multipart/form-data" method="post">
+		<form id="form" class="form-inline" enctype="multipart/form-data" method="post">
 		<input name="excelFile" type="file" onchange="uploadfile()" id="File" />
+		<button type="button" onclick="relate()" class="btn btn-success">确认绑定</button>
+		<input id="schoolID" name="schoolID" type="hidden" value="${request.schoolID}">
+		<input id="deptID" name="deptID" type="hidden" value="${request.deptID}">
 		</form>	
 	</div>
 	<!-- 右边内容区域..-->

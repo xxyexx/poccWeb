@@ -39,14 +39,16 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 	public Page<User> findPage(Page<User> modelPage, User modelUser){
 //		find(hql, params)
 		StringBuffer hql = new StringBuffer("select en from "
-				+User.class.getSimpleName().toLowerCase()+" en");
+				+User.class.getSimpleName().toLowerCase()+" en where 1=1");
 		if (!"不限".equals(modelUser.getAcctTag())) {
-			hql.append(" where en.acctTag='"+modelUser.getAcctTag()+"'");
+			hql.append(" and en.acctTag='"+modelUser.getAcctTag()+"'");
 		}		
 		if (!"不限".equals(modelUser.getAcctType())){
 			hql.append(" and en.acctType='"+modelUser.getAcctType()+"'");
 		}
-//		hql.append(";");
+		if (modelUser.getUserType()!=null&&!"".equals(modelUser.getUserType())) {
+			hql.append(" and en.userType='"+modelUser.getUserType()+"'");
+		}
 		Page<User> page = new Page<User>(0);
 		
 		System.out.println(hql);
