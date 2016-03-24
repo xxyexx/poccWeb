@@ -43,6 +43,7 @@ body{
 	padding-top:80px;
 	padding-left:50px;
 	padding-right:100px;
+	overflow: hidden;
 }
 .leftpart {
 	min-height: 300px;

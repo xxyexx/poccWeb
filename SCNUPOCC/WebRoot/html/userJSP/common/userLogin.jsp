@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//Form Submit
 				function formSubmit(){
 					$.ajax({
-						url : "userlogin.action",
+						url : "userlogin.html",
 						type : "post",
 						data : {
 							account:$("#account").val(),

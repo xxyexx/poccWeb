@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
     <!-- 把它设置为开发模式，发布时要设置为false -->
@@ -21,7 +21,6 @@
 		<action name="pageNotFund">
 		   <result>/html/404error.jsp</result> 
 		</action>
-		
 		<action name="startCaptcha" class="startCaptchaAction" method="setChallenge"></action>
 		<action name="securityCodeImage" class="securityCodeImageAction" method="setChallenge">
 		 	<result name="success" type="stream">  
@@ -34,29 +33,70 @@
 			<result name="success" type="json"></result>
 		</action>
 	</package>
-	<!-- 外部用户 -->
+	<!-- User外部用户登录退出 -->
 	<package name="userPackage" extends="struts-default,json-default">
-		<action name="user*" class="userAction" method="{1}">
+		<!-- 外部用户登录首页 -->
+		<action name="index">
+			<result>/html/userJSP/common/userLogin.jsp</result>
+		</action>
+		<!-- 登录退出 -->
+		<action name="userlogin" class="userAction" method="login">
 			<result name="success" type="json"></result>
 		</action>
-		<action name="*index" >
+		<action name="userlogout" class="userAction" method="logout">
+			<result type="redirectAction">index</result>
+		</action>
+		<!-- 跳转到不同用户主页 -->
+		<action name="*index">
 			<result type="redirectAction">
 				<param name="namespace">/{1}</param>
 				<param name="actionName">index</param>
-			</result> 
+			</result>
 		</action>
 	</package>
-	<!-- 学生用户 -->
-	<package name="stuPackage" namespace="/student" extends="struts-default,json-default">
-		<action name="index">
-			<result>/html/userJSP/student/studentIndex.jsp</result>
+	<!-- User拦截器 -->
+	<package name="userInterceptor" extends="struts-default,json-default">
+		<interceptors>
+			<!-- 登录拦截器 -->
+        	<interceptor name="loginInterceptor" class="userLoginInterceptor"></interceptor>
+        	<!-- 拦截器栈:包含登录拦截等 -->
+       	    <interceptor-stack name="userStack">
+        		<interceptor-ref name="loginInterceptor"></interceptor-ref>
+        		<interceptor-ref name="defaultStack"></interceptor-ref>
+        	</interceptor-stack>
+        </interceptors>
+        <!--默认User登录的拦截器 -->
+        <default-interceptor-ref name="userStack"></default-interceptor-ref>
+        <!--默认全局的登录页面 -->
+        <global-results>
+        	<result name="login" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">index</param>
+			</result>
+        </global-results>
+	</package>
+	<!-- User外部用户公共部分接口 -->
+	<package name="userCommonPackage" namespace="/user" extends="json-default,userInterceptor">
+		<!-- 显示用户头像 -->
+		<action name="showIcon" class="userCenterAction" method="show_Icon">
+			<result type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="buffersize">1024</param>
+			</result>
 		</action>
-		<action name="homepage" class="studHomePageAction">
-			<result>/html/userJSP/student/studentHomePage.jsp</result>
+		<!-- 在线实验:教师学生共用 -->
+		<action name="experiment" class="experimentAction" method="show_experiments">
+			<result>/html/userJSP/${userType}/experiment.jsp</result>
 		</action>
+		<action name="inExperiment" class="experimentAction" method="show_experimentDetail">
+			<result>/html/userJSP/${userType}/inexperiment.jsp</result>
+		</action>
+		<!-- 提交、删除或下载实验过程文件 -->
 		<action name="*Poccfile" class="experimentAction" method="{1}_file">
-			<result name="savefile" type="redirectAction">student/inExperiment?id=${expID}</result>
-			<result name="deletefile" type="redirectAction">student/experiment?select=1</result>
+			<result name="savefile" type="redirectAction">${userType}/inExperiment?id=${expID}</result>
+			<result name="deletefile" type="redirectAction">${userType}/experiment?select=1</result>
 			<result name="download" type="stream">
 				<param name="inputName">fileInputStream</param>
 				<param name="contentDisposition">attachment;filename="${filename}"</param>
@@ -64,11 +104,31 @@
 				<param name="buffersize">1024</param>
 			</result>
 		</action>
-		<action name="experiment" class="experimentAction" method="show_studExper">
-			<result>/html/userJSP/student/experiment.jsp</result>
+		<!-- 站内信箱 -->
+		<action name="mailbox" class="siteMsgAction" method="show_Msg">
+			<result>/html/userJSP/${userType}/mailbox.jsp</result>
 		</action>
-		<action name="inExperiment" class="experimentAction" method="show_experimentDetail">
-			<result>/html/userJSP/student/inexperiment.jsp</result>
+		<!-- user用户中心，修改个人信息 -->
+		<action name="settings" class="userCenterAction" method="show_Info">
+			<result>/html/userJSP/${userType}/userCenter.jsp</result>
+		</action>
+		<action name="checkPassword" class="userCenterAction" method="check_password">
+			<result type="json">
+				<param name="root">pwdCheckResult</param>
+			</result>
+		</action>
+		<action name="change*" class="userCenterAction" method="change_{1}">
+			<result type="redirectAction">user/settings.html</result>
+		</action>
+	</package>
+	
+	<!-- Student学生用户 -->
+	<package name="studentPackage" namespace="/student" extends="json-default,userInterceptor">
+		<action name="index">
+			<result>/html/userJSP/student/studentIndex.jsp</result>
+		</action>
+		<action name="homepage" class="userHomePageAction">
+			<result>/html/userJSP/student/studentHomePage.jsp</result>
 		</action>
 		<action name="homework" class="homeworkAction" method="show_StudHW">
 			<result>/html/userJSP/student/homework.jsp</result>
@@ -87,39 +147,34 @@
 				<param name="buffersize">1024</param>
 			</result>
 		</action>
-		<action name="mailbox" class="siteMsgAction" method="show_StudMsg">
-			<result>/html/userJSP/student/mailbox.jsp</result>
-		</action>
-		<action name="settings" class="userCenterAction" method="show_StudInfo">
-			<result>/html/userJSP/student/userCenter.jsp</result>
-		</action>
-		<action name="checkPassword" class="userCenterAction" method="check_password">
-			<result type="json">
-				<param name="root">pwdCheckResult</param>
-			</result>
-		</action>
-		<action name="change*" class="userCenterAction" method="change_{1}">
-			<result type="redirectAction">student/settings.html</result>
-		</action>
-		<action name="showIcon" class="userCenterAction" method="show_Icon">
-			<result type="stream">
-				<param name="inputName">fileInputStream</param>
-				<param name="contentDisposition">attachment;filename="${filename}"</param>
-				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
-				<param name="buffersize">1024</param>
-			</result>
-		</action>
 	</package>
-	
+	<!-- Teacher教师用户 -->
+	<package name="teacherPackage" namespace="/teacher" extends="json-default,userInterceptor">
+		<action name="index">
+			<result>/html/userJSP/teacher/teacherIndex.jsp</result>
+		</action>
+		<action name="homepage" class="userHomePageAction">
+			<result>/html/userJSP/teacher/teacherHomePage.jsp</result>
+		</action>
+		<action name="*Homework" class="homeworkAction" method="{1}_Homework">
+			<result type="redirectAction">homework</result>
+			<result name="checkHomework">/html/userJSP/teacher/checkHomework.jsp</result>
+			<result name="addScore" type="redirectAction">checkHomework.html?hwID=${hwID}</result>
+		</action>		
+		<action name="*Experiment" class="experimentAction" method="{1}_Experiment">
+			<result type="redirectAction">
+				<param name="namespace">/user</param>
+				<param name="actionName">experiment</param>
+			</result>
+		</action>
 	<!-- 内部用户 -->
 	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
 		<action name="login" >
 			<result>/html/memberJSP/common/memberLogin.jsp</result> 
 		</action>		
 		<action name="member*" class="memberAction" method="{1}">
-			<result name="success" type="json"></result>	
-		</action>
-		
+			<result name="success" type="json"></result>
+		</action>		
 		<action name="province*" class="provinceAction" method="{1}">
 			<result name="getSchool" type="json">
 				<param name="root">schoolMap</param>
@@ -127,8 +182,7 @@
 			<result name="getDept" type="json">
 				<param name="root">deptMap</param>
 			</result>
-		</action>
-		
+		</action>	
 		<action name="userbatch*" class="userBatchAction" method="{1}">
 			<result name="success">/html/memberJSP/cashier/createuser.jsp</result>
 			<result name="createView">/html/memberJSP/cashier/createuser.jsp</result>
@@ -137,6 +191,14 @@
 		</action>		
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
+		<action name="homework" class="homeworkAction" method="show_TeacherHW">
+			<result>/html/userJSP/teacher/homeworkManager.jsp</result>
+		</action>
+		<action name="classes">
+			<result>/html/userJSP/teacher/classManager.jsp</result>
+		</action>
+		<action name="resources">
+			<result>/html/userJSP/teacher/resources.jsp</result>
 		</action>
 	</package>
 </struts>    

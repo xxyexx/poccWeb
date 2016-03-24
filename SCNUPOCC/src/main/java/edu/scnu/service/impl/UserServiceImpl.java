@@ -1,4 +1,4 @@
-package main.java.edu.scnu.service.impl;
+﻿package main.java.edu.scnu.service.impl;
 
 import javax.annotation.Resource;
 
@@ -11,7 +11,6 @@ import main.java.edu.scnu.dao.UserDao;
 import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.UserService;
-import main.java.edu.scnu.util.DateUtil;
 import main.java.edu.scnu.util.MD5Util;
 import main.java.edu.scnu.util.ModelUtil;
 import main.java.edu.scnu.util.StringUtil;
@@ -39,8 +38,7 @@ public class UserServiceImpl implements UserService{
 			result = "success";
 		}
 		return result;
-	}
-	
+	}	
 	@Override
 	public boolean createUser(User model, String sclCode, String dptCode2,
 			int fisrt4, int num) {
@@ -58,7 +56,7 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
-	
+
 
 	@Override
 	@Transactional(readOnly=true)

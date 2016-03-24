@@ -157,7 +157,7 @@ li.active>a{
 				</tr>
 				<s:iterator value="#request.ExpList" var="experiment">
 					<tr>
-					    <td><a href="student/inExperiment.html?id=${experiment.id}">${experiment.title}</a></td>
+					    <td><a href="user/inExperiment.html?id=${experiment.id}">${experiment.title}</a></td>
 					    <td>${experiment.user.acctName}</td>
 					</tr>
 				</s:iterator>
@@ -190,8 +190,8 @@ li.active>a{
 					    <td>${poccfile.file_name}</td>
 					    <td>${poccfile.upload_timeFormat}</td>
 					    <td>
-					    	<a href="student/downloadPoccfile.html?poccFileid=${poccfile.id}" type="button" class="btn btn-sm btn-success">下载</a>
-					    	<a href="student/deletePoccfile.html?poccFileid=${poccfile.id}" onclick="delcfm()" type="button" class="btn btn-sm btn-danger">删除</a>
+					    	<a href="user/downloadPoccfile.html?poccFileid=${poccfile.id}" type="button" class="btn btn-sm btn-success">下载</a>
+					    	<a href="user/deletePoccfile.html?poccFileid=${poccfile.id}" onclick="delcfm()" type="button" class="btn btn-sm btn-danger">删除</a>
 					    </td>
 					</tr>
 				</s:iterator>

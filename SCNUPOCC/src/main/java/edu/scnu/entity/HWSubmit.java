@@ -20,7 +20,10 @@ public class HWSubmit {
 	@Id @Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private String studNo_acctID;//学号
+	//定义与User关联
+	@ManyToOne(targetEntity=User.class)
+	@JoinColumn(name="stud_ID",referencedColumnName="id")
+	private User user;
 	//private int hwID;//作业ID
 	//定义与作业关联的Homework实体
 	@ManyToOne(targetEntity=Homework.class)
@@ -31,7 +34,7 @@ public class HWSubmit {
 	private Date submitTime;//作业提交时间
 	private Date downloadTime;//教师下载日期
 	private int checked;//未批改|已批改(0|1)
-	private double score;//分数
+	private int score;//分数
 	/**学生备注(改为hwsdesc,desc是mysql保留关键字，homework.hwdesc同理)*/
 	private String hwsdesc;
 	private String remark;//教师评语
@@ -42,11 +45,11 @@ public class HWSubmit {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getStudNo_acctID() {
-		return studNo_acctID;
+	public User getUser() {
+		return user;
 	}
-	public void setStudNo_acctID(String studNo_acctID) {
-		this.studNo_acctID = studNo_acctID;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public Homework getHomework() {
 		return homework;
@@ -93,10 +96,10 @@ public class HWSubmit {
 	public void setChecked(int checked) {
 		this.checked = checked;
 	}
-	public double getScore() {
+	public int getScore() {
 		return score;
 	}
-	public void setScore(double score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 	public String getHwsdesc() {

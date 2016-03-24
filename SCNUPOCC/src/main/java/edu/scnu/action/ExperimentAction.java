@@ -31,23 +31,30 @@ public class ExperimentAction extends ActionSupport {
 	private ExperimentService experimentService;
 	private HttpServletRequest request;
 	private User user;
+	/**用户类型:合作方(partner),院校管理员(manager),
+	 * 教师(teacher),学生(student),免费试用帐号(freeAccount)*/
+	private String userType;
 	private File pocc; //上传的文件
     private String poccFileName; //文件名称
     private String poccContentType; //文件类型
-	private String expID;
+	private String expID; //要操作的实验项目ID
 	//文件流
 	private InputStream fileInputStream;
 	//文件下载名称
 	private String filename;
+	private Experiment experiment;//教师添加实验项目
+	private String expDesc;//教师添加实验：实验说明
+	
 	
 	public ExperimentAction(){
 		this.request = ServletActionContext.getRequest();
 		user = (User) request.getSession().getAttribute("User");
+		userType  = (user!=null)?user.getUserType():"";//用户类型用于跳转到不同页面
 	}
 	/**
-	 * 学生实验列表
+	 * user实验列表
 	 */
-	public String show_studExper(){
+	public String show_experiments(){
 		//实验列表
 		List<Experiment> expList = experimentService.getAllExper();
 		request.setAttribute("ExpList", expList);
@@ -56,7 +63,25 @@ public class ExperimentAction extends ActionSupport {
 		request.setAttribute("FileList", poccfileList);
 		return SUCCESS;
 	}
-
+	/**
+	 * 添加实验
+	 */
+	public String add_Experiment(){
+		experiment.setUser(user);
+		experiment.setExpDesc(expDesc);
+		experimentService.addExperiment(experiment);
+		return SUCCESS;
+	}
+	/**
+	 * 删除实验
+	 */
+	public String delete_Experiment(){
+		Experiment exp = experimentService.getExperiment(Integer.parseInt(expID));
+		if(exp.getUser().getAcctID().equals(user.getAcctID())){
+			experimentService.deleteExperiment(Integer.parseInt(expID));
+		}
+		return SUCCESS;
+	}
 	/**
 	 * 根据实验id进入实验,显示实验内容
 	 */
@@ -77,7 +102,8 @@ public class ExperimentAction extends ActionSupport {
 	 * 保存实验过程文件
 	 */
 	public String save_file(){
-		String realpath = PoccManager.Temporary_file_dir;
+		String root_dir=PoccManager.ROOT_DIR;//根目录
+		String path = PoccManager.Temporary_file_dir;//实验临时文件保存文件夹
 		if (pocc != null) {
 			//新文件
 			PoccFile poccfile = new PoccFile();
@@ -91,8 +117,8 @@ public class ExperimentAction extends ActionSupport {
 			}else{ versionID=5;}
 			poccfile.setFile_name(user.getLoginID()+"_"+exp.getTitle()+"_"+versionID+"_"+poccFileName);//文件名
 			poccfile.setUpload_time(new Date());
-			//保存文件到本地
-			poccfile.setFile_url(FileUtil.saveFile(pocc, realpath, poccFileName));
+			//保存文件到磁盘
+			poccfile.setFile_url(FileUtil.saveFile(pocc, root_dir,path, poccFileName));
 	        //保存文件信息到数据库
             experimentService.savePoccFile(poccfile);
 		}
@@ -106,7 +132,8 @@ public class ExperimentAction extends ActionSupport {
 		int poccFileid = Integer.parseInt(request.getParameter("poccFileid"));
 		//获取文件保存路径
 		PoccFile poccfile = experimentService.getPoccFile(poccFileid);
-		String file_url = poccfile.getFile_url();
+		String path = PoccManager.ROOT_DIR;	//path:文件保存的根目录
+		String file_url = path + poccfile.getFile_url();//磁盘绝对路径
 		File file = new File(file_url);
 		try {
 			filename = new String(poccfile.getFile_name().getBytes(), "ISO8859-1");
@@ -128,7 +155,10 @@ public class ExperimentAction extends ActionSupport {
 	 */
 	public String delete_file(){
 		int poccFileid = Integer.parseInt(request.getParameter("poccFileid"));
-		experimentService.deletePoccFile(poccFileid,user.getAcctID());
+		PoccFile pf = experimentService.getPoccFile(poccFileid);
+		if(pf.getUser_acctID().equals(user.getAcctID())){
+			experimentService.deletePoccFile(poccFileid,user.getAcctID());
+		}
 		return "deletefile";
 	}
 	
@@ -148,6 +178,12 @@ public class ExperimentAction extends ActionSupport {
 	public void setPocc(File pocc) {
 		this.pocc = pocc;
 	}
+	public void setExperiment(Experiment experiment) {
+		this.experiment = experiment;
+	}
+	public void setExpDesc(String expDesc) {
+		this.expDesc = expDesc.trim();
+	}
 	//get
 	public String getExpID() {
 		return expID;
@@ -166,6 +202,9 @@ public class ExperimentAction extends ActionSupport {
 	}
 	public String getFilename() {
 		return filename;
+	}
+	public String getUserType() {
+		return userType;
 	}
 	
 }

@@ -145,7 +145,7 @@ li.active>a{
 		var password = $("#password0").val();
 		if(password !=""){
 			$.ajax({
-				url : "student/checkPassword.action",
+				url : "user/checkPassword.action",
 				type : "post",
 				data :{password:password,},
 				success : function(data) {
@@ -230,7 +230,7 @@ li.active>a{
 	  	<div role="tabpanel" class="tab-pane active" id="UserInfo">
 	  	 <div class="boxtitle"><h4><b>个人信息</b></h4></div>
 	    	<!-- 个人信息列表 -->
-	    	<form action="student/changeInfo.html" method="post" class="form-horizontal">
+	    	<form action="user/changeInfo.html" method="post" class="form-horizontal">
 	    		<div class="form-group col-md-12">
 		    	<label for="acctName" class="col-sm-2 control-label">姓名</label>
 		    	<div class="col-sm-6">
@@ -283,8 +283,8 @@ li.active>a{
 		</div>
 		<div role="tabpanel" class="tab-pane" id="UserIcon">
 	  	 <div class="boxtitle"><h4><b>修改头像</b></h4></div>
-	    	<form name="iconForm" action="student/changeIcon.html" class="form-horizontal" enctype="multipart/form-data" method="post">
-	    		<img alt="用户头像" src="student/showIcon.html" width="160px" height="160px"/>
+	    	<form name="iconForm" action="user/changeIcon.html" class="form-horizontal" enctype="multipart/form-data" method="post">
+	    		<img alt="用户头像" src="user/showIcon.html" width="160px" height="160px"/>
 	    		<input onclick="changeIcon()" type="button" class="btn btn-warning" value="上传头像">
 	    		<input name="icon" type="file" accept="image/*" id="userIcon" onchange="sumbitform()">
 	    	</form>
@@ -292,7 +292,7 @@ li.active>a{
 		<div role="tabpanel" class="tab-pane" id="Password">
 	  	 <div class="boxtitle"><h4><b>修改密码</b></h4></div>
 	    	<!-- 修改密码 -->
-			<form name="pwdForm" action="student/changePassword.html" class="form-horizontal" method="post">
+			<form name="pwdForm" action="user/changePassword.html" class="form-horizontal" method="post">
 			<div class="form-group col-md-12">
 		  	   	<label for="password0" class="col-sm-2 control-label">当前密码</label>
 		    	<div class="col-sm-5">

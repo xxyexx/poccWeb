@@ -389,7 +389,7 @@ public class GeetestLib {
 		try {
 			String GET_URL = api_url + "/register.php?gt=" + this.captchaId;
 			String result_str = readContentFromGet(GET_URL);
-//			System.out.println(result_str);
+			//System.out.println(result_str);
 			if (32 == result_str.length()) {
 				this.challengeId = result_str;
 				return 1;
@@ -758,7 +758,7 @@ public class GeetestLib {
 				socket.getInputStream(), "UTF-8"));
 		String line;
 		while ((line = rd.readLine()) != null) {
-			System.out.println(line);
+			//System.out.println(line);
 			response = line;
 		}
 		wr.close();

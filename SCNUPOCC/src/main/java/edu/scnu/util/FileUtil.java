@@ -11,15 +11,16 @@ public class FileUtil {
 	/**
 	 * 保存文件到本地
 	 * @param srcFile 要保存的文件
-	 * @param path	文件保存到父目录
+	 * @param root_dir	文件保存的根目录
+	 * @param path	文件保存到根目录下的文件夹
 	 * @param filename 文件保存到本地的名称
-	 * @return 文件保存url
+	 * @return 文件保存url=path+filename
 	 */
-	public static String saveFile(File srcFile,String path,String filename){
+	public static String saveFile(File srcFile,String root_dir,String path,String filename){
 		//保存新文件到硬盘,为了防止文件名重复,保存时间+文件名称
 		SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH-mm-ss");
 		filename = sdf.format(new Date())+filename;
-		File savefile = new File(new File(path),filename);
+		File savefile = new File(new File(root_dir+path),filename);
 		if (!savefile.getParentFile().exists())
 			savefile.getParentFile().mkdirs();
         try {

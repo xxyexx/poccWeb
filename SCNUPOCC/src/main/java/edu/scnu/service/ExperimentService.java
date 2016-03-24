@@ -8,6 +8,18 @@ import main.java.edu.scnu.entity.PoccFile;
 public interface ExperimentService {
 	
 	/**
+	 * 教师添加实验项目
+	 * @param experiment
+	 * @return
+	 */
+	boolean addExperiment(Experiment experiment);
+	/**
+	 * 教师删除实验项目
+	 * @param expID 实验项目id
+	 * @return
+	 */
+	void deleteExperiment(int expID);
+	/**
 	 * 查询所有的实验列表
 	 * @return List
 	 */

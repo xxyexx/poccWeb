@@ -17,7 +17,7 @@ public class SchoolClass {
 	@Id @Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int teacherID_acctID;//教师ID
+	private String teacherID_acctID;//教师ID
 	private String className;//班级名称
 	private String desc;//班级说明
 	private int totalStudents;//班级人数
@@ -29,10 +29,10 @@ public class SchoolClass {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getTeacherID_acctID() {
+	public String getTeacherID_acctID() {
 		return teacherID_acctID;
 	}
-	public void setTeacherID_acctID(int teacherID_acctID) {
+	public void setTeacherID_acctID(String teacherID_acctID) {
 		this.teacherID_acctID = teacherID_acctID;
 	}
 	public String getClassName() {

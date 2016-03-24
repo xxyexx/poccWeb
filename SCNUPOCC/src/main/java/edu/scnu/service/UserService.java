@@ -1,4 +1,4 @@
-package main.java.edu.scnu.service;
+﻿package main.java.edu.scnu.service;
 
 import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
@@ -44,5 +44,6 @@ public interface UserService {
 	 * @return Page<User> 分页属性与page一致，用户院校信息与user一致
 	 */
 	public Page<User> getUserPage(User user, Page<User> page);
+
 
 }

@@ -59,4 +59,11 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 
 	
 
+	@Override
+	public List<User> findByClassID(String classID) {
+		String hql = "select u from user u where u.classID = ?";
+		List<User> userList = find(hql, classID);
+		return userList;
+	}
+
 }
