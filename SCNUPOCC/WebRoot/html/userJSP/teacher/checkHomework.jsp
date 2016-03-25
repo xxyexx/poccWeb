@@ -98,7 +98,9 @@ li.active>a{
 		$("#filename").html($("#File").val().split("\\").pop());
 		$("#File").attr("name","hwfile");
 	}
-	
+	function msg(){
+		alert("还没有学生提交作业,无法下载相关文件");
+	}
 	function changeType(){
 		window.location.href="teacher/checkHomework.html?hwID="+${request.homework.id}+"&stud="+$("#selectType").val();
 	}
@@ -145,8 +147,11 @@ li.active>a{
 	  		<span class="msg">
 	  			 <span>已提交作业人数<span style="background-color: #337ab7" class="badge" >${request.submitNum}</span>&nbsp;&nbsp;</span>
 	  			 <span>平均分<span style="background-color: #337ab7" class="badge" >${request.avg}</span>&nbsp;&nbsp;</span>
-	  			 <a class="btn btn-sm btn-warning">导出名单</a>
-	  			 <a class="btn btn-sm btn-info">下载作业文件</a>
+	  			 <a href="teacher/exportExcelHomework.html?hwID=${request.homework.id}&stud=${request.stud}" class="btn btn-sm btn-warning">导出名单</a>
+	  			 <s:if test="#request.HWSList.size()==0">
+	  			 <a onclick="msg()" class="btn btn-sm btn-info">下载作业文件</a>
+	  			 </s:if>
+	  			 <s:else><a href="teacher/downloadHWFilesHomework.html?hwID=${request.homework.id}" class="btn btn-sm btn-info">下载作业文件</a></s:else>
 	  		</span>
 	  		</h5>
 	  	  </div>

@@ -7,6 +7,8 @@ public class PoccManager {
 	public static String Temporary_file_dir = "temporaryfiles/";
 	/**学生作业文件保存目录*/
 	public static String Homework_file_dir = "homeworkfiles/";
+	/**学生作业打包成zip保存目录*/
+	public static String Homework_ZipFile_dir = "homeworkfiles/zipTemp/";
 	/**学生头像文件保存目录*/
 	public static String User_Icon_dir = "picture/";	
 	/**学生默认头像*/

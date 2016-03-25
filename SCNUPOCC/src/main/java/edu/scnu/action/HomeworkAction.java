@@ -3,12 +3,13 @@ package main.java.edu.scnu.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.ClassService;
 import main.java.edu.scnu.service.ExperimentService;
 import main.java.edu.scnu.service.HomeworkService;
+import main.java.edu.scnu.util.ExcelUtil;
 import main.java.edu.scnu.util.FileUtil;
 import main.java.edu.scnu.util.PoccManager;
 
@@ -56,6 +58,7 @@ public class HomeworkAction extends ActionSupport {
 	private InputStream fileInputStream;
 	//文件下载名称
 	private String filename;
+	private String homeworkZip;//作业文件压缩包
 	private Homework homework;//教师添加作业,部分属性自动装配
 	private String expID;//添加作业：实验id
 	private String classID[];//添加作业:对应班级id数组
@@ -68,6 +71,101 @@ public class HomeworkAction extends ActionSupport {
 		this.request = ServletActionContext.getRequest();
 		user = (User) request.getSession().getAttribute("User");
 		stud = "finished";
+	}
+	
+	/**
+	 * 教师导出学生完成作业excel表
+	 */
+	public String exportExcel_Homework(){
+		String name ="学生完成作业情况.xls";
+		if(stud.equals("finished")){
+			name ="已完成作业学生列表.xls";
+		}else if(stud.equals("unfinished")){
+			name ="未完成作业学生列表.xls";
+		}
+		try {
+        	filename = java.net.URLEncoder.encode(name, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("字符转码失败");
+		}
+		return "exportExcel";
+	}
+	public InputStream getExcelFile()//getExcelFile()一定要与excelFile对应，否则会出现异常
+    {
+        //查询学生列表信息
+		hwID = request.getParameter("hwID");
+		Homework homework = homeworkService.getHomeworkbyID(Integer.parseInt(hwID));//作业详情
+		//该作业已完成学生列表
+		List<HWSubmit> hwsList =  homeworkService.getfinishedHWSList(Integer.parseInt(hwID));
+		//该作业所有学生列表
+		String classID[] = homework.getClassID().split("//|");//班级数组
+		List<User> studList = new ArrayList<User>();
+		for (String s : classID) {
+			List <User> sList = classService.getStudByClassID(s);
+			if(sList!=null)studList.addAll(sList);
+		}
+		//该作业未完成学生列表
+		List<User> unfinishedStudList = new ArrayList<User>();
+		if(hwsList.size()!=0){
+			for (User user : studList) {	
+				boolean flag = true;
+				for (HWSubmit hws : hwsList) {
+					if(hws.getUser().getId()==user.getId()){//已交作业
+						flag = false;
+						break;
+					}
+				}
+				if(flag){
+					unfinishedStudList.add(user);
+				}
+			}
+		}else{
+			unfinishedStudList.addAll(studList);
+		}
+		//以上得到学生完成作业情况的list
+		String title = "学生列表";
+		String header[] = {"学号","姓名","班级","作业提交日期","分数"};//excel第一行
+		List<String[]> list = new ArrayList<String[]>();//封装每行内容信息
+		if(stud.equals("finished")){
+			list = getExcelList(list,hwsList,null);
+		}else if(stud.equals("unfinished")){
+			list = getExcelList(list,null,unfinishedStudList);
+		}else{//all
+			list = getExcelList(list,hwsList,unfinishedStudList);
+		}
+		for (String[] s : list) {
+			System.out.println(s[0]);
+		}
+        return 	ExcelUtil.writeExcel(title, header, list);
+    }
+	public List<String[]> getExcelList(List<String[]> list,List<HWSubmit> hwsList,List<User> unfinishedStudList){
+		if(hwsList!=null){
+			for(int i=0;i<hwsList.size();i++){
+				String val[] = new String[5];
+				HWSubmit hws = hwsList.get(i);
+				val[0] = hws.getUser().getLoginID();
+				val[1] = hws.getUser().getAcctName();
+				val[2] = hws.getUser().getClassID();
+				val[3] = hws.getSubmitTimeFormat();
+				val[4] = hws.getScore()+"";
+				list.add(val);
+			}
+		}
+		if(unfinishedStudList!=null){
+			for(int i=0;i<unfinishedStudList.size();i++){
+				String val[] = new String[5];
+				User user = unfinishedStudList.get(i);
+				val[0] = user.getLoginID();
+				val[1] = user.getAcctName();
+				val[2] = user.getClassID();
+				val[3] = "";
+				val[4] = "";
+				list.add(val);
+			}
+			}
+		return list;
 	}
 	
 	/**
@@ -207,12 +305,42 @@ public class HomeworkAction extends ActionSupport {
 	 * 教师添加分数
 	 */
 	public String score_Homework(){
-		for(int i=0;i<score.size();i++){
-			HWSubmit hwsubmit = homeworkService.getHWSubmitByid(Integer.parseInt(HWSubmitID.get(i)));
-			hwsubmit.setScore(Integer.parseInt(score.get(i)));
-			homeworkService.saveHWSubmit(hwsubmit);
+		if(score!=null&&score.size()!=0){
+			for(int i=0;i<score.size();i++){
+				HWSubmit hwsubmit = homeworkService.getHWSubmitByid(Integer.parseInt(HWSubmitID.get(i)));
+				hwsubmit.setScore(Integer.parseInt(score.get(i)));
+				homeworkService.saveHWSubmit(hwsubmit);
+			}
 		}
 		return "addScore";
+	}
+	/**
+	 * 教师下载作业文件
+	 */
+	public String downloadHWFiles_Homework(){
+		//该作业已完成学生列表
+		List<HWSubmit> hwsList =  homeworkService.getfinishedHWSList(Integer.parseInt(hwID));
+		List<File> fileList = new ArrayList<File>();
+		for(int i=0;i<hwsList.size();i++){
+			String fileUrl = hwsList.get(i).getFileURL();//文件保存地址
+			File file = new File(PoccManager.ROOT_DIR+fileUrl);
+			System.out.println("file.getName()="+file.getName());
+			fileList.add(file);
+		}
+		if(fileList.size()>0){
+			try {
+				Homework hw = homeworkService.getHomeworkbyID(Integer.parseInt(hwID));
+				String zipFileName = hw.getTitle()+"_"+hw.getId()+"_作业.zip";
+				FileUtil.createZip(fileList,zipFileName,PoccManager.ROOT_DIR+PoccManager.Homework_ZipFile_dir);
+				homeworkZip = URLDecoder.decode(PoccManager.Homework_ZipFile_dir+zipFileName, "utf-8");
+				System.out.println("zipFileUrl="+homeworkZip);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return "downloadFiles";
+		}else{
+			return SUCCESS;
+		}
 	}
 	/**
 	 * 显示学生作业列表
@@ -343,6 +471,9 @@ public class HomeworkAction extends ActionSupport {
 	public String getHwID() {
 		return hwID;
 	}
+	public String getHomeworkZip() {
+		return homeworkZip;
+	}
 
 	//setter
 	public void setHomeworkService(HomeworkService homeworkService) {
@@ -393,6 +524,9 @@ public class HomeworkAction extends ActionSupport {
 	}
 	public void setHWSubmitID(List<String> hWSubmitID) {
 		HWSubmitID = hWSubmitID;
+	}
+	public void setStud(String stud) {
+		this.stud = stud;
 	}
 	
 }
