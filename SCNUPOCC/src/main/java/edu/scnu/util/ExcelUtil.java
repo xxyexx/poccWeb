@@ -2,9 +2,6 @@ package main.java.edu.scnu.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -13,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.poi.EncryptedDocumentException;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -30,6 +27,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+
+@SuppressWarnings("deprecation")
 public class ExcelUtil {
 	/**
 	 * 写入excel表
@@ -54,6 +53,7 @@ public class ExcelUtil {
         style.setFont(font); //设置字体样式  
         cell.setCellStyle(style); //设置样式
         sheet.addMergedRegion(new CellRangeAddress(0,(short)0,0,(short)4));//合并列
+//        sheet.addMergedRegion(new org.apache.poi.ss.util.Region(0,(short)0,0,(short)4)); //合并列
         //构造列表头
         row = sheet.createRow(1);//创建第一行
         for(int i=0;i<header.length;i++){
@@ -131,13 +131,10 @@ public class ExcelUtil {
         		map.put(titles[i], list);
         	}						
 		} catch (EncryptedDocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		return map;		
