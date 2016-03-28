@@ -67,23 +67,25 @@
 <div class="col-md-2 col-sm-4 left-div">
   <ul class="nav nav-sidebar">
     <li>
-    	<a role="button" data-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+    	<a role="button" data-toggle="collapse" href="#collapse5" aria-expanded="false" aria-controls="collapseExample">
     	<span class='glyphicon glyphicon-stats'></span>实验用户管理
     	</a>
-	    <div class="collapse" id="collapse1">
+	    <div class="collapse" id="collapse5">
 		    <a href="member/userbatchcreateView.html" class="second_li">实验用户批量生成</a>
 	        <a href="member/userbatchrelateView.html" class="second_li">实验用户账号绑定</a>
 	        <a href="member/userbatchmanagerView.html" class="second_li">实验用户批量管理</a>
 		</div>
     </li>
     
-    <li><a role="button" data-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample">
-    	<span class='glyphicon glyphicon-lock'></span>用户权限管理
+    <li><a role="button" data-toggle="collapse" href="#collapse6" aria-expanded="false" aria-controls="collapseExample">
+    	<span class='glyphicon glyphicon-lock'></span>用户缴费管理
     	</a>
-        <div class="collapse" id="collapse2">
-		    <a  class="second_li">管理员用户管理</a>
+        <div class="collapse" id="collapse6">
+		    <a href="member/paymentpaymentView.html" class="second_li">用户缴费记录</a>
+		    <a  class="second_li">计费信息统计</a>
 		</div>
     </li>
+
     <li><a role="button" data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample">
     	<span class='glyphicon glyphicon-pencil'></span>在线仿真实验管理
     	</a>

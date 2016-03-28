@@ -31,6 +31,9 @@ public class Province {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public int getIs_using() {
+		return is_using;
+	}
 	public void setIs_using(int is_using) {
 		this.is_using = is_using;
 	}

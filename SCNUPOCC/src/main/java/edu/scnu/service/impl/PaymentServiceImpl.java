@@ -17,9 +17,28 @@ import main.java.edu.scnu.service.PaymentService;
 @Transactional(propagation=Propagation.REQUIRED,
 	isolation=Isolation.DEFAULT,timeout=5)
 public class PaymentServiceImpl implements PaymentService {
-
+	
 	@Resource(name="paymentDao")
 	PaymentDao paymentDao;
+	
+	@Override
+	public Payment getPayment(int id){
+		return paymentDao.get(Payment.class, id);
+	}
+	
+	@Override
+	public boolean updatePayment(Payment payment) {
+		// TODO Auto-generated method stub
+		paymentDao.update(payment);
+		return true;
+	}
+
+	@Override
+	public boolean deletePayment(int id) {
+		Payment payment = paymentDao.get(Payment.class, id);
+		paymentDao.delete(payment);
+		return false;
+	}
 	
 	@Override
 	public Page<Payment> getPaymentPage(Payment modelPayment,
@@ -27,5 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
 		// TODO Auto-generated method stub
 		return paymentDao.findPage(modelPayment, modelPage);
 	}
+
+
 
 }

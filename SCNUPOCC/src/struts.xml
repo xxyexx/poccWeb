@@ -190,6 +190,9 @@
 			<result name="relateView">/html/memberJSP/cashier/relateuser.jsp</result>
 			<result name="managerView">/html/memberJSP/cashier/manageuser.jsp</result>	
 		</action>		
+		<action name="payment*" class="paymentAction" method="{1}">
+			<result name="paymentView">/html/memberJSP/cashier/payment.jsp</result>
+		</action>
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
 		</action>

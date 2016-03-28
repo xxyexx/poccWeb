@@ -68,8 +68,7 @@ public class UserBatchAction extends ActionSupport{
 		this.request = ServletActionContext.getRequest();
 	}
 	
-	public String create(){
-		
+	public String create(){		
 		School school = this.getSchool(schoolID);		
 		Dept dept = this.getDept(deptID);
 		String did = StringUtil.getStr2(dept.getDeptID());
