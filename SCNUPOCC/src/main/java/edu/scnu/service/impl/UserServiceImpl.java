@@ -1,5 +1,7 @@
 ﻿package main.java.edu.scnu.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -57,7 +59,16 @@ public class UserServiceImpl implements UserService{
 		return true;
 	}
 	
-
+	@Override
+	public boolean deleteUsers(List<String> idList) {
+		// TODO Auto-generated method stub
+		for (String s:idList){
+			int id = Integer.valueOf(s);
+			User user = userDao.get(User.class, id);
+			userDao.delete(user);
+		}
+		return true;
+	}
 
 	@Override
 	@Transactional(readOnly=true)
@@ -85,6 +96,7 @@ public class UserServiceImpl implements UserService{
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+
 
 	
 

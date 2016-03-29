@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import main.java.edu.scnu.dao.MemberDao;
 import main.java.edu.scnu.entity.Member;
+import main.java.edu.scnu.entity.Page;
 
 @Repository(value="memberDao")
 public class MemberDaoImpl extends BaseDaoImpl<Member> 
@@ -20,5 +21,12 @@ public class MemberDaoImpl extends BaseDaoImpl<Member>
 		}else{
 			return null;
 		}
+	}
+
+	@Override
+	public Page<Member> getMemberPage(Member member, Page<Member> page) {
+		Page<Member> result = page;
+		result.setList(findAll(Member.class));
+		return result;
 	}
 }

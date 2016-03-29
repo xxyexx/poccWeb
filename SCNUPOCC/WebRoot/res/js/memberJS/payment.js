@@ -23,6 +23,6 @@
 	
 //新增记录
 	function update(){
-		$("form").attr("action","member/paymentupdate.html");
-		$("form").submit();
+		$("#form").attr("action","member/paymentupdate.html");
+		$("#form").submit();
 	}

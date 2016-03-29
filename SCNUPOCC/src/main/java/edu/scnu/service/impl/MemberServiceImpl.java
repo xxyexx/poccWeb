@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import main.java.edu.scnu.dao.MemberDao;
 import main.java.edu.scnu.entity.Member;
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.service.MemberService;
 import main.java.edu.scnu.util.MD5Util;
 
@@ -43,6 +44,31 @@ public class MemberServiceImpl implements MemberService {
 		Member member = null;
 		member = memberDao.findByLoginID(longinID);
 		return member;
+	}
+	
+	@Override
+	public Member getMember(int id){
+		Member member = null;
+		member = memberDao.get(Member.class, id);
+		return member;
+	}
+
+	@Override
+	public boolean update(Member member) {
+		memberDao.update(member);
+		return true;
+	}
+
+	@Override
+	public Page<Member> getMemberPage(Member memberModel, Page<Member> pageModel) {
+		return memberDao.getMemberPage(memberModel, pageModel);
+	}
+
+	@Override
+	public boolean delete(int id) {
+		Member member = memberDao.get(Member.class, id);
+		memberDao.delete(member);
+		return true;
 	}
 
 }

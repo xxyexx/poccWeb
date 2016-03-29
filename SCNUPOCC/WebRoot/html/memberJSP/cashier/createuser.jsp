@@ -372,39 +372,60 @@ body {
   				<input id="unit" type="hidden">
   					<label class="col-md-4 control-label"><h5><small><em>开始时间(年/月)：</em></small></h5></label>
   					<div class="col-md-8">
-  						<input id="startTime" value="2016/01" class="form-control time">
+  						<input name="rentDate1" value="2016/01" class="form-control time">
   						<small id="startTimetTip"></small>
   					</div>	
   				</div>
   				<div class="form-group">
   					<label class="col-md-4 control-label"><h5><small><em>到期时间(年/月)：</em></small></h5></label>
   					<div class="col-md-8">
-  						<input id="endTime" value="2016/06" class="form-control time">
+  						<input name="rentDate2" value="2016/06" class="form-control time">
   						<small id="endTimeTip"></small>
   					</div>	
   				</div>
    	 			<div class="form-group">
-   	 				<label class="col-md-4 control-label"><h5><small><em>租期费用（元）：</em></small></h5></label>
+   	 				<label class="col-md-4 control-label"><h5><small><em>基本月租：</em></small></h5></label>
    	 				<div class="col-md-6">
-   	 					<input id="step3b" type="text" class="form-control" placeholder="大于0">
-   	 					<small id="tip3b"></small>
+   	 					<select class="form-control" name="monthlyRent">
+   	 						<option value="10">10元</option>
+   	 						<option value="15">15元</option>
+   	 						<option value="20">20元</option>
+   	 					</select>
   					</div>	
   				</div>	
   				<div class="form-group">
-  					<label class="col-md-3 control-label"><h5><small><em>初始密码：</em></small></h5></label>
-   	 				<div class="col-md-8">
-   	 					<input id="password1" type="text" class="form-control" placeholder="6~25个字母、数字或下划线">
-   	 					<small></small>
-  					</div>	
-  				</div>
+					<label class="col-md-4 control-label"><h5><small><em>优惠类型：</em></small></h5></label>
+  					<div class="col-md-5" style="margin-top: 10px;">
+ 						<label class="radio-inline radio_option">
+  							<input type="radio" name="couponType" value="no" checked>无优惠 
+						</label>	
+					</div>
+			<div class="col-md-8 col-md-offset-4">			
+				<label class="radio-inline radio_option col-md-5">
+  				<input type="radio" name="couponType" value="discount">
+  				折扣优惠
+  					</label>
+  				<select style="width: 105px" name="discount" class="form-control col-md-2">
+  					<option value="90">九折</option>
+  					<option value="85">八五折</option>
+  					<option value="70">七折</option>
+  					</select>
+  				</div> 	
+  			<div class="col-md-8 col-md-offset-4">
+				<label class="radio-inline radio_option col-md-5">
+  				<input type="radio" name="couponType" value="moreMonth"> 
+  				赠送月份
+				</label>
+				<select style="width: 105px" name="moreMonth" class="form-control col-md-2">
+  					<option selected = "selected" value="1">一个月</option>
+  					<option value="2">两个月</option>
+  					<option value="3">三个月</option>
+  					</select>
+				</div>								
+ 		</div> 	
+
   				
-  				<div class="form-group">	
-  					<label class="col-md-3 control-label"><h5><small><em>确认密码：</em></small></h5></label>
-   	 				<div class="col-md-8">	
-   	 					<input id="password2" type="text" class="form-control" placeholder="再次输入密码">
-   	 					<small id="tip3d"></small>
-					</div>	
-				</div>
+
 				</div>
 			</div>
 			

@@ -114,7 +114,7 @@ body {
 	    	</div>
 	    	<button type="submit" class="btn btn-info">查询</button>
 	    </form>
-	    
+	    <form id="tform" method="post">
 	    	 <table class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
 	    		<thead>
 	    	 		<tr>
@@ -126,7 +126,7 @@ body {
 	    	 			<th>
 						<a><span style="font-size: large;"></span></a>
 						</th><th>
-						<button class="btn btn-danger btn-xs"><span
+						<button onclick="batchdelete()" class="btn btn-danger btn-xs"><span
 						class="glyphicon glyphicon-trash"></span></button>
 						</th><th>
 						<input type="checkbox">
@@ -148,13 +148,13 @@ body {
 						<button class="btn btn-danger btn-xs" type="button">
 						<span class="glyphicon glyphicon-trash"></span></button>
 						</td><td>
-						<input type="checkbox">
+						<input name="uid" type="checkbox" value="${user.id}">
 						</td>   	 			
 	    	 		</tr>
 	    	 		</s:iterator>
 	    	 	</tbody>
 	    	 </table>	    
-	    
+	    </form>
 	    
 
 	</div>

@@ -103,14 +103,45 @@ body {
 		    <a><span class="glyphicon glyphicon-blackboard"></span>
 		       <span>&nbsp;&nbsp;用户缴费管理</span>
 		    </a>
-		    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-	新增记录
-</button>
+		    
 	    </div>
-	    <div style="margin-left: 0px;width: 1000px;height: 715px;">
-		
-		</div>
-
+	    <table class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
+	    		<thead>
+	    	 		<tr>
+	    	 			<th>登录账号</th>
+	    	 			<th>姓名</th>
+	    	 			<th>管理员类型</th>
+	    	 			<th>电话</th>
+	    	 			<th>电子邮箱</th>
+	    	 		</tr>
+	    	 	</thead>
+	    	 	<tbody>	  
+	    	 		<s:iterator value="#request.paymentPage.list" var="payment">	
+	    	 		<tr>
+	    	 			<td style="display: none;">${payment.id}</td>
+	    	 			<td>${payment.acctID}</td>
+	    	 			<td>${payment.payDate}</td>
+	    	 			<td>${payment.amount}</td>		 			
+	    	 			<td>${payment.rentDate1}</td>
+	    	 			<td>${payment.rentDate2}</td>
+	    	 			<td>${payment.quantity}</td>
+	    	 			<td>${payment.coupon}</td>
+	    	 			<td>${payment.discount}</td>
+	    	 			<td>${payment.moreMonth}</td>
+	    	 			<td>
+						<button onclick="edit(this)" class="btn btn-primary btn-xs" type="button">							
+						<span class="glyphicon glyphicon-search"></span></button>
+						</td><td>
+						<button onclick="deletemember(${member.id})" class="btn btn-danger btn-xs" type="button">
+						<span class="glyphicon glyphicon-trash"></span></button>
+						</td>  	 			
+	    	 		</tr>
+	    	 		</s:iterator>
+	    	 	</tbody>
+	    	 </table>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+				新增记录
+			</button>
 	</div>
 	<!-- 右边内容区域..-->
 	<!-- Button trigger modal -->
@@ -178,7 +209,7 @@ body {
   				折扣优惠
   					</label>
   				<select style="width: 105px" name="discount" class="form-control col-md-2">
-  					<option selected = "selected" value="90">九折</option>
+  					<option value="90">九折</option>
   					<option value="85">八五折</option>
   					<option value="70">七折</option>
   					</select>
@@ -193,8 +224,7 @@ body {
   					<option value="2">两个月</option>
   					<option value="3">三个月</option>
   					</select>
-				</div>
-								
+				</div>								
  		</div> 	
  		<div class="form-group">
  			<label class="col-md-3 control-label">备注：</label>

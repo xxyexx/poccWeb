@@ -32,6 +32,14 @@
 		<action name="verifyLogin" class="verifyLoginAction" method="doValidate">
 			<result name="success" type="json"></result>
 		</action>
+		<action name="DownloadFile" class="downloadFileAction">
+			<result type="stream">
+				<param name="inputName">fileInputStream</param>
+				<param name="contentDisposition">attachment;filename="${filename}"</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="buffersize">1024</param>
+			</result>
+		</action>
 	</package>
 	<!-- User外部用户登录退出 -->
 	<package name="userPackage" extends="struts-default,json-default">
@@ -160,6 +168,16 @@
 			<result type="redirectAction">homework</result>
 			<result name="checkHomework">/html/userJSP/teacher/checkHomework.jsp</result>
 			<result name="addScore" type="redirectAction">checkHomework.html?hwID=${hwID}</result>
+			<result name="downloadFiles" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="encode">true</param>
+				<param name="actionName">DownloadFile?filePath=${homeworkZip}</param>
+			</result>
+			<result name="exportExcel" type="stream">
+			 	 <param name="contentType">application/vnd.ms-excel</param>
+                 <param name="contentDisposition">attachment;filename="${filename}"</param>
+                 <param name="inputName">excelFile</param>
+			</result>
 		</action>		
 		<action name="*Experiment" class="experimentAction" method="{1}_Experiment">
 			<result type="redirectAction">
@@ -167,7 +185,17 @@
 				<param name="actionName">experiment</param>
 			</result>
 		</action>
-	</package>
+		<action name="homework" class="homeworkAction" method="show_TeacherHW">
+			<result>/html/userJSP/teacher/homeworkManager.jsp</result>
+		</action>
+		<action name="classes">
+			<result>/html/userJSP/teacher/classManager.jsp</result>
+		</action>
+		<action name="resources">
+			<result>/html/userJSP/teacher/resources.jsp</result>
+		</action>
+	</package>	
+	
 	<!-- 内部用户 -->
 	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
 		<action name="login" >
@@ -175,6 +203,7 @@
 		</action>		
 		<action name="member*" class="memberAction" method="{1}">
 			<result name="success" type="json"></result>
+			<result name="createView">/html/memberJSP/admin/createmember.jsp</result>
 		</action>		
 		<action name="province*" class="provinceAction" method="{1}">
 			<result name="getSchool" type="json">
@@ -183,7 +212,7 @@
 			<result name="getDept" type="json">
 				<param name="root">deptMap</param>
 			</result>
-		</action>	
+		</action>
 		<action name="userbatch*" class="userBatchAction" method="{1}">
 			<result name="success">/html/memberJSP/cashier/createuser.jsp</result>
 			<result name="createView">/html/memberJSP/cashier/createuser.jsp</result>
@@ -192,6 +221,9 @@
 		</action>		
 		<action name="payment*" class="paymentAction" method="{1}">
 			<result name="paymentView">/html/memberJSP/cashier/payment.jsp</result>
+		</action>
+		<action name="config*" class="configAction" method="{1}">
+			<result name="view">/html/memberJSP/admin/setconfig.jsp</result>
 		</action>
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 

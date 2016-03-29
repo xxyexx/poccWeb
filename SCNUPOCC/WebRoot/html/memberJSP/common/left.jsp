@@ -87,10 +87,12 @@
     </li>
 
     <li><a role="button" data-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample">
-    	<span class='glyphicon glyphicon-pencil'></span>在线仿真实验管理
+    	<span class='glyphicon glyphicon-pencil'></span>系统管理
     	</a>
         <div class="collapse" id="collapse3">
-		    <a href="member/template.html" class="second_li">查看在线实验用户的列表</a>
+		    <a href="member/membercreateView.html" class="second_li">网站会员管理</a>
+		    <a href="member/configview.html" class="second_li">优惠类型和策略</a>
+		    
 		</div>
     </li>
     

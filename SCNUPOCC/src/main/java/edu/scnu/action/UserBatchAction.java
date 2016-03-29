@@ -53,10 +53,19 @@ public class UserBatchAction extends ActionSupport{
 	private String userType;//用户类型（student,teacher,manager）
 	
 	//计费信息
+	private int monthlyRent;//基本月租
+	private String rentDate1;//起始时间
+	private String rentDate2;//结束时间
+	private String couponType;//优惠类型
+	private int discount;//折扣
+	private int moreMonth;//赠送月份
 	
 	//excel文件
 	private File excelFile;
+	private List<String> uid;
 	
+	
+
 	//Service
 	@Resource(name="userService")
 	private UserService userService;
@@ -68,27 +77,56 @@ public class UserBatchAction extends ActionSupport{
 		this.request = ServletActionContext.getRequest();
 	}
 	
-	public String create(){		
+	public String create(){
+		if (schoolID<=0) return SUCCESS;
 		School school = this.getSchool(schoolID);		
 		Dept dept = this.getDept(deptID);
 		String did = StringUtil.getStr2(dept.getDeptID());
 		
-		//生成模板用户
+		//生成模板用户		
 		User user = new User();
+		//用户账号信息
 		user.setAcctTag(school.getSchoolName());
 		user.setAcctType(dept.getDeptName());
 		user.setUserType("student");
 		user.setPasswd("");		
 		user.setAcctID("");
-		user.setAcctName("");		
+		user.setAcctName("");
+		//计费信息
+		user.setRentDate1(DateUtil.getDateByMonth(rentDate1));
+		user.setRentDate2(DateUtil.getDateByMonth(rentDate2));
+		user.setMonthlyRent((double)monthlyRent);
+		if ("discount".equals(this.couponType)){
+			//折扣优惠
+			user.setCouponType("discount");
+			user.setDiscount(discount);
+			user.setMoreMonth(0);
+		}else if("moreMonth".equals(this.couponType)){
+			//赠送月份
+			user.setCouponType("moreMonth");
+			user.setDiscount(100);
+			user.setMoreMonth(moreMonth);
+		}else if("free".equals(this.couponType)){
+			//免费账号
+			user.setCouponType("free");
+			user.setDiscount(100);
+			user.setMoreMonth(0);
+		}else{
+			//无优惠
+			user.setCouponType("discount");
+			user.setDiscount(100);
+			user.setMoreMonth(0);
+		}
+		//锁定状态
 		user.setPayTag(0);
 		user.setLockTag(1);
+		
 		//生成用户
 		userService.createUser(user, school.getSchoolID(), did, first, num);
 		
 		//生成院校管理员
 		String result = userService.checkLogin(school.getSchoolID().toLowerCase(), "123");
-		if ("inexistence".equals(result)){
+		if ("inexistence".equals(result)&&school.getId()>0){
 			//如果院校管理员不存在，则生成
 			User manager = new User();
 			manager.setAcctID(school.getSchoolID()+"01"+DateUtil.getYear4()+"0001");
@@ -104,6 +142,17 @@ public class UserBatchAction extends ActionSupport{
 		return SUCCESS;		
 	}
 
+	public String delete(){
+		
+		
+		
+			userService.deleteUsers(uid);
+		
+		
+		
+		return managerView();
+	} 
+	
 	public String uploadfile(){
 		
 		try {
@@ -192,7 +241,10 @@ public class UserBatchAction extends ActionSupport{
 		user.setAcctTag(school.getSchoolName());
 		user.setAcctType(dept.getDeptName());
 		user.setUserType("student");
-		Page<User> userPage = userService.getUserPage(user, page);
+		Page<User> userPage = null;
+		if (school.getId()>0){
+			userPage = userService.getUserPage(user, page);
+		}
 		request.setAttribute("userPage", userPage);
 		request.setAttribute("schoolID", schoolID);
 		request.setAttribute("deptID", deptID);
@@ -209,8 +261,11 @@ public class UserBatchAction extends ActionSupport{
 		Dept dept = this.getDept(deptID);
 		user.setAcctTag(school.getSchoolName());
 		user.setAcctType(dept.getDeptName());
-		Page<User> page = new Page<User>(0);		
-		Page<User> userPage = userService.getUserPage(user, page);
+		Page<User> page = new Page<User>(0);
+		Page<User> userPage = null;
+		if (school.getId()>0){
+			userPage = userService.getUserPage(user, page);
+		}
 		request.setAttribute("userPage", userPage);
 //		System.out.println(this.schoolID);
 //		System.out.println(this.deptID);
@@ -218,7 +273,6 @@ public class UserBatchAction extends ActionSupport{
 	}
 	
 	private School getSchool(int schoolID){
-		//TODO
 		School school = provinceService.getSchool(schoolID);
 		if (school==null){
 			school = new School();
@@ -260,6 +314,33 @@ public class UserBatchAction extends ActionSupport{
 		this.userType = userType;
 	}
 
+	public void setMonthlyRent(int monthlyRent) {
+		this.monthlyRent = monthlyRent;
+	}
+
+	public void setRentDate1(String rentDate1) {
+		this.rentDate1 = rentDate1;
+	}
+
+	public void setRentDate2(String rentDate2) {
+		this.rentDate2 = rentDate2;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public void setMoreMonth(int moreMonth) {
+		this.moreMonth = moreMonth;
+	}
+	
+	public void setCouponType(String couponType) {
+		this.couponType = couponType;
+	}
+
+	public void setUid(List<String> uid) {
+		this.uid = uid;
+	}
 
 	
 }

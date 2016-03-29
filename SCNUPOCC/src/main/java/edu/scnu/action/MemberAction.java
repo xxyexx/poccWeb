@@ -5,8 +5,11 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import main.java.edu.scnu.entity.Member;
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.MemberService;
+import main.java.edu.scnu.util.MD5Util;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -19,15 +22,61 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class MemberAction extends ActionSupport{
 	
+	private int id;
 	private String loginId;
-	private String password;	
+	private String password;
 	/**用户类型:平台管理员(admin),操作员(cashier),平台会员(member)*/
 	private String memberType;
+	private String memberName;
+	private String mobile;
+	private String email;
 	private String result;	
+	
 	@Resource(name="memberService")
 	private MemberService memberService;	
 	private HttpServletRequest request;
 	
+	public String create(){
+		Member member = new Member();
+		member.setLoginID(loginId);
+		member.setPasswd(MD5Util.md5Encode(password));
+		member.setMemberType(memberType);
+		member.setMemberName(memberName);
+		member.setMobile(mobile);
+		member.setEmail(email);
+		member.setCreateTime(new Date());
+		memberService.update(member);
+		return createView();		
+	}
+	
+	public String update(){
+		Member member = memberService.getMember(this.id);
+		member.setLoginID(loginId);
+		if (this.password!=null&&!"".equals(this.password)){
+			member.setPasswd(MD5Util.md5Encode(password));
+		}		
+		member.setMemberType(memberType);
+		member.setMemberName(memberName);
+		member.setMobile(mobile);
+		member.setEmail(email);
+		memberService.update(member);
+		return createView();	
+	}
+	
+	public String createView(){
+		Page<Member> memberPage = new Page<Member>(0);
+		memberPage.setPageSize(1000);
+		Member member = new Member();
+		memberPage = memberService.getMemberPage(member, memberPage);
+		request.setAttribute("memberPage",memberPage);
+		memberPage.getList().size();
+		return "createView";
+	}
+	
+	public String delete(){
+		memberService.delete(this.id);
+		return createView();
+	}
 	
 	//内部用户登录
 	public String login(){
@@ -54,7 +103,10 @@ public class MemberAction extends ActionSupport{
 			}   
 			
 			Date loginTime=new Date();
-//			member.setLastLoginIP(ip);
+			Member member = memberService.getMember(loginId);
+			member.setLastLoingIP(ip);
+			member.setLastLoginTime(loginTime);
+			request.getSession().setAttribute("Member", member);
 //			user.setLastLoginTime(loginTime);
 //			userService.updateUser(user);
 		}
@@ -74,6 +126,10 @@ public class MemberAction extends ActionSupport{
 	}
 
 	//setter
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
@@ -96,6 +152,20 @@ public class MemberAction extends ActionSupport{
 
 	public MemberAction(){
 		this.request = ServletActionContext.getRequest();
+	}
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 

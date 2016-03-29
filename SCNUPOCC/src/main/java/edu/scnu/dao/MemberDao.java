@@ -1,6 +1,7 @@
 package main.java.edu.scnu.dao;
 
 import main.java.edu.scnu.entity.Member;
+import main.java.edu.scnu.entity.Page;
 
 public interface MemberDao extends BaseDao<Member>{
 	
@@ -9,5 +10,13 @@ public interface MemberDao extends BaseDao<Member>{
 	 * @param loginID 登录账号
 	 * @return Member 返回该用户
 	 */
-	Member findByLoginID(String loginID);
+	public Member findByLoginID(String loginID);
+	
+	/**
+	 * 返回会员列表
+	 * @param member
+	 * @param page
+	 * @return
+	 */
+	public Page<Member> getMemberPage(Member member,Page<Member> page);
 }

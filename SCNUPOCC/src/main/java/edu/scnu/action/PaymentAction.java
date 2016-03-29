@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.Payment;
 import main.java.edu.scnu.service.PaymentService;
 import main.java.edu.scnu.util.DateUtil;
@@ -60,10 +61,16 @@ public class PaymentAction extends ActionSupport {
 		payment.setOpTime(new Date());
 		payment.setMemo(this.memo);
 		paymentService.updatePayment(payment);
-		return "paymentView";		
+		return paymentView();		
 	}
 	
 	public String paymentView(){
+		
+		Page<Payment> paymentPage = new Page<Payment>(0);
+		Payment payment = new Payment();
+		paymentPage.setPageSize(100);
+		paymentPage = paymentService.getPaymentPage(payment, paymentPage);
+		request.setAttribute("paymentPage", paymentPage);
 		return "paymentView";
 		
 	}

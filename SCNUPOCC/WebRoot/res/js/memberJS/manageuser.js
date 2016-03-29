@@ -65,3 +65,9 @@
 		}
 		return jsonLength;
 	}
+	
+	//	批量删除
+	function batchdelete(){
+		$("#tform").attr("action","member/userbatchdelete.html");
+		$("#tform").submit();
+	}

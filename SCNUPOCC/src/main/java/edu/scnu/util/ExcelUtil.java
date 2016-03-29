@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.EncryptedDocumentException;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -20,6 +19,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.CellRangeAddress;
+
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,7 +37,6 @@ public class ExcelUtil {
 	 * @param list List<String[]>
 	 * @return InputStream 
 	 */
-	@SuppressWarnings("deprecation")
 	public static InputStream writeExcel(String title,String []header,List<String[]> list){
 		//构建excel表格
 		HSSFWorkbook workbook = new HSSFWorkbook();

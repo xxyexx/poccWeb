@@ -203,6 +203,7 @@
 		</action>		
 		<action name="member*" class="memberAction" method="{1}">
 			<result name="success" type="json"></result>
+			<result name="createView">/html/memberJSP/admin/createmember.jsp</result>
 		</action>		
 		<action name="province*" class="provinceAction" method="{1}">
 			<result name="getSchool" type="json">
@@ -211,7 +212,7 @@
 			<result name="getDept" type="json">
 				<param name="root">deptMap</param>
 			</result>
-		</action>	
+		</action>
 		<action name="userbatch*" class="userBatchAction" method="{1}">
 			<result name="success">/html/memberJSP/cashier/createuser.jsp</result>
 			<result name="createView">/html/memberJSP/cashier/createuser.jsp</result>
@@ -220,6 +221,9 @@
 		</action>		
 		<action name="payment*" class="paymentAction" method="{1}">
 			<result name="paymentView">/html/memberJSP/cashier/payment.jsp</result>
+		</action>
+		<action name="config*" class="configAction" method="{1}">
+			<result name="view">/html/memberJSP/admin/setconfig.jsp</result>
 		</action>
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
