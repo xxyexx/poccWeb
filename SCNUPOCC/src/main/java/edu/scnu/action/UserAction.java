@@ -74,8 +74,8 @@ public class UserAction extends ActionSupport {
 			request.getSession().setAttribute("User", user);
 			if(user.getUserType().equals("student")){
 				Query_HWNum(user.getClassID()+"",user.getAcctID());
-				Query_MsgNum(user);
 			}
+			Query_MsgNum(user);
 		}
 
 		return SUCCESS;

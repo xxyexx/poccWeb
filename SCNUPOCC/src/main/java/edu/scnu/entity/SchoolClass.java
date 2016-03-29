@@ -1,5 +1,6 @@
 package main.java.edu.scnu.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,9 @@ public class SchoolClass {
 	private int id;
 	private String teacherID_acctID;//教师ID
 	private String className;//班级名称
-	private String desc;//班级说明
-	private int totalStudents;//班级人数
+	private String scdesc;//班级说明
+	private int totalStudents;//班级人数上限
+	private int currentStudents;//班级真实人数
 	private Date createDate;//创建班级时间
 	
 	public int getId() {
@@ -39,13 +41,13 @@ public class SchoolClass {
 		return className;
 	}
 	public void setClassName(String className) {
-		this.className = className;
+		this.className = className.trim();
 	}
-	public String getDesc() {
-		return desc;
+	public String getScdesc() {
+		return scdesc;
 	}
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setScdesc(String scdesc) {
+		this.scdesc = scdesc.trim();
 	}
 	public int getTotalStudents() {
 		return totalStudents;
@@ -56,8 +58,18 @@ public class SchoolClass {
 	public Date getCreateDate() {
 		return createDate;
 	}
+	public String getCreateDateFormat() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(createDate);
+	}
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+	public int getCurrentStudents() {
+		return currentStudents;
+	}
+	public void setCurrentStudents(int currentStudents) {
+		this.currentStudents = currentStudents;
 	}
 	
 }

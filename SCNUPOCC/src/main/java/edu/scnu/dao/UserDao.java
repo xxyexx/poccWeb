@@ -28,5 +28,11 @@ public interface UserDao extends BaseDao<User>{
 	 * @return user list
 	 */
 	List<User> findByClassID(String classID);
+	/**
+	 * 根据学校和学院名称查询所有学生
+	 * @param deptName
+	 * @return
+	 */
+	List<User> findByDeptName(String schoolName,String deptName);
 
 }

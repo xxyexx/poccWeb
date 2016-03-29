@@ -46,8 +46,8 @@ public class ProvinceServiceImpl implements ProvinceService{
 	public Map<String, String> getDeptMap(int schoolID) {
 		Map<String, String> deptMap = new HashMap<String, String>();
 		List<Dept> deptList = deptDao.findBySchoolID(schoolID);
-		for (Dept dept : deptList) {
-			deptMap.put(String.valueOf(dept.getId()), dept.getDeptName());
+		for(int i=0;i<deptList.size();i++){
+			deptMap.put(String.valueOf(deptList.get(i).getId()), deptList.get(i).getDeptName());
 		}
 		return deptMap;
 	}
@@ -71,7 +71,21 @@ public class ProvinceServiceImpl implements ProvinceService{
 	public Dept getDept(int deptID){
 		return deptDao.get(Dept.class, deptID);
 	}
-
+	@Override
+	@Transactional(readOnly=true)
+	public Map<String, String> getDeptMapBySchool(String schoolName) {
+		//获取学校id
+		int schoolID = schoolDao.findSchoolByName(schoolName).getId();
+		return getDeptMap(schoolID);
+	}
+	@Override
+	@Transactional(readOnly=true)
+	public Dept getDeptBydeptname(String schoolname, String deptname) {
+		//获取学校id
+		School school = schoolDao.findSchoolByName(schoolname);
+		return deptDao.findByDeptName(school, deptname);
+	}
+	
 	//getter,setter
 	public ProvinceDao getProvinceDao() {
 		return provinceDao;
@@ -79,5 +93,4 @@ public class ProvinceServiceImpl implements ProvinceService{
 	public void setProvinceDao(ProvinceDao provinceDao) {
 		this.provinceDao = provinceDao;
 	}
-	
 }

@@ -23,5 +23,15 @@ public class SchoolDaoImpl extends BaseDaoImpl<School>
 		return find(hql, provinceName);
 	}
 
-	
+	@Override
+	public School findSchoolByName(String schoolName) {
+		String hql = "select s from school s where s.schoolName = ?";
+		List<School> schoolList = find(hql, schoolName);
+		if(schoolList!=null&&schoolList.size()!=0){
+			return schoolList.get(0);
+		}else{
+			return null;	
+		}
+	}
+
 }

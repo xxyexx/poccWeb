@@ -17,5 +17,10 @@ public interface SchoolDao extends BaseDao<School>{
 	 * @return schoolList
 	 */
 	List<School> findByProvinceName(String provinceName);
-	
+	/**
+	 * 根据学校名查询该学校
+	 * @param schoolName
+	 * @return School
+	 */
+	School findSchoolByName(String schoolName);
 }

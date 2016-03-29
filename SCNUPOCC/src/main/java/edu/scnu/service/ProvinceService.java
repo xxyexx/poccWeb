@@ -22,6 +22,12 @@ public interface ProvinceService {
 	 * @return Map:key(学院ID)value(学院)
 	 */
 	Map<String, String> getDeptMap(int schoolID);
+	/**
+	 * 根据学校名称获取该学校所有学院
+	 * @param schoolName user.acctTag
+	 * @return Map:key(学院ID)value(学院)
+	 */
+	Map<String, String> getDeptMapBySchool(String schoolName);
 	
 	/**
 	 * 根据学校ID获取该学校
@@ -36,4 +42,10 @@ public interface ProvinceService {
 	 * @return
 	 */
 	Dept getDept(int deptID);
+	/**
+	 * 根据学校名和学院名获取该学院
+	 * @param deptname
+	 * @return
+	 */
+	Dept getDeptBydeptname(String schoolname,String deptname);
 }

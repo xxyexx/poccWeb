@@ -43,6 +43,7 @@ body{
 	padding-top:80px;
 	padding-left:50px;
 	padding-right:100px;
+	overflow: hidden;
 }
 .leftpart {
 	min-height: 300px;
@@ -215,10 +216,38 @@ li.active>a{
 	</div>
    <!-- 发送信息 -->
    <div role="tabpanel" class="tab-pane" id="sendmail">
-    	 <div class="boxtitle"><h4><b>发送信息</b></h4></div>
-		 
+      <form action="" class="form-horizontal" method="post">
+    	<div class="boxtitle"><h4><b>发送信息</b></h4></div><br>
+   		<div class="form-group col-md-12">
+    	<label for="title" class="col-sm-3 control-label">输入标题</label>
+    	<div class="col-sm-6">
+     	     <input name="siteMsg.title" type="text" required="required" class="form-control" id="title" placeholder="标题">
+   	    </div>
+  	    </div><br>
+	    <div class="form-group col-md-12">
+    	<label for="text" class="col-sm-3 control-label">输入消息正文</label>
+    	<div class="col-sm-6">
+     	    <textarea name="siteMsg.title" rows="3" class="form-control" placeholder="请输入消息正文" maxlength="300"></textarea>
+   	    </div>
+  	    </div><br>
+	    <div class="form-group col-md-12">
+    	<label for="type" class="col-sm-3 control-label">消息类型</label>
+    	<div class="col-sm-6">
+		<select name="siteMsg.isPublic" id="type" class="form-control">
+			<option value="0" selected="selected">消息</option>
+			<option value="1">公告</option>
+		</select>
+		</div>
+  	    </div><br>	
+  	   	<div class="form-group col-md-12">
+  	   	<label for="saveinfo" class="col-sm-3 control-label"></label>
+    	<div class="col-sm-6">
+     	 	<input type="submit" class="btn btn-primary col-sm-12" id="saveinfo" value="发&nbsp;&nbsp;送">
+   	    </div> 
+  	    </div><hr>	  	 
+  	    </form>	
 		<!-- 发送信息 END -->
-	</div>	
+	</div>
   </div>	
 </div>
 

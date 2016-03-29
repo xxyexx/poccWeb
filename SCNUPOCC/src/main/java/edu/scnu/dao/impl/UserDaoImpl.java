@@ -66,4 +66,11 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 		return userList;
 	}
 
+	@Override
+	public List<User> findByDeptName(String schoolName, String deptName) {
+		String hql = "select u from user u where u.acctTag = ? and u.acctType = ?";
+		Object params[] = {schoolName,deptName};
+		return find(hql, params);
+	}
+
 }

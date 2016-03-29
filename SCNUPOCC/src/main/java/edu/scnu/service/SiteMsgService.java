@@ -34,4 +34,9 @@ public interface SiteMsgService {
 	 * @return
 	 */
 	List<SiteMsg> getPublicMsg(User user);
+	/**
+	 * 发送消息（公告）
+	 * @param siteMsg
+	 */
+	void sendMsg(SiteMsg siteMsg);
 }

@@ -201,7 +201,8 @@ public class HomeworkAction extends ActionSupport {
 		String classid = StringUtils.join(classID, "|");
 		int totalStudNum = 0;
 		for (String id : classID) {
-			totalStudNum += classService.getSchoolClassByid(Integer.parseInt(id)).getTotalStudents();
+			//应交人数为班级真实人数之和CurrentStudents,
+			totalStudNum += classService.getSchoolClassByid(Integer.parseInt(id)).getCurrentStudents();
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import main.java.edu.scnu.util.PoccManager;
+
 import org.apache.struts2.json.annotations.JSON;
 
 import java.text.SimpleDateFormat;
@@ -53,7 +55,7 @@ public class User {
 
 	public User(){
 		this.setCreateDate(new Date());
-		this.setIconURL("res/images/UserDefaultPic3.jpg");
+		this.setIconURL(PoccManager.User_Icon_dir);
 		this.discount = 100;
 		this.payTag = 0;
 		this.lockTag = 1;
@@ -209,6 +211,10 @@ public class User {
 	}
 	public Date getLastLoginTime() {
 		return lastLoginTime;
+	}
+	public String getLastLoginTimeFormat() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(lastLoginTime);
 	}
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;

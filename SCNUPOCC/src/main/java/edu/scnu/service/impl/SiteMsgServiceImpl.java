@@ -82,11 +82,14 @@ public class SiteMsgServiceImpl implements SiteMsgService{
 		}
 		return list;
 	}
-
+	@Override
+	public void sendMsg(SiteMsg siteMsg) {
+		siteMsgDao.update(siteMsg);
+	}
+	
 	//setter
 	public void setSiteMsgDao(SiteMsgDao siteMsgDao) {
 		this.siteMsgDao = siteMsgDao;
 	}
-
 	
 }
