@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import main.java.edu.scnu.dao.HWSubmitDao;
 import main.java.edu.scnu.entity.HWSubmit;
 import main.java.edu.scnu.entity.Homework;
+import main.java.edu.scnu.entity.User;
 
 @Repository(value="hwsubmitDao")
 public class HWSubmitDaoImpl extends BaseDaoImpl<HWSubmit>
@@ -14,9 +15,9 @@ public class HWSubmitDaoImpl extends BaseDaoImpl<HWSubmit>
 {
 
 	@Override
-	public List<HWSubmit> findByStud_acctID(String studNo) {
-		String hql = "select h from hwsubmit h where h.studNo_acctID = ?";
-		List<HWSubmit> list = find(hql,studNo);
+	public List<HWSubmit> findByStud_ID(User user) {
+		String hql = "select h from hwsubmit h where h.user = ?";
+		List<HWSubmit> list = find(hql,user);
 		return list;
 	}
 

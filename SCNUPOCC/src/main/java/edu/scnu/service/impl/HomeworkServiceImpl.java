@@ -15,6 +15,7 @@ import main.java.edu.scnu.dao.HWSubmitDao;
 import main.java.edu.scnu.dao.HomeworkDao;
 import main.java.edu.scnu.entity.HWSubmit;
 import main.java.edu.scnu.entity.Homework;
+import main.java.edu.scnu.entity.User;
 import main.java.edu.scnu.service.HomeworkService;
 
 @Service("homeworkService")
@@ -48,9 +49,9 @@ public class HomeworkServiceImpl implements HomeworkService{
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<Homework> getUnfinishedHW(String classID, String studNo) {
-		List<Homework> newHWList = getNewHW(classID);//新作业
-		List<HWSubmit> finishedHWList = getfinishedHW(classID,studNo);//已提交的作业
+	public List<Homework> getUnfinishedHW(User user) {
+		List<Homework> newHWList = getNewHW(user.getClassID());//新作业
+		List<HWSubmit> finishedHWList = getfinishedHW(user);//已提交的作业
 		List<Homework> unfinishedHWList = new ArrayList<Homework>();
 		for (Homework homework : newHWList) {
 			boolean flag = false;
@@ -68,8 +69,8 @@ public class HomeworkServiceImpl implements HomeworkService{
 	
 	@Override
 	@Transactional(readOnly=true)
-	public List<HWSubmit> getfinishedHW(String classID, String studNo) {
-		return hwsubmitDao.findByStud_acctID(studNo);
+	public List<HWSubmit> getfinishedHW(User user) {
+		return hwsubmitDao.findByStud_ID(user);
 	}	
 	
 	@Override
@@ -80,8 +81,8 @@ public class HomeworkServiceImpl implements HomeworkService{
 
 	@Override
 	@Transactional(readOnly=true)
-	public HWSubmit getHWSubmit(String stud_acctID, int hwID) {
-		List<HWSubmit> hwlist = hwsubmitDao.findByStud_acctID(stud_acctID);
+	public HWSubmit getHWSubmit(User user, int hwID) {
+		List<HWSubmit> hwlist = hwsubmitDao.findByStud_ID(user);
 		HWSubmit hws = null;
 		for (HWSubmit hwSubmit : hwlist) {
 			if(hwSubmit.getHomework().getId()==hwID){

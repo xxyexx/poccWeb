@@ -4,6 +4,7 @@ import java.util.List;
 
 import main.java.edu.scnu.entity.HWSubmit;
 import main.java.edu.scnu.entity.Homework;
+import main.java.edu.scnu.entity.User;
 
 public interface HomeworkService {
 	/**
@@ -22,17 +23,17 @@ public interface HomeworkService {
 	/**
 	 * 查询自己未完成的作业
 	 * @param classID 班级id
-	 * @param studNo 学号
+	 * @param user
 	 * @return List
 	 */
-	List<Homework> getUnfinishedHW(String classID,String studNo);
+	List<Homework> getUnfinishedHW(User user);
 	/**
 	 * 查询自己已提交的作业列表
 	 * @param classID 班级id
-	 * @param studNo 学号
+	 * @param id 学生id
 	 * @return List
 	 */
-	List<HWSubmit> getfinishedHW(String classID,String studNo);
+	List<HWSubmit> getfinishedHW(User user);
 	
 	/**
 	 * 根据作业id获取作业
@@ -47,12 +48,12 @@ public interface HomeworkService {
 	 */
 	List<Homework> getHomeworkbyTeacherID(String teacher_acctID);
 	/**
-	 * 根据学生账号和该作业的id获取提交的作业
-	 * @param stud_acctID
+	 * 根据学生id和该作业的id获取提交的作业
+	 * @param stud_id user.id
 	 * @param hwID
 	 * @return HWSubmit
 	 */
-	HWSubmit getHWSubmit(String stud_acctID,int hwID);
+	HWSubmit getHWSubmit(User user,int hwID);
 	/**
 	 * saveOrUpdate保存或更新作业上传
 	 * @param hwSubmit
