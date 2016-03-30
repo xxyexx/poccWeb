@@ -22,17 +22,17 @@ public interface HomeworkService {
 	/**
 	 * 查询自己未完成的作业
 	 * @param classID 班级id
-	 * @param studNo 学号
+	 * @param id user.id
 	 * @return List
 	 */
-	List<Homework> getUnfinishedHW(String classID,String studNo);
+	List<Homework> getUnfinishedHW(String classID,int id);
 	/**
 	 * 查询自己已提交的作业列表
 	 * @param classID 班级id
-	 * @param studNo 学号
+	 * @param id 学生id
 	 * @return List
 	 */
-	List<HWSubmit> getfinishedHW(String classID,String studNo);
+	List<HWSubmit> getfinishedHW(String classID,int id);
 	
 	/**
 	 * 根据作业id获取作业
@@ -47,12 +47,12 @@ public interface HomeworkService {
 	 */
 	List<Homework> getHomeworkbyTeacherID(String teacher_acctID);
 	/**
-	 * 根据学生账号和该作业的id获取提交的作业
-	 * @param stud_acctID
+	 * 根据学生id和该作业的id获取提交的作业
+	 * @param stud_id user.id
 	 * @param hwID
 	 * @return HWSubmit
 	 */
-	HWSubmit getHWSubmit(String stud_acctID,int hwID);
+	HWSubmit getHWSubmit(int stud_id,int hwID);
 	/**
 	 * saveOrUpdate保存或更新作业上传
 	 * @param hwSubmit

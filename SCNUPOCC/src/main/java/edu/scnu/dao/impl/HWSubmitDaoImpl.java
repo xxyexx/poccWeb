@@ -14,9 +14,9 @@ public class HWSubmitDaoImpl extends BaseDaoImpl<HWSubmit>
 {
 
 	@Override
-	public List<HWSubmit> findByStud_acctID(String studNo) {
-		String hql = "select h from hwsubmit h where h.studNo_acctID = ?";
-		List<HWSubmit> list = find(hql,studNo);
+	public List<HWSubmit> findByStud_ID(int id) {
+		String hql = "select h from hwsubmit h where h.stud_ID = ?";
+		List<HWSubmit> list = find(hql,id);
 		return list;
 	}
 

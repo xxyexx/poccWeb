@@ -73,7 +73,7 @@ public class UserAction extends ActionSupport {
 			userType = user.getUserType();
 			request.getSession().setAttribute("User", user);
 			if(user.getUserType().equals("student")){
-				Query_HWNum(user.getClassID()+"",user.getAcctID());
+				Query_HWNum(user.getClassID()+"",user.getId());
 			}
 			Query_MsgNum(user);
 		}
@@ -93,10 +93,10 @@ public class UserAction extends ActionSupport {
 	/**
 	 * 设置未做的作业数量
 	 */
-	public void Query_HWNum(String classID,String stud_AcctID){
+	public void Query_HWNum(String classID,int stud_ID){
 		String unfinHWNum = null;
 		List<Homework> UnfinishedHWList 
-						= homeworkService.getUnfinishedHW(classID, stud_AcctID);
+						= homeworkService.getUnfinishedHW(classID, stud_ID);
 		if(UnfinishedHWList!=null) {
 			if(UnfinishedHWList.size()!=0){
 				unfinHWNum=UnfinishedHWList.size()+"";

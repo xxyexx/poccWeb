@@ -60,17 +60,17 @@ public class StudHomePageAction extends ActionSupport {
 		}
 		request.setAttribute("MsgList", msgList);
 		//已批改作业数量
-		Query_CheckedHWnum(user.getClassID(),user.getAcctID());
+		Query_CheckedHWnum(user.getClassID(),user.getId());
 		return SUCCESS;
 	}
 
 	/**
 	 * 设置已批改作业数量
 	 */
-	public void Query_CheckedHWnum(String classID,String stud_AcctID){
+	public void Query_CheckedHWnum(String classID,int stud_ID){
 		//新作业中,已完成作业且已批改
 		List<Homework> newHWList = homeworkService.getNewHW(classID);
-		List<HWSubmit> finishedHWList = homeworkService.getfinishedHW(classID, stud_AcctID);
+		List<HWSubmit> finishedHWList = homeworkService.getfinishedHW(classID, stud_ID);
 		int num = 0;
 		for (Homework homework : newHWList) {
 			for (HWSubmit hwSubmit : finishedHWList) {
