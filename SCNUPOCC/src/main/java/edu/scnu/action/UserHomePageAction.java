@@ -50,7 +50,7 @@ public class UserHomePageAction extends ActionSupport {
 			}
 			request.setAttribute("NewHWList", newHWList);
 			//已批改作业数量
-			Query_CheckedHWnum(user.getClassID(),user.getId());
+			Query_CheckedHWnum(user.getClassID(),user.getAcctID());
 		}else if(user.getUserType().equals(PoccManager.teacher)){//教师
 			List<Homework> list = homeworkService.getHomeworkbyTeacherID(user.getAcctID());
 			if(list.size()>5){list = list.subList(0, 5);}
@@ -74,10 +74,10 @@ public class UserHomePageAction extends ActionSupport {
 	/**
 	 * 设置学生已批改作业数量
 	 */
-	public void Query_CheckedHWnum(String classID,int stud_ID){
+	public void Query_CheckedHWnum(String classID,String stud_AcctID){
 		//新作业中,已完成作业且已批改
 		List<Homework> newHWList = homeworkService.getNewHW(classID);
-		List<HWSubmit> finishedHWList = homeworkService.getfinishedHW(classID, stud_ID);
+		List<HWSubmit> finishedHWList = homeworkService.getfinishedHW(classID, stud_AcctID);
 		int num = 0;
 		for (Homework homework : newHWList) {
 			for (HWSubmit hwSubmit : finishedHWList) {
