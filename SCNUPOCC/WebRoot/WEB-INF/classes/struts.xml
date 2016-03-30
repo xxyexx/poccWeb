@@ -188,9 +188,20 @@
 		<action name="homework" class="homeworkAction" method="show_TeacherHW">
 			<result>/html/userJSP/teacher/homeworkManager.jsp</result>
 		</action>
-		<action name="classes">
+		<action name="classes" class="classAction" method="show_Class">
 			<result>/html/userJSP/teacher/classManager.jsp</result>
 		</action>
+		<action name="*Class" class="classAction" method="{1}_Class">
+			<result type="redirectAction">classes</result>
+			<result name="detail">/html/userJSP/teacher/classDetail.jsp</result>
+			<result name="removeStud" type="redirectAction">detailClass?classID=${classID}</result>
+			<result name="addStudent">/html/userJSP/teacher/otherStudent.jsp</result>
+			<result name="exportExcel" type="stream">
+			 	 <param name="contentType">application/vnd.ms-excel</param>
+                 <param name="contentDisposition">attachment;filename="${filename}"</param>
+                 <param name="inputName">excelFile</param>
+			</result>
+		</action>		
 		<action name="resources">
 			<result>/html/userJSP/teacher/resources.jsp</result>
 		</action>
@@ -218,13 +229,13 @@
 			<result name="createView">/html/memberJSP/cashier/createuser.jsp</result>
 			<result name="relateView">/html/memberJSP/cashier/relateuser.jsp</result>
 			<result name="managerView">/html/memberJSP/cashier/manageuser.jsp</result>	
-		</action>		
+		</action>	
 		<action name="payment*" class="paymentAction" method="{1}">
 			<result name="paymentView">/html/memberJSP/cashier/payment.jsp</result>
 		</action>
 		<action name="config*" class="configAction" method="{1}">
 			<result name="view">/html/memberJSP/admin/setconfig.jsp</result>
-		</action>
+		</action>	
 		<action name="template" >
 			<result>/html/memberJSP/common/template.jsp</result> 
 		</action>
