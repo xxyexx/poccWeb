@@ -1,7 +1,5 @@
 ﻿package main.java.edu.scnu.service;
 
-import java.util.List;
-
 import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 
@@ -13,21 +11,18 @@ public interface UserService {
 	 * @return 1.success(登录成功,跳转到主页);2.inexistence(账号不存在);3.wrongPassword(密码错误);
 	 */
 	String checkLogin(String account,String password);
-	
 	/**
 	 * 根据用户账号获取一个用户类型
 	 * @param account 对应loginID(登录账号)
 	 * @return user 一个用户
 	 */
 	User getUser(String account);
-	
 	/**
-	 * 根据id获取用户
+	 * 根据id获取该用户
 	 * @param id
-	 * @return
+	 * @return user
 	 */
-	User getUser(int id);
-	
+	User getUserByID(int id);
 	/**
 	 * 更新用户信息
 	 * @param user
@@ -55,8 +50,5 @@ public interface UserService {
 	 * @return Page<User> 分页属性与page一致，用户院校信息与user一致
 	 */
 	public Page<User> getUserPage(User user, Page<User> page);
-	
 	public boolean deleteUsers(List<String> list);
-
-
 }

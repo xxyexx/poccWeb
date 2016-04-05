@@ -1,4 +1,4 @@
-package main.java.edu.scnu.dao.impl;
+﻿package main.java.edu.scnu.dao.impl;
 
 import java.util.List;
 
@@ -70,6 +70,13 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 	public List<User> findByDeptName(String schoolName, String deptName) {
 		String hql = "select u from user u where u.acctTag = ? and u.acctType = ?";
 		Object params[] = {schoolName,deptName};
+		return find(hql, params);
+	}
+
+	@Override
+	public List<User> findUserBySchool(String schoolName,String userType) {
+		String hql = "select u from user u where u.acctTag = ? and u.userType = ?";
+		Object params[] = {schoolName,userType};
 		return find(hql, params);
 	}
 
