@@ -28,6 +28,12 @@
   <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <!-- Bootstrap..-->
+
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="res/DataTables-1.10.7/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.min.js"></script>
+
+
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
@@ -115,22 +121,18 @@ body {
 	    	<button type="submit" class="btn btn-info">查询</button>
 	    </form>
 	    <form id="tform" method="post">
-	    	 <table class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
+	    	 <table id="table" class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
 	    		<thead>
 	    	 		<tr>
 	    	 			<th>内部账号</th>
-	    	 			<th>登录名</th>
+	    	 			<th>登录账号</th>
+	    	 			<th>姓名</th>
 	    	 			<th>学校</th>
 	    	 			<th>学院</th>
+	    	 			<th>状态</th>
 	    	 			<th>操作</th>
-	    	 			<th>
-						<a><span style="font-size: large;"></span></a>
-						</th><th>
-						<button onclick="batchdelete()" class="btn btn-danger btn-xs"><span
-						class="glyphicon glyphicon-trash"></span></button>
-						</th><th>
-						<input type="checkbox">
-					</th>
+	    	 			<th></th>
+	    	 			<th><input type="checkbox"></th>
 	    	 		</tr>
 	    	 	</thead>
 	    	 	<tbody>	  
@@ -138,11 +140,12 @@ body {
 	    	 		<tr>
 	    	 			<td>${user.acctID}</td>
 	    	 			<td>${user.loginID}</td>
+	    	 			<td>${user.acctName}</td>
 	    	 			<td>${user.acctTag}</td>	    	 			
 	    	 			<td>${user.acctType}</td>
-	    	 			<td>重设密码</td>	
+	    	 			<td>启用</td>
 	    	 			<td>
-						<button class="btn btn-primary btn-xs" type="button">							
+						<button onclick="openedit(${user.id})" class="btn btn-primary btn-xs" type="button">							
 						<span class="glyphicon glyphicon-edit"></span></button>
 						</td><td>
 						<button class="btn btn-danger btn-xs" type="button">
@@ -156,10 +159,149 @@ body {
 	    	 </table>	    
 	    </form>
 	    
+	    <button type="button" class="btn btn-primary" onclick="openedit('-1')">
+  			批量修改学生
+		</button>
+	    <button type="button" class="btn btn-primary" onclick="batchdelete()">
+  			批量删除学生
+		</button>
 
 	</div>
 	<!-- 右边内容区域..-->
+	
+	
+	
+<!-- 学生修改模态框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+ 	<div class="modal-content">
+    	<div class="modal-header">
+        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        	<h4 class="modal-title" id="myModalLabel">修改学生</h4>
+      	</div>
+      	
+      	<!-- 学生表单 -->
+      	<form id="form" class="form-horizontal" method="post">	
+   		<div class="modal-body container body1" style="border-bottom:1px solid #e5e5e5">
+		  		<div class="form-group">
+    			<label class="col-md-3 control-label">内部账号：</label>
+    			<div class="col-md-5">
+		    	<input name="acctID" id="userID" type="text" class="form-control">
+		    	</div>
+			</div>
+		<div class="form-group">
+    			<label class="col-md-3 control-label">登录账号：</label>
+    			<div class="col-md-5">
+		   	 	<input name="acctID" id="userID" type="text" class="form-control">
+		    	</div>
+			</div>
+		<div class="form-group">
+    		<label class="col-md-3 control-label">密码：</label>
+    		<div class="col-md-5">
+		    <input name="acctID" id="userID" type="button" class="form-control" value="重设密码">
+		    </div>
+		</div>
+		<div class="form-group">
+    		<label class="col-md-3 control-label">姓名：</label>
+    		<div class="col-md-5">
+		    <input name="acctID" id="userID" type="text" class="form-control" value="1001">
+		    </div>
+		</div>
+		</div>
+   		
+   		<div class="modal-body container"> 
+		<div class="form-group">
+    		<label class="col-md-3 control-label">学校：</label>
+    		<div class="col-md-5">
+		    <input name="acctID" id="userID" type="text" class="form-control" readonly="readonly" value="${request.userPage.list[0].acctTag}">
+		    </div>
+		</div>
+		<div class="form-group">
+    		<label class="col-md-3 control-label">学院：</label>
+    		<div class="col-md-5">
+		    <input name="acctID" id="userID" type="text" class="form-control" readonly="readonly" value="${request.userPage.list[0].acctType}">
+		    </div>
+		</div>
+
+ 		<div class="form-group">
+ 			<label class="col-md-3 control-label">租期起始月份：</label>
+  			<div class="col-md-5">
+  			<input name="rentDate1" type="text" class="form-control time" value="2016/01">
+  			</div>
+ 		</div>
+ 		<div class="form-group">
+ 			<label class="col-md-3 control-label">租期终止月份：</label>
+  			<div class="col-md-5">
+  			<input name="rentDate2" type="text" class="form-control time" value="2016/06">
+  			</div>
+ 		</div> 		
+ 		<div class="form-group">
+    		<label class="col-md-3 control-label">基本月租：</label>
+    		<div class="col-md-5">
+		    <select class="form-control">
+		    	<option value="15">15</option>
+		    	<option value="20">20</option>
+		    	<option value="25">25</option>
+		    </select>
+		   </div>
+		</div>
+ 		<div class="form-group">
+ 		<label class="col-md-3 control-label">优惠类型：</label>
+		
+ 			<div class="col-md-5">
+ 				<label class="radio-inline radio_option">
+  				<input type="radio" name="coupon" value="no" checked>无优惠 
+					</label>	
+				</div>
+			<div class="col-md-9 col-md-offset-3">			
+				<label class="radio-inline radio_option col-md-3">
+  				<input type="radio" name="coupon" value="discount">
+  				折扣优惠
+  					</label>
+  				<select style="width: 105px" name="discount" class="form-control col-md-2">
+  					<option value="90">九折</option>
+  					<option value="85">八五折</option>
+  					<option value="70">七折</option>
+  					</select>
+  				</div> 	
+  			<div class="col-md-9 col-md-offset-3">
+				<label class="radio-inline radio_option col-md-3">
+  				<input type="radio" name="coupon" value="moreMonth"> 
+  					赠送月份
+				</label>
+				<select style="width: 105px" name="moreMonth" class="form-control col-md-2">
+  					<option selected = "selected" value="1">一个月</option>
+  					<option value="2">两个月</option>
+  					<option value="3">三个月</option>
+  					</select>
+				</div>
+ 		</div> 	
+ 		<div class="form-group">
+    		<label class="col-md-3 control-label">账号状态：</label>
+    		<div class="col-md-5">
+		    <select class="form-control">
+		    	<option value="on">启用</option>
+		    	<option value="off">禁用</option>
+		    </select>
+		   </div>
+		</div>
+		</div>
+		</form>
+		
+		<!-- 学生信息表单 -->
+		
+		
+		
+		<div class="modal-footer">  
+			<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        	<button type="button" class="btn btn-primary" onclick="submitedit()">提交</button>      
+     	</div> 
+  	</div>
+	</div>
 </div>
-</div>   
+<!-- 学生修改模态框 -->
+
+</div>
+</div>
 </body>
 </html>

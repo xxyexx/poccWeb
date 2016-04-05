@@ -106,6 +106,7 @@ public class MemberAction extends ActionSupport{
 			Member member = memberService.getMember(loginId);
 			member.setLastLoingIP(ip);
 			member.setLastLoginTime(loginTime);
+			memberService.update(member);
 			request.getSession().setAttribute("Member", member);
 //			user.setLastLoginTime(loginTime);
 //			userService.updateUser(user);

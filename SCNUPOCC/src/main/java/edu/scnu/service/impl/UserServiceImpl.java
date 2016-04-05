@@ -79,6 +79,14 @@ public class UserServiceImpl implements UserService{
 	}	
 	
 	@Override
+	@Transactional(readOnly=true)
+	public User getUser(int id) {
+		User user = null;
+		user = userDao.get(User.class, id);
+		return user;
+	}
+	
+	@Override
 	public boolean updateUser(User user) {
 		userDao.update(user);
 		return true;

@@ -205,21 +205,35 @@
 		<action name="resources">
 			<result>/html/userJSP/teacher/resources.jsp</result>
 		</action>
-	</package>	
+	</package>
+	<!-- Manager院校管理员 -->
+	<package name="managerPackage" namespace="/manager" extends="json-default,userInterceptor">
+		<action name="index">
+			<result>/html/userJSP/manager/managerIndex.jsp</result>
+		</action>
+		<action name="homepage">
+			<result>/html/userJSP/teacher/teacherHomePage.jsp</result>
+		</action>
+		<action name="managerpage*" class="managerPageAction" method="{1}">
+			<result name="view">/html/userJSP/manager/managerPage.jsp</result>
+			<result name="asd">/html/userJSP/manager/managerIndex.jsp</result>
+			<result>/html/memberJSP/common/memberLogin.jsp</result> 
+		</action>
+	</package>
 	
 	<!-- 内部用户 -->
 	<package name="memberPackage" namespace="/member" extends="struts-default,json-default">
 		<action name="login" >
 			<result>/html/memberJSP/common/memberLogin.jsp</result> 
-		</action>		
+		</action>
 		<action name="member*" class="memberAction" method="{1}">
 			<result name="success" type="json"></result>
 			<result name="createView">/html/memberJSP/admin/createmember.jsp</result>
-		</action>		
+		</action>
 		<action name="province*" class="provinceAction" method="{1}">
 			<result name="getSchool" type="json">
 				<param name="root">schoolMap</param>
-			</result>				
+			</result>
 			<result name="getDept" type="json">
 				<param name="root">deptMap</param>
 			</result>

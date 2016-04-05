@@ -38,9 +38,14 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="华南师范大学,实验平台,计算机组成原理">
 <meta http-equiv="description" content="计算机组成原理实验平台">
+
+<!-- DataTables -->
+<link rel="stylesheet" type="text/css" href="res/DataTables-1.10.7/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.min.js"></script>
+
 <!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+<link rel="stylesheet" type="text/css" href="styles.css">
+-->
 <style type="text/css">
 html,body{height:100%;}
 body {
@@ -88,6 +93,7 @@ body {
 	padding:0px;
 }
 </style>
+</head>
 <body>
 <!--导入头部导航条-->
 <%@include file="/html/memberJSP/common/header.jsp" %>
@@ -105,14 +111,19 @@ body {
 		    </a>
 		    
 	    </div>
-	    <table class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
+	    <table id="table1" class="table table-striped table-responsive table-condensed display" style="overflow:inherit;">
 	    		<thead>
 	    	 		<tr>
-	    	 			<th>登录账号</th>
-	    	 			<th>姓名</th>
-	    	 			<th>管理员类型</th>
-	    	 			<th>电话</th>
-	    	 			<th>电子邮箱</th>
+	    	 			<th>缴费人</th>	    	 			
+	    	 			<th>账号数量</th>
+	    	 			<th>优惠类型</th>
+	    	 			<th>优惠额</th>
+	    	 			<th>缴费金额</th>
+	    	 			<th>缴费时间</th>
+	    	 			<th>操作人</th>
+	    	 			<th>详情</th>
+	    	 			<th><div id="dBtn">删除</div></th>
+	    	 			<th></th>
 	    	 		</tr>
 	    	 	</thead>
 	    	 	<tbody>	  
@@ -120,14 +131,20 @@ body {
 	    	 		<tr>
 	    	 			<td style="display: none;">${payment.id}</td>
 	    	 			<td>${payment.acctID}</td>
-	    	 			<td>${payment.payDate}</td>
-	    	 			<td>${payment.amount}</td>		 			
-	    	 			<td>${payment.rentDate1}</td>
-	    	 			<td>${payment.rentDate2}</td>
-	    	 			<td>${payment.quantity}</td>
-	    	 			<td>${payment.coupon}</td>
-	    	 			<td>${payment.discount}</td>
-	    	 			<td>${payment.moreMonth}</td>
+	    	 			<td>${payment.quantity}</td>	    	 			
+	    	 			<s:if test='#payment.coupon=="no"'>
+	    	 				<td>无优惠</td> <td>无</td>
+	    	 			</s:if>
+	    	 			<s:elseif test='#payment.coupon=="discount"'>
+	    	 				<td>折扣优惠</td><td>${payment.discount}</td>
+	    	 			</s:elseif>
+	    	 			<s:elseif test='#payment.coupon=="moreMonth"'>
+	    	 				<td>赠送月份</td><td>${payment.moreMonth}月</td>
+	    	 			</s:elseif>
+	    	 			<s:else><td>???</td></s:else>	    	 			
+	    	 			<td>${payment.amount}</td>	
+	    	 			<td>${payment.payDate}</td>	    	 			
+	    	 			<td>${payment.operator}</td>
 	    	 			<td>
 						<button onclick="edit(this)" class="btn btn-primary btn-xs" type="button">							
 						<span class="glyphicon glyphicon-search"></span></button>
@@ -236,15 +253,14 @@ body {
 		<!-- 缴费表单 -->
 		
       </div>
-      
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button onclick="update()" type="button" class="btn btn-primary">提交</button>
+        <button onclick="update()"  type="button" class="btn btn-primary">提交</button>
       </div>
     </div>
   </div>
 </div>
 </div>
-</div>   
+</div>
 </body>
 </html>

@@ -350,9 +350,9 @@ public class HomeworkAction extends ActionSupport {
 		//所有作业
 		List<Homework> allHWList = homeworkService.getAllHW(user.getClassID()+"");
 		//未完成作业
-		List<Homework> unfinHWList = homeworkService.getUnfinishedHW(user.getClassID()+"", user.getAcctID());
+		List<Homework> unfinHWList = homeworkService.getUnfinishedHW(user);
 		//已完成作业
-		List<HWSubmit> finHWList = homeworkService.getfinishedHW(user.getClassID()+"", user.getAcctID());
+		List<HWSubmit> finHWList = homeworkService.getfinishedHW(user);
 		request.setAttribute("unfinHWList", unfinHWList);
 		request.setAttribute("finHWList", finHWList);
 		request.setAttribute("allHWList", allHWList);
@@ -367,7 +367,7 @@ public class HomeworkAction extends ActionSupport {
 		Homework homework = homeworkService.getHomeworkbyID(hwID);
 		//若未提交则是null
 		HWSubmit hwSubmit = null;
-		hwSubmit = homeworkService.getHWSubmit(user.getAcctID(), hwID);
+		hwSubmit = homeworkService.getHWSubmit(user, hwID);
 		
 		request.setAttribute("homework", homework);
 		request.setAttribute("hwSubmit", hwSubmit);
@@ -396,7 +396,7 @@ public class HomeworkAction extends ActionSupport {
 				//修改数据库记录
 	            homeworkService.saveHWSubmit(hwSubmit);
 	            //重新设置session中未做作业数量
-	            Query_HWNum(user.getClassID(),user.getAcctID());
+	            Query_HWNum(user);
 			}
 		}else{//修改已提交作业
 			HWSubmit hwSubmit = homeworkService.getHWSubmitByid(Integer.parseInt(hwSubmitID));
@@ -441,10 +441,10 @@ public class HomeworkAction extends ActionSupport {
 	/**
 	 * 学生session中设置header头部未做的作业数量
 	 */
-	public void Query_HWNum(String classID,String stud_AcctID){
+	public void Query_HWNum(User user){
 		String unfinHWNum = null;
 		List<Homework> UnfinishedHWList 
-						= homeworkService.getUnfinishedHW(classID, stud_AcctID);
+						= homeworkService.getUnfinishedHW(user);
 		if(UnfinishedHWList!=null) {
 			if(UnfinishedHWList.size()!=0){
 				unfinHWNum=UnfinishedHWList.size()+"";

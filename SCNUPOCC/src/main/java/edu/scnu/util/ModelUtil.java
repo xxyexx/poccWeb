@@ -36,6 +36,18 @@ public class ModelUtil {
 		return result;		
 	}
 	
+	public static User getTeacherModel(){
+		User teacher = new User();
+		teacher.setUserType("teacher");
+		teacher.setCouponType("free");
+		teacher.setMonthlyRent(0);
+		teacher.setDiscount(100);
+		teacher.setPayTag(1);
+		teacher.setLockTag(0);
+		return teacher;
+		
+	}
+	
 	public static Dept getDefaultDept(){
 		Dept result = new Dept();
 		result.setDeptID(9);

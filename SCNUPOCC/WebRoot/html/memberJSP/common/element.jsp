@@ -13,8 +13,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>计算机组成原理实验后台管理</title>
-<link rel="icon" href="res/images/icon.png">
-<script src="res/js/memberJS/createmember.js"></script>
 <!-- Bootstrap -->
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" type="text/css" href="res/bootstrap-3.3.5-dist/css/bootstrap.min.css">
@@ -32,13 +30,9 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="keywords" content="华南师范大学,实验平台,计算机组成原理">
 <meta http-equiv="description" content="计算机组成原理实验平台">
-
-<!-- DataTables -->
-<link rel="stylesheet" type="text/css" href="res/DataTables-1.10.7/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.js"></script>
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
--->
+	-->
 <style type="text/css">
 html,body{height:100%;}
 body {
@@ -88,57 +82,17 @@ body {
 <div class="row">
 	<!--导入左边导航条-->
 	<%@include file="/html/memberJSP/common/left.jsp"%>
-	<input type="hidden" id="leftflag" value="系统管理" >
 	<!-- 右边内容区域 -->
 	<div class="col-md-10 col-sm-8 right-div">
 	    <div class="title">
 		    <a><span class="glyphicon glyphicon-blackboard"></span>
-		       <span>创建系统内部用户</span>
+		       <span>计算机组成原理实验平台后台管理系统</span>
 		    </a>
 	    </div>
-		
-		<form id="tform" method="post">
-		<input type="hidden" name="id" id="mid">
-		<table id="table" class="table table-striped table-responsive table-condensed" style="overflow:inherit;">
-	    		<thead>
-	    	 		<tr>
-	    	 			<th>登录账号</th>
-	    	 			<th>姓名</th>
-	    	 			<th>管理员类型</th>
-	    	 			<th>电话</th>
-	    	 			<th>电子邮箱</th>
-	    	 		</tr>
-	    	 	</thead>
-	    	 	<tbody>	  
-	    	 		<s:iterator value="#request.memberPage.list" var="member">	
-	    	 		<tr>
-	    	 			<td style="display: none;">${member.id}</td>
-	    	 			<td>${member.loginID}</td>
-	    	 			<td>${member.memberName}</td>
-	    	 			<td><s:if test='#member.memberType=="admin"'>系统管理员</s:if>
-	    	 				<s:elseif test='#member.memberType=="cashier"'>操作员</s:elseif>
-	    	 				<s:elseif test='#member.memberType=="member"'>普通会员</s:elseif></td>	    
-	    	 			<td>${member.mobile}</td>		 			
-	    	 			<td>${member.email}</td>
-	    	 			<td>
-						<button onclick="edit(this)" class="btn btn-primary btn-xs" type="button">							
-						<span class="glyphicon glyphicon-edit"></span></button>
-						</td><td>
-						<button onclick="deletemember(${member.id})" class="btn btn-danger btn-xs" type="button">
-						<span class="glyphicon glyphicon-trash"></span></button>
-						</td>  	 			
-	    	 		</tr>
-	    	 		</s:iterator>
-	    	 	</tbody>
-	    	 </table>	
-	    	 </form>
-	    	 <button onclick="create()" type="button" class="btn btn-primary">
-  				新增管理员
-			</button>
-	</div>
-	<!-- 右边内容区域..-->
-	
 
+	</div>
+	<div>
+	
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -209,7 +163,15 @@ body {
   </div>
 </div>
 <!-- Modal -->
+	
+	
+	
+	
+	
+	
 
+	</div>
+	<!-- 右边内容区域..-->
 </div>
 </div>   
 </body>

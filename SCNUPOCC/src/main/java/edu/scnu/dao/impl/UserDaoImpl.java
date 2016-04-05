@@ -40,10 +40,10 @@ public class UserDaoImpl extends BaseDaoImpl<User>
 //		find(hql, params)
 		StringBuffer hql = new StringBuffer("select en from "
 				+User.class.getSimpleName().toLowerCase()+" en where 1=1");
-		if (!"不限".equals(modelUser.getAcctTag())) {
+		if (!"".equals(modelUser.getAcctTag())&&!"不限".equals(modelUser.getAcctTag())) {
 			hql.append(" and en.acctTag='"+modelUser.getAcctTag()+"'");
 		}		
-		if (!"不限".equals(modelUser.getAcctType())){
+		if (!"".equals(modelUser.getAcctType())&&!"不限".equals(modelUser.getAcctType())){
 			hql.append(" and en.acctType='"+modelUser.getAcctType()+"'");
 		}
 		if (modelUser.getUserType()!=null&&!"".equals(modelUser.getUserType())) {

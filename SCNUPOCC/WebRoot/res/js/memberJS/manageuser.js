@@ -1,4 +1,26 @@
-	
+window.onload=function(){
+//	alert("init");
+    $('#table').dataTable( {
+    	"bLengthChange": false,
+    	"aLengthMenu": [17],
+        "language": {
+            "lengthMenu": "每页 _MENU_ 条记录",
+            "zeroRecords": "没有找到记录",
+            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+            "infoEmpty": "无记录",
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+             "paginate": {
+		        "first":      "首页",
+		        "last":       "尾页",
+		        "next":       "下页",
+		        "previous":   "上页"
+		     },
+		     "processing":     "加载中...",
+				 "search":         "关键字:",
+        }
+    } );
+};
+
 	//根据省份获取学校列表
 	function changeSchool(){
 		var provinceID = $("#province option:selected").val();
@@ -70,4 +92,21 @@
 	function batchdelete(){
 		$("#tform").attr("action","member/userbatchdelete.html");
 		$("#tform").submit();
+	}
+	
+	function submitedit(){
+		alert("submit");
+//		$("#tform").attr("action","member/userbatchedit.html");
+//		$("#tform").submit();
+	}
+	
+	function openedit(s){
+		if (s<0){
+			//批量修改
+			$(".body1").hide();
+		}
+		else{
+//			alert(s);
+		}
+		$("#myModal").modal();
 	}

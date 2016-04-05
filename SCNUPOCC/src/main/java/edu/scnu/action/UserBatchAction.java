@@ -49,7 +49,8 @@ public class UserBatchAction extends ActionSupport{
 	private int schoolID; //学校ID
 	private int deptID;	//学院ID
 	private int first;	//开始顺序
-	private int num;	//生成数量
+	private int num;	//学生数量
+	private int teaNum; //教师数量
 	private String userType;//用户类型（student,teacher,manager）
 	
 	//计费信息
@@ -83,7 +84,7 @@ public class UserBatchAction extends ActionSupport{
 		Dept dept = this.getDept(deptID);
 		String did = StringUtil.getStr2(dept.getDeptID());
 		
-		//生成模板用户		
+		//生成学生模板		
 		User user = new User();
 		//用户账号信息
 		user.setAcctTag(school.getSchoolName());
@@ -121,8 +122,18 @@ public class UserBatchAction extends ActionSupport{
 		user.setPayTag(0);
 		user.setLockTag(1);
 		
-		//生成用户
+		//生成学生
 		userService.createUser(user, school.getSchoolID(), did, first, num);
+		
+		//生成教师模板
+		User teacher = ModelUtil.getTeacherModel();
+		//用户账号信息
+		teacher.setAcctTag(school.getSchoolName());
+		teacher.setAcctType(dept.getDeptName());
+		teacher.setAcctName("教师");
+		//生成教师
+		userService.createUser(teacher, school.getSchoolID(), did, first, teaNum);
+				
 		
 		//生成院校管理员
 		String result = userService.checkLogin(school.getSchoolID().toLowerCase(), "123");
@@ -139,19 +150,27 @@ public class UserBatchAction extends ActionSupport{
 			userService.updateUser(manager);
 		}
 		
-		return SUCCESS;		
+		return SUCCESS;
 	}
 
-	public String delete(){
-		
-		
-		
+	public String delete(){	
+
+		if (uid!=null){
 			userService.deleteUsers(uid);
+//			System.out.println(uid);
+		}else System.out.println("uid is null");
 		
-		
-		
+			
 		return managerView();
 	} 
+	
+	public String edit(){
+		if (uid!=null){
+			System.out.println(uid);
+		}else System.out.println("uid is null");
+		
+		return managerView();
+	}
 	
 	public String uploadfile(){
 		
@@ -266,6 +285,7 @@ public class UserBatchAction extends ActionSupport{
 		if (school.getId()>0){
 			userPage = userService.getUserPage(user, page);
 		}
+//		userPage.getList().
 		request.setAttribute("userPage", userPage);
 //		System.out.println(this.schoolID);
 //		System.out.println(this.deptID);
@@ -292,6 +312,10 @@ public class UserBatchAction extends ActionSupport{
 	
 	public void setNum(int num) {
 		this.num = num;
+	}
+	
+	public void setTeaNum(int teaNum) {
+		this.teaNum = teaNum;
 	}
 
 	public void setSchoolID(int schoolID) {

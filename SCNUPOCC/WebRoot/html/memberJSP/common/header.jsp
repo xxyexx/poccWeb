@@ -65,9 +65,14 @@
      	 <li><a class='glyphicon glyphicon-info-sign' aria-hidden=true></a></li>
         <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <span class='glyphicon glyphicon-user' aria-hidden=true></span>&nbsp;&nbsp;欢迎您：<s:property value="#session.Role.user_account"></s:property><span class="caret"></span></a>
+           <span class='glyphicon glyphicon-user' aria-hidden=true></span>&nbsp;&nbsp;欢迎您，<s:property value="#session.Member.memberName"></s:property><span class="caret"></span></a>
            <ul class="dropdown-menu" role="menu">
-           	<li><a >当前用户权限：<s:property value="#session.Role.role"/></a></li>
+           	<li><a >当前用户权限：           		
+           		<s:if test='#session.Member.memberType=="admin"'>系统管理员</s:if>
+           		<s:elseif test='#session.Member.memberType=="cashier"'>操作员</s:elseif>
+           		<s:elseif test='#session.Member.memberType=="member"'>会员</s:elseif>
+           		<s:else>???</s:else>
+           		</a></li>
 			<li><a ></a></li>
 			<li><a class="btn btn-sm btn-success" style="width: 80px;margin-left:20px;">退出</a></li>
            </ul>
@@ -76,4 +81,5 @@
   </div>
  </div>
 </div>
+
 <!-- 结束导航条 -->
