@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	@Transactional(readOnly=true)
-	public User getUser(int id) {
+	public User getUserByID(int id) {
 		User user = null;
 		user = userDao.get(User.class, id);
 		return user;

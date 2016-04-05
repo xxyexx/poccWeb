@@ -1,5 +1,7 @@
 ﻿package main.java.edu.scnu.service;
 
+import java.util.List;
+
 import main.java.edu.scnu.entity.Page;
 import main.java.edu.scnu.entity.User;
 

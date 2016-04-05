@@ -41,7 +41,7 @@ public class ManagerPageAction extends ActionSupport {
 	
 	//更新教师信息
 	public String updateTea(){
-		User teacher = userService.getUser(this.id);
+		User teacher = userService.getUserByID(this.id);
 		teacher.setAcctName(this.name);
 		teacher.setLoginID(this.loginId);
 		if (this.password!=null&&"".equals(this.password)){
