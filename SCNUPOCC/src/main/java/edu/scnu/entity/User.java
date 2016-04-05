@@ -231,6 +231,5 @@ public class User {
 	public void setIconURL(String iconURL) {
 		this.iconURL = iconURL;
 	}
-	
-	
+
 }

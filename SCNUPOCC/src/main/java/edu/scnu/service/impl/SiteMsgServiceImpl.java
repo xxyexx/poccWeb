@@ -115,8 +115,14 @@ public class SiteMsgServiceImpl implements SiteMsgService{
 		if(PoccManager.teacher.equals(user.getUserType())){
 			List<User> managerList = userDao.findUserBySchool(user.getAcctTag(), PoccManager.manager);
 			receMap.put(user.getAcctTag()+"管理员", managerList);
-			List<User> teacherList = userDao.findUserBySchool(user.getAcctTag(), PoccManager.teacher);
-			if(teacherList.contains(user)){teacherList.remove(user);}
+			List<User> teacherList = userDao.findUserBySchool(user.getAcctTag(), PoccManager.teacher);	
+			User self = null;//需要排除自己
+			for (User user2 : teacherList) {//登录时user的ip地址和时间都已变化,或重新equal方法
+				if(user2.getId()==user.getId()){
+					self = user2;
+				}
+			}
+			teacherList.remove(self);
 			receMap.put("其他教师", teacherList);
 			List<SchoolClass> classList = schoolClassDao.getClassList(user.getAcctID());//该教师所教班级
 			for(int i =0;i<classList.size();i++){

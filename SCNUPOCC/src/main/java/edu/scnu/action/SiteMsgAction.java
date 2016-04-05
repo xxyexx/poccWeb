@@ -95,10 +95,11 @@ public class SiteMsgAction extends ActionSupport {
 		siteMsg.setSender(user.getAcctName());
 		if(ispublic.equals("0")){//消息
 			String reces[] = receivers.split(";");
+			System.out.println("reces.length="+receivers);
 			String receName = userService.getUserByID(Integer.parseInt(reces[0])).getAcctName();//获取第一个名字
 			if(reces.length>1){
 				if(user.getUserType().equals(PoccManager.teacher)){//教师发给学生
-					siteMsg.setReceiver(receName+"等"+reces.length+"个学生");
+					siteMsg.setReceiver(receName+"等"+reces.length+"人");
 				}else if(user.getUserType().equals(PoccManager.student)){//学生发给教师
 					siteMsg.setReceiver(receName+"等"+reces.length+"个教师或管理员");
 				}else{

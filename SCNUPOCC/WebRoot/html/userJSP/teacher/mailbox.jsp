@@ -333,8 +333,8 @@ li.active>a{
     	<label for="mess" class="col-sm-3 control-label">接收者</label>
     	<div class="col-sm-6">
 			<div class="col-sm-8" style="padding-left:0px;">
-				<input class="form-control" type="text" required="required" readonly="readonly"  id="mess" placeholder="请点击添加收信人">
-				<input name="receivers"  type="hidden"  id="rece">
+				<input class="form-control" type="text" required="required" onfocus = "javascript:this.blur()" id="mess" placeholder="请点击添加收信人" >
+				<input name="receivers" type="hidden"  id="rece" >
 			</div>
 			<a onclick="rmRece()" class="btn btn-danger col-sm-1" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
 			<a class="btn btn-primary col-sm-3" role="button" data-toggle="collapse" href="#receivers" aria-expanded="false" aria-controls="receivers">添加收信人</a>
