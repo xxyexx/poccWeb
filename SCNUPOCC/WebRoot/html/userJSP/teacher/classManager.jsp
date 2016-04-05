@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="res/DataTables-1.10.7/css/jquery.dataTables.css">
 	<!-- DataTables -->
-	<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.min.js"></script>
 	<!--
 		<link rel="stylesheet" type="text/css" href="styles.css">
 	-->

@@ -34,5 +34,11 @@ public interface UserDao extends BaseDao<User>{
 	 * @return
 	 */
 	List<User> findByDeptName(String schoolName,String deptName);
-
+	/**
+	 * 获取该学校的所有userType类型的用户
+	 * @param schoolName
+	 * @param userType
+	 * @return manager List
+	 */
+	List<User> findUserBySchool(String schoolName,String userType);
 }

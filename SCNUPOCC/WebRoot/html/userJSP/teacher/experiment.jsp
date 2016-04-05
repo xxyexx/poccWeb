@@ -164,7 +164,7 @@ li.active>a{
 					    <td class="expTitle"><a href="user/inExperiment.html?id=${experiment.id}">${experiment.title}</a></td>
 					    <td>${experiment.user.acctName}</td>
 					   	<s:if test="#experiment.user.acctName.equals(#session.User.acctName)">
-					   	<td><a onclick="delcfm()" href="teacher/deleteExperiment.html?expID=${experiment.id}" class="btn btn-danger">删除</a></td></s:if>
+					   	<td><a onclick="delcfm()" href="teacher/deleteExperiment.html?expID=${experiment.id}" class="btn btn-xs btn-danger">删除</a></td></s:if>
 					</tr>
 				</s:iterator>
 			</table>

@@ -187,7 +187,7 @@ body{
 				   		</s:if>
 				   		<s:iterator value="#request.MsgList" var="siteMsg" begin="0" end="#msgMax-1">
 					    	<li>
-					    		<a>${siteMsg.title}</a>
+					    		<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}">${siteMsg.title}</a>
 					    		<span>${siteMsg.sendTimeFormat}</span>
 					    	</li>
 					    </s:iterator>
@@ -198,7 +198,7 @@ body{
 				  		<s:if test="#msgMax==6">
 					    <s:iterator value="#request.MsgList" var="siteMsg" begin="#msgMax" end="#request.MsgList.size-1">
 					    	<li>
-					    		<a>${siteMsg.title}</a>
+					    		<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}">${siteMsg.title}</a>
 					    		<span>${siteMsg.sendTimeFormat}</span>
 					    	</li>
 					    </s:iterator>
@@ -229,7 +229,7 @@ body{
 			    	 	<ul class="HWList"> 
 			    	 	<s:iterator value="#request.HWList" var="homework">
 						  <li>
-						  	  <a href="teacher/hwDetails.html?hwID=${homework.id}">${homework.title}</a>
+						  	  <a href="teacher/checkHomework.html?hwID=${homework.id}">${homework.title}</a>
 						      <span>${homework.assignDateFormat}~${homework.closeDateFormat}</span>
 						  </li>
 						</s:iterator>

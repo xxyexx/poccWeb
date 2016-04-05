@@ -174,9 +174,9 @@ public class HomeworkAction extends ActionSupport {
 	public String show_TeacherHW(){
 		//已发布作业
 		List<Homework> hwList = homeworkService.getHomeworkbyTeacherID(user.getAcctID());
-		//班级列表
+		//该教师管理下的班级列表
 		HashMap<Integer,String> classMap = new HashMap<Integer, String>();
-		List<SchoolClass> classList = classService.getClassAll();
+		List<SchoolClass> classList = classService.getClassByTeacherID(user.getAcctID());
 		for (int i=0;i<classList.size();i++) {
 			classMap.put(classList.get(i).getId(), classList.get(i).getClassName());
 		}
@@ -309,9 +309,13 @@ public class HomeworkAction extends ActionSupport {
 		if(score!=null&&score.size()!=0){
 			for(int i=0;i<score.size();i++){
 				HWSubmit hwsubmit = homeworkService.getHWSubmitByid(Integer.parseInt(HWSubmitID.get(i)));
-				hwsubmit.setScore(Integer.parseInt(score.get(i)));
+				hwsubmit.setScore(Integer.parseInt(score.get(i)));//分数
+				hwsubmit.setChecked(1);//已批改
 				homeworkService.saveHWSubmit(hwsubmit);
 			}
+			Homework hw = homeworkService.getHomeworkbyID(Integer.parseInt(hwID));
+			hw.setCheckedCount(score.size());
+			homeworkService.updateHomework(hw);//已批改人数
 		}
 		return "addScore";
 	}
@@ -327,6 +331,10 @@ public class HomeworkAction extends ActionSupport {
 			File file = new File(PoccManager.ROOT_DIR+fileUrl);
 			System.out.println("file.getName()="+file.getName());
 			fileList.add(file);
+			//教师下载作业时间
+			HWSubmit hws = hwsList.get(i);
+			hws.setDownloadTime(new Date());
+			homeworkService.saveHWSubmit(hws);//
 		}
 		if(fileList.size()>0){
 			try {
@@ -395,6 +403,9 @@ public class HomeworkAction extends ActionSupport {
 				hwSubmit.setFileURL(FileUtil.saveFile(hwfile,root_dir, path, hwfileFileName));
 				//修改数据库记录
 	            homeworkService.saveHWSubmit(hwSubmit);
+	            //该作业已交人数加1
+	            homework.setSubmittedCount(homework.getSubmittedCount()+1);
+	            homeworkService.updateHomework(homework);
 	            //重新设置session中未做作业数量
 	            Query_HWNum(user);
 			}

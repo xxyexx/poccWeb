@@ -43,6 +43,8 @@ body{
 	padding-top:80px;
 	padding-left:50px;
 	padding-right:100px;
+	padding-bottom:50px;
+	overflow: hidden;
 }
 .leftpart {
 	min-height: 300px;
@@ -94,9 +96,82 @@ li.active>a{
 	margin-top:5px;
 	margin-bottom: 5px;
 }
+#mess{
+	text-align:left;
+	direction: rtl;
+}
 </style>
 </head>
-  
+  <script type="text/javascript">
+  	$(document).ready(function() {
+		$('.collapse').collapse('hide');
+		hideDiv();
+	    $('.classTable').dataTable( {
+	             "language": {
+	                 "lengthMenu": "每页 _MENU_ 条记录",
+	                 "zeroRecords": "没有找到记录",
+	                 "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+	                 "infoEmpty": "无记录",
+	                 "infoFiltered": "(从 _MAX_ 条记录过滤)",
+	                  "paginate": {
+				        "first":      "首页",
+				        "last":       "尾页",
+				        "next":       "下页",
+				        "previous":   "上页"
+				     },
+				     "processing":     "加载中...",
+   					 "search":         "搜索:",
+	             }
+	         } );
+	 } );
+  	 //添加一个收件人
+	function addRece(id,name){
+		var names = $("#mess").val().split(";");
+		var r = true;
+		if(names.length>10){
+			r=confirm("收信人超过10个(建议选择公告群发),是否继续添加？");
+		}
+		if(r==true){
+			var flag = true;
+			for(var i=0;i<names.length;i++){
+				if(names[i]==name){flag = false;}
+			}
+			if(flag==true){
+				$("#mess").val($("#mess").val()+";"+name);
+				$("#rece").val($("#rece").val()+id+";");
+			}
+		}
+	}
+	//删除一个收件人
+	function rmRece(){
+		var names = $("#mess").val().split(";");
+		var ids = $("#rece").val().split(";");
+		var n ="", id ="";
+		if(names.length>0){
+			for(var i=0;i<names.length-1;i++){
+				if(names[i]!=""){
+					n = n+ ";"+names[i];
+				}
+			}
+			for(var i=0;i<ids.length-2;i++){	
+				id = id + ids[i] + ";"; 
+			}
+			$("#mess").val(n);
+			$("#rece").val(id);
+		}
+	}
+	//隐藏不需要的收件人列表div
+	function hideDiv(){
+	    var t = $("#type option:selected").val();
+		if(t=='0'){//消息
+			$("#people").css("display","block");
+			$("#group").css("display","none");
+		}else{//公告
+			$("#people").css("display","none");
+			$("#group").css("display","block");
+		}
+	}
+  </script>
 <body>
 <!--导入头部导航条-->
 <%@include file="header.jsp" %>
@@ -137,10 +212,12 @@ li.active>a{
 			</tr>
 			<s:iterator value="#request.UnreadMsgList" var="siteMsg">
 				<tr>
-				    <td><s:property value="#siteMsg.title"/></td>
+				    <td><a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}"><s:property value="#siteMsg.title"/></a></td>
 				    <td><s:property value="#siteMsg.sendTimeFormat"/></td>
 				    <td><s:property value="#siteMsg.sender"/></td>
-				    <td>阅读|忽略</td>
+				    <td>
+						<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}" class="btn btn-xs btn-info">阅读</a>
+					</td>
 				</tr>
 			</s:iterator>
 		</table>
@@ -169,10 +246,10 @@ li.active>a{
 			</tr>
 			<s:iterator value="#request.ReadMsgList" var="siteMsg">
 				<tr>
-				    <td><s:property value="#siteMsg.title"/></td>
+				    <td><a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}"><s:property value="#siteMsg.title"/></a></td>
 				    <td><s:property value="#siteMsg.sendTimeFormat"/></td>
 				    <td><s:property value="#siteMsg.sender"/></td>
-				    <td>阅读|忽略</td>
+				    <td><a href="user/deleteMsg.html?MsgID=${siteMsg.id}" class="btn btn-xs btn-warning">删除</a></td>
 				</tr>
 			</s:iterator>
 		</table>
@@ -201,11 +278,14 @@ li.active>a{
 			</tr>
 			<s:iterator value="#request.SentMsgList" var="siteMsg">
 				<tr>
-				    <td><s:property value="#siteMsg.title"/></td>
+				    <td><a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}"><s:property value="#siteMsg.title"/></a></td>
 				    <td><s:property value="#siteMsg.sendTimeFormat"/></td>
 				    <td><s:property value="#siteMsg.sender"/></td>
 				    <td><s:property value="#siteMsg.receiver"/></td>
-				    <td>阅读|忽略</td>
+				    <td>
+						<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}" class="btn btn-xs btn-info">阅读</a>
+				    	<a href="user/deleteMsg.html?MsgID=${siteMsg.id}" class="btn btn-xs btn-warning">删除</a>
+					</td>
 				</tr>
 			</s:iterator>
 		</table>
@@ -215,8 +295,73 @@ li.active>a{
 	</div>
    <!-- 发送信息 -->
    <div role="tabpanel" class="tab-pane" id="sendmail">
-    	 <div class="boxtitle"><h4><b>发送信息</b></h4></div>
-		 
+      <form action="user/sendMsg.html" class="form-horizontal" method="post">
+    	<div class="boxtitle"><h4><b>发送信息</b></h4></div><br>
+   		<div class="form-group col-md-12">
+    	<label for="title" class="col-sm-3 control-label">输入标题</label>
+    	<div class="col-sm-6">
+     	     <input name="siteMsg.title" type="text" required="required" class="form-control" id="title" placeholder="标题">
+   	    </div>
+  	    </div><br>
+	    <div class="form-group col-md-12">
+    	<label for="text" class="col-sm-3 control-label">输入消息正文</label>
+    	<div class="col-sm-6">
+     	    <textarea name="siteMsg.message" rows="3" required="required" class="form-control" placeholder="请输入消息正文" maxlength="300"></textarea>
+   	    </div>
+  	    </div><br>
+	    <div class="form-group col-md-12">
+    	<label for="type" class="col-sm-3 control-label">消息类型</label>
+    	<div class="col-sm-6">
+		<select name="ispublic" id="type" class="form-control">
+			<option value="0" selected="selected">消息</option>
+		</select>
+		</div>
+  	    </div><br>
+  	    <div id="people">
+	    <div class="form-group col-md-12">
+    	<label for="mess" class="col-sm-3 control-label">接收者</label>
+    	<div class="col-sm-6">
+			<div class="col-sm-8" style="padding-left:0px;">
+				<input class="form-control" type="text" required="required" readonly="readonly"  id="mess" placeholder="请点击添加收信人">
+				<input name="receivers"  type="hidden"  id="rece">
+			</div>
+			<a onclick="rmRece()" class="btn btn-danger col-sm-1" role="button"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+			<a class="btn btn-primary col-sm-3" role="button" data-toggle="collapse" href="#receivers" aria-expanded="false" aria-controls="receivers">添加收信人</a>
+		</div>
+  	    </div><br>
+	    <div class="form-group col-md-12 collapse" id="receivers">
+    	<label for="message" class="col-sm-3 control-label"></label>
+    	<div class="col-sm-6">
+    	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+    		<s:iterator value="#request.receMap" var="column" status="s">
+    		<div class="panel panel-default">
+    		    <div class="panel-heading" role="tab" id="heading${s.index}">
+			      <h4 class="panel-title">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${s.index}" aria-expanded="false" aria-controls="collapse${s.index}">
+			         	 <s:property value="key"/>
+			        </a>
+			      </h4>
+			    </div>
+			     <div id="collapse${s.index}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading${s.index}">
+				      <div class="panel-body">
+				      	<s:iterator value="#column.value" var="user">
+			         	    <a onclick="addRece('${user.id}','${user.acctName}')">${user.acctName}</a>
+			         	</s:iterator>
+				      </div>
+				 </div>
+    		</div>
+    		</s:iterator>
+    	</div>
+		</div>
+  	    </div><br>
+  	    </div>	
+  	   	<div class="form-group col-md-12">
+  	   	<label for="saveinfo" class="col-sm-3 control-label"></label>
+    	<div class="col-sm-6">
+     	 	<input type="submit" class="btn btn-primary col-sm-12" id="saveinfo" value="发&nbsp;&nbsp;送">
+   	    </div> 
+  	    </div><hr>	  	 
+  	    </form>			 
 		<!-- 发送信息 END -->
 	</div>	
   </div>	

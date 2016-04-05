@@ -189,7 +189,7 @@ body{
 				   		</s:if>
 				   		<s:iterator value="#request.MsgList" var="siteMsg" begin="0" end="#msgMax-1">
 					    	<li>
-					    		<a>${siteMsg.title}</a>
+					    		<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}">${siteMsg.title}</a>
 					    		<span>${siteMsg.sendTimeFormat}</span>
 					    	</li>
 					    </s:iterator>
@@ -200,7 +200,7 @@ body{
 				  		<s:if test="#msgMax==6">
 					    <s:iterator value="#request.MsgList" var="siteMsg" begin="#msgMax" end="#request.MsgList.size-1">
 					    	<li>
-					    		<a>${siteMsg.title}</a>
+					    		<a target="blank" href="user/readMsg.html?MsgID=${siteMsg.id}">${siteMsg.title}</a>
 					    		<span>${siteMsg.sendTimeFormat}</span>
 					    	</li>
 					    </s:iterator>

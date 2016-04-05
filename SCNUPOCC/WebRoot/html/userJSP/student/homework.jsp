@@ -201,7 +201,7 @@ li.active>a{
 				    <td>${hwsubmit.homework.assignDateFormat}</td>
 				    <td>${hwsubmit.homework.closeDateFormat}</td>
 				    <td>${hwsubmit.submitTimeFormat}</td>
-				    <s:if test="#hwsubmit.homework.downloadTime!=null">
+				    <s:if test="#hwsubmit.downloadTime!=NULL">
 						<td>${hwsubmit.downloadTimeFormat}</td>
 					</s:if>
 				    <s:else><td>--</td></s:else>
@@ -210,7 +210,7 @@ li.active>a{
 				    	<s:else>未批改</s:else>
 				    </td>
 				    <td>
-				    	<s:if test="#hwsubmit.score>0">${hwsubmit.score}</s:if>
+				    	<s:if test="#hwsubmit.score>-1">${hwsubmit.score}</s:if>
 						<s:else>--</s:else>
 					</td>
 				    <td>
@@ -257,7 +257,7 @@ li.active>a{
 						    <td>${homework.closeDateFormat}</td>
 						    <td>已交</td>
 						    <td>${hwsubmit.submitTimeFormat}</td>
-						    <s:if test="#hwsubmit.homework.downloadTime!=null">
+						    <s:if test="#hwsubmit.downloadTime!=null">
 								<td>${hwsubmit.downloadTimeFormat}</td>
 							</s:if>
 						    <s:else><td>--</td></s:else>

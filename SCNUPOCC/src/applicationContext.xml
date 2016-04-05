@@ -37,6 +37,7 @@
 				<value>main.java.edu.scnu.entity.Config</value>
 				<value>main.java.edu.scnu.entity.Dept</value>
 				<value>main.java.edu.scnu.entity.Experiment</value>
+				<value>main.java.edu.scnu.entity.HistorySiteMsg</value>
 				<value>main.java.edu.scnu.entity.HistoryUser</value>
 				<value>main.java.edu.scnu.entity.Homework</value>
 				<value>main.java.edu.scnu.entity.HWSubmit</value>

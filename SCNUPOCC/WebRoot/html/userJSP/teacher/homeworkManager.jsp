@@ -222,7 +222,7 @@ li.active>a{
 		    <div class="form-group col-md-12">
 	    	<label for="classes" class="col-sm-3 control-label">选择班级</label>
 	    	<div class="col-sm-6">
-	     	     <s:select name="classID" list="#request.ClassMap" multiple="true" size="2" listKey="key" 
+	     	     <s:select name="classID" list="#request.ClassMap" multiple="true" size="3" listKey="key" 
 	     	     listValue="value" id="classes" cssClass="form-control" required="required" ></s:select>
 	   	    </div>
 	  	    </div><br>

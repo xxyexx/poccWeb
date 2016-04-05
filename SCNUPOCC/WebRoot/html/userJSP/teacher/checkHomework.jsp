@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="res/DataTables-1.10.7/css/jquery.dataTables.css">
 	<!-- DataTables -->
-	<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf8" src="res/DataTables-1.10.7/js/jquery.dataTables.min.js"></script>
 <style type="text/css">
 body{
 	background-color: #EBEAE9;
@@ -190,9 +190,13 @@ li.active>a{
 				<td><a href="student/downloadHWFile.html?hwSubmitID=${HWSubmit.id}">${HWSubmit.filename}</a></td>
 				<td>
 				<span hidden="true">${HWSubmit.score}</span>
-				
 				<input name="HWSubmitID" value="${HWSubmit.id}" type="hidden"/>
-				<input name="score" class="score" type="number" required="required" min="0" max="100" value="${HWSubmit.score}"/>
+				<s:if test="#HWSubmit.score>-1">
+					<input name="score" class="score" type="number" required="required" min="0" max="100"  value="${HWSubmit.score}"/>
+				</s:if>
+				<s:else>
+					<input name="score" class="score" type="number" required="required" min="0" max="100"/>
+				</s:else>
 				</td>
 			</tr>
 			</s:iterator>

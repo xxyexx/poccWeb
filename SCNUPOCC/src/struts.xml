@@ -116,6 +116,10 @@
 		<action name="mailbox" class="siteMsgAction" method="show_Msg">
 			<result>/html/userJSP/${userType}/mailbox.jsp</result>
 		</action>
+		<action name="*Msg" class="siteMsgAction" method="{1}_Msg">
+			<result name="send" type="redirectAction">mailbox.html</result>
+			<result name="read">/html/userJSP/${userType}/mailDetail.jsp</result>
+		</action>	
 		<!-- user用户中心，修改个人信息 -->
 		<action name="settings" class="userCenterAction" method="show_Info">
 			<result>/html/userJSP/${userType}/userCenter.jsp</result>

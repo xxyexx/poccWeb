@@ -5,7 +5,7 @@ footer{
 	min-height:100px;
 	width:100% !important;
 	background-color: #11364C;
-	margin-bottom: -10px !important;
+	margin-bottom: -20px !important;
 }
 .footer_meta{
 	width:80% !important;

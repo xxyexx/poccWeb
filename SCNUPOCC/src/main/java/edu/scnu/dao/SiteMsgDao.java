@@ -8,10 +8,10 @@ import main.java.edu.scnu.entity.User;
 public interface SiteMsgDao extends BaseDao<SiteMsg>{
 	/**
 	 * 根据ReceiverID查询接收者信箱列表
-	 * @param User_acctID 
+	 * @param ID user.id
 	 * @return List
 	 */
-	List<SiteMsg> findByReceiverID(String User_acctID);
+	List<SiteMsg> findByReceiverID(String ID);
 	/**
 	 * 查询发送者信箱列表
 	 * @param User_acctID

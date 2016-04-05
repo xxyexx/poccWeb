@@ -21,13 +21,13 @@ public class SiteMsgDaoImpl extends BaseDaoImpl<SiteMsg>
 	@Resource(name="userDao")
 	private UserDao userDao;
 	@Override
-	public List<SiteMsg> findByReceiverID(String User_acctID) {
+	public List<SiteMsg> findByReceiverID(String id) {
 		//接收者ID不为空
 		String hql = "select s from sitemsg s where s.receiverID != null";
 		List<SiteMsg> siteMsgList = find(hql);
 		List<SiteMsg> list = new ArrayList<SiteMsg>();
 		for (SiteMsg siteMsg : siteMsgList) {
-			if(MyStringUtil.checkContain(siteMsg.getReceiverID(), User_acctID, "\\|")){
+			if(MyStringUtil.checkContain(siteMsg.getReceiverID(), id, "\\|")){
 				list.add(siteMsg);
 			}
 		}

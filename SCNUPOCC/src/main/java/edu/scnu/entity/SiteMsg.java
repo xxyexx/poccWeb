@@ -26,7 +26,7 @@ public class SiteMsg implements Comparable<SiteMsg>{
 	private String message;//正文
 	private Date sendTime;//发送时间
 	private int isPublic;//是否公告信息(0|1)
-	private int read;//是否已阅读(0|1)
+	private int isread;//是否已阅读(0|1)
 	
 	public int getId() {
 		return id;
@@ -92,13 +92,12 @@ public class SiteMsg implements Comparable<SiteMsg>{
 	public void setIsPublic(int isPublic) {
 		this.isPublic = isPublic;
 	}
-	public int getRead() {
-		return read;
+	public int getIsread() {
+		return isread;
 	}
-	public void setRead(int read) {
-		this.read = read;
+	public void setIsread(int isread) {
+		this.isread = isread;
 	}
-	
 	@Override
 	public int compareTo(SiteMsg o) {
 		if(this.sendTime.before(o.getSendTime())){
